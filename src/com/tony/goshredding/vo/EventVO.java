@@ -5,13 +5,15 @@
  */
 package com.tony.goshredding.vo;
 
+import java.io.Serializable;
+
 
 
 /**
  *
  * @author syp386
  */
-public class EventVO {
+public class EventVO implements Serializable{
     public String eventId;
     public String eventName;
     public String eventDate;

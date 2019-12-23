@@ -5,13 +5,13 @@
  */
 package com.tony.goshredding.vo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Songyun hu
  */
-public class NotificationVO {
-    public static String READ_TYPE_UNREAD="1";
-    public static String READ_TYPE_READ="2";
+public class NotificationVO implements Serializable{
     public String NotificationID;
     public String ParticipantID;
     public String EventID;

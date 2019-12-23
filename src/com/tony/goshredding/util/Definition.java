@@ -21,4 +21,5 @@ public class Definition {
     public final static String EVENT_TYPE_IMAGE_BIKE = "bike.png";
     public final static String EVENT_TYPE_IMAGE_SKATE_BOARD = "skateboard.png";
     public final static String EVENT_TYPE_IMAGE_SNOW_BOARD = "snowboard.png";
+
 }

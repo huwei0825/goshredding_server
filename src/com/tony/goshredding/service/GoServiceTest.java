@@ -17,11 +17,11 @@ public class GoServiceTest {
 
     public static void main(String args[]) {
         try {
-            ArrayList<EventVO> eventList = GoService.getInstance().getUnjoinedEventsByParticipantId("101");
-            for(int i=0;i<eventList.size();i++){
-                EventVO e=eventList.get(i);
-                System.out.print(e.eventName);
-            }
+//            ArrayList<EventVO> eventList = GoService.getInstance().getUnjoinedEventsByParticipantId("101");
+//            for(int i=0;i<eventList.size();i++){
+//                EventVO e=eventList.get(i);
+//                System.out.print(e.eventName);
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -5,11 +5,13 @@
  */
 package com.tony.goshredding.vo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Songyun hu
  */
-public class AdvertisementVO {
+public class AdvertisementVO implements Serializable{
 
     public String AdvertisementID;
     public String AdvertisementName;

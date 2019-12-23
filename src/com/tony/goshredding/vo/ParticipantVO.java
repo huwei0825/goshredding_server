@@ -5,11 +5,13 @@
  */
 package com.tony.goshredding.vo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author huwei
  */
-public class ParticipantVO {
+public class ParticipantVO implements Serializable{
     public String participantId;
     public String username;
     public String password;

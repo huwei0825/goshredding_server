@@ -5,11 +5,13 @@
  */
 package com.tony.goshredding.vo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author SXRContent
  */
-public class CommentVO {
+public class CommentVO implements Serializable{
 
     public String CommentID;
     public String ParticipantID;

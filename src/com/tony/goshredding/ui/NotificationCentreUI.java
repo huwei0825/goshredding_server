@@ -177,7 +177,7 @@ public class NotificationCentreUI extends javax.swing.JDialog {
         } else {
             NotificationVO notificationVO = (NotificationVO) notificationList.get(row);
             try {
-                GoService.getInstance().setNotificationReaded(notificationVO.NotificationID, notificationVO.READ_TYPE_READ);
+                GoService.getInstance().setNotificationReaded(notificationVO.NotificationID, GoService.READ_TYPE_READ);
 
                 //refresh the notification table start.
                 notificationList = GoService.getInstance().getNotificationsByParticipantId(GoService.currentUserId);
