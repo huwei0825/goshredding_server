@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.ui.LoginUI;
@@ -19,17 +14,15 @@ import com.tony.goshredding.vo.OrganizerVO;
 import com.tony.goshredding.vo.ParticipantVO;
 
 /**
+ * This is the user information dialog.
  *
- * @author huwei
+ * @author Sognyun hu.
  */
 public class UserInformationUI extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Login
-     */
-    public static int USE_TYPE_NEW = 1;
-    public static int USE_TYPE_MODIFY = 2;
-    private int currentUseType = USE_TYPE_NEW;
+    public static int USE_TYPE_NEW = 1;//used in create new user mode.
+    public static int USE_TYPE_MODIFY = 2;//used in modify user mode.
+    private int currentUseType = USE_TYPE_NEW;//current use mode.
 
     public UserInformationUI(java.awt.Frame parent, boolean modal, int useType) {
         super(parent, modal);
@@ -59,9 +52,8 @@ public class UserInformationUI extends javax.swing.JDialog {
                     password2Txt.setText(organizerVO.password);
 
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
-
             } else if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
                 try {
                     ParticipantVO participantVO = GoService.getInstance().getParticipantByParticipantID(GoService.currentUserId);
@@ -82,11 +74,9 @@ public class UserInformationUI extends javax.swing.JDialog {
                     password1Txt.setText(participantVO.password);
                     password2Txt.setText(participantVO.password);
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
-
             }
-
         }
         userTypeComboBox.setEnabled(false);
         logoutBtn.setVisible(false);
@@ -391,13 +381,21 @@ public class UserInformationUI extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * close the dialog.
+     *
+     * @param evt
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         LoginUI liFrm = new LoginUI();
         liFrm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
+    /**
+     * save user information.
+     *
+     * @param evt
+     */
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         String forename = forenameTxt.getText();
         String surname = surnameTxt.getText();
@@ -411,7 +409,6 @@ public class UserInformationUI extends javax.swing.JDialog {
         String username = usernameTxt.getText();
         String password1 = password1Txt.getText();
         String income = "0";
-
         boolean validate = true;
 
         if (Validation.isPresent(forenameTxt.getText()) == false) {
@@ -439,7 +436,6 @@ public class UserInformationUI extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please write a valid date and in the format 'dd/mm/yyyy'", "DOB",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-
         if (Validation.isPresent(add1Txt.getText()) == false) {
             validate = false;
             JOptionPane.showMessageDialog(null, "Cannot be empty!", "address",
@@ -470,7 +466,6 @@ public class UserInformationUI extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please confirm the password again", "Passwords don't match",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-
         try {
             if (validate == true) {
                 //store participant information
@@ -495,7 +490,6 @@ public class UserInformationUI extends javax.swing.JDialog {
                     }
                     //store organizer information
                     if (userType.equalsIgnoreCase("Organizer")) {
-
                         try {
                             OrganizerVO organizer = new OrganizerVO();
                             organizer.username = username;
@@ -511,9 +505,8 @@ public class UserInformationUI extends javax.swing.JDialog {
                             organizer.income = income;
                             GoService.getInstance().addOrganizer(organizer);
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
-
                     }
                     JOptionPane.showMessageDialog(null, "successful added");
                     LoginUI liFrm = new LoginUI();
@@ -541,7 +534,6 @@ public class UserInformationUI extends javax.swing.JDialog {
                     }
                     //store organizer information
                     if (userType.equalsIgnoreCase("Organizer")) {
-
                         try {
                             OrganizerVO organizer = new OrganizerVO();
                             organizer.organizerId = GoService.currentUserId;
@@ -558,9 +550,8 @@ public class UserInformationUI extends javax.swing.JDialog {
                             organizer.income = income;
                             GoService.getInstance().updateOrganizer(organizer);
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
-
                     }
                     JOptionPane.showMessageDialog(null, "successful saved");
                     this.dispose();
@@ -570,78 +561,15 @@ public class UserInformationUI extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "error with: " + ex);
         }
     }//GEN-LAST:event_saveBtnActionPerformed
-
+    /**
+     * log out the application.
+     * @param evt 
+     */
     private void logoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutBtnActionPerformed
         LoginUI liFrm = new LoginUI();
         liFrm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_logoutBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new UserInformationUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField add1Txt;

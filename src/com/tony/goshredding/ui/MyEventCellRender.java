@@ -1,10 +1,8 @@
 package com.tony.goshredding.ui;
-
 import com.tony.goshredding.vo.EventVO;
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
-
 /**
  * This is my event table cell render.
  * @author Songyun hu.
@@ -83,7 +81,6 @@ public class MyEventCellRender extends javax.swing.JPanel implements TableCellRe
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel eventDateLabel;

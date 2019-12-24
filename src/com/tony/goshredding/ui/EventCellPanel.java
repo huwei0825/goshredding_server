@@ -1,4 +1,3 @@
-
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.util.GoHelper;
@@ -15,41 +14,40 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  * This is the event table cell panel.
+ *
  * @author Songyun hu.
  */
 public class EventCellPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form EventItemPanel
-     */
     private EventVO eventObj;
-    public void setSelectedState(boolean bSelected){
-      if (bSelected) {
+
+    public void setSelectedState(boolean bSelected) {
+        if (bSelected) {
             jPanel1.setBackground(new java.awt.Color(218, 227, 243));
         } else {
             jPanel1.setBackground(new java.awt.Color(239, 246, 254));
         }
     }
+
     public EventCellPanel(EventVO eventVO) {
         initComponents();
-      
         this.eventObj = eventVO;
         eventNameLbl.setText(eventObj.eventName);
         eventDateLbl.setText(eventObj.eventDate);
         String time = null;
         String timeSlot = null;
-        if(eventObj.eventTime != null){
-        String[] timeArray = eventObj.eventTime.split(":");
-        int hours = Integer.parseInt(timeArray[0]);
-        String minutes = timeArray[1];
-        if (hours >= 0 && hours <= 11) {
-            time = hours + ":" + minutes;
-            timeSlot = "AM";
-        } else if (hours >= 12 && hours <= 23) {
-            time = (hours - 12) + ":" + minutes;
-            timeSlot = "PM";
-        }
-        timeLbl.setText(time+" "+timeSlot);
+        if (eventObj.eventTime != null) {
+            String[] timeArray = eventObj.eventTime.split(":");
+            int hours = Integer.parseInt(timeArray[0]);
+            String minutes = timeArray[1];
+            if (hours >= 0 && hours <= 11) {
+                time = hours + ":" + minutes;
+                timeSlot = "AM";
+            } else if (hours >= 12 && hours <= 23) {
+                time = (hours - 12) + ":" + minutes;
+                timeSlot = "PM";
+            }
+            timeLbl.setText(time + " " + timeSlot);
         }
         if (eventObj.eventPicName != null && eventObj.eventPicName.length() > 0) {
             try {
@@ -74,8 +72,8 @@ public class EventCellPanel extends javax.swing.JPanel {
                 e.printStackTrace();
             }
         }
-        
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

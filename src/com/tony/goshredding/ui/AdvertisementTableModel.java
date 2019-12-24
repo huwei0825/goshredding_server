@@ -17,17 +17,14 @@ public class AdvertisementTableModel extends AbstractTableModel {
     public AdvertisementTableModel(ArrayList advertisementList) {
         this.advertisementList = advertisementList;
     }
-
     @Override
     public int getRowCount() {
         return advertisementList.size();
     }
-
     @Override
     public int getColumnCount() {
         return 5;
     }
-
     @Override
     public String getColumnName(int columnIndex) {
         if (columnIndex == 0) {

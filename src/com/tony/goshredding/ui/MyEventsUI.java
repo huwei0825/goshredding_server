@@ -1,6 +1,6 @@
 package com.tony.goshredding.ui;
 
-import com.tony.goshredding.ui.OpenEventsUI;
+import com.tony.goshredding.ui.OpenEventUI;
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.util.Definition;
@@ -18,13 +18,13 @@ import javax.swing.table.TableColumnModel;
 
 /**
  * This is my events management dialog.
+ *
  * @author Songyun hu.
  */
 public class MyEventsUI extends javax.swing.JDialog {
 
     ArrayList<EventVO> eventList = new ArrayList<EventVO>();//the event objects after search.
     ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the all event objects.
-
     public MyEventsUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -44,10 +44,8 @@ public class MyEventsUI extends javax.swing.JDialog {
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setPreferredSize(new Dimension(0, 0));
         myEventsTable.getTableHeader().setDefaultRenderer(renderer);
-
         //display events on "my events" table
         try {
-
             if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
                 eventListOriginal = GoService.getInstance().getEventsByOrganizerId(GoService.currentUserId);
             }
@@ -57,9 +55,7 @@ public class MyEventsUI extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         eventList = eventListOriginal;
-
         //set the event table model.
         EventTableModel eventTableModel = new EventTableModel(eventList);
         myEventsTable.setModel(eventTableModel);
@@ -237,12 +233,12 @@ public class MyEventsUI extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
    /**
-    * Display the date's events.
-    * @param date 
-    */
+     * Display the date's events.
+     *
+     * @param date
+     */
     public void displayEventsByDate(String date) {
         ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
-
         for (int i = 0; i < eventListOriginal.size(); i++) {
             EventVO event = new EventVO();
             event = (EventVO) eventListOriginal.get(i);
@@ -263,9 +259,11 @@ public class MyEventsUI extends javax.swing.JDialog {
         myEventsTable.repaint();
         eventTypeComboBox.setSelectedIndex(3);
     }
+
     /**
      * display the event information dialog.
-     * @param evt 
+     *
+     * @param evt
      */
     private void openBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBtnActionPerformed
         int row = myEventsTable.getSelectedRow();
@@ -274,15 +272,16 @@ public class MyEventsUI extends javax.swing.JDialog {
         } else {
             EventVO event = (EventVO) eventList.get(row);
             if (!event.eventName.equalsIgnoreCase("You have no events yet")) {
-                OpenEventsUI oeFrm = new OpenEventsUI(null, true, event.eventId,OpenEventsUI.DATA_VIEW_TYPE_OWN);
+                OpenEventUI oeFrm = new OpenEventUI(null, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OWN);
                 oeFrm.setVisible(true);
             }
         }
     }//GEN-LAST:event_openBtnActionPerformed
     /**
-     * if the login user is an organizer,then can delete the event.
-     * if the login user is a participant,then can leave the event.
-     * @param evt 
+     * if the login user is an organizer,then can delete the event. if the login
+     * user is a participant,then can leave the event.
+     *
+     * @param evt
      */
     private void deleteAndLeaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAndLeaveBtnActionPerformed
 
@@ -294,11 +293,11 @@ public class MyEventsUI extends javax.swing.JDialog {
                 } else {
                     EventVO event = (EventVO) eventList.get(row);
                     int delete = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?");
-
                     if (delete == JOptionPane.YES_OPTION) {
                         try {
                             GoService.getInstance().deleteEvent(event);
                         } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -312,9 +311,9 @@ public class MyEventsUI extends javax.swing.JDialog {
 
                     if (leaveResult == JOptionPane.YES_OPTION) {
                         try {
-                            GoService.getInstance().leaveEvent(GoService.currentUserId,event.eventId);
+                            GoService.getInstance().leaveEvent(GoService.currentUserId, event.eventId);
                         } catch (Exception e) {
-
+                            e.printStackTrace();
                         }
                     }
                 }
@@ -339,21 +338,22 @@ public class MyEventsUI extends javax.swing.JDialog {
             tc.setCellRenderer(new MyEventCellRender());
             myEventsTable.repaint();
             ///refresh the event list end.
-            
+
         } catch (Exception e) {
         }
     }//GEN-LAST:event_deleteAndLeaveBtnActionPerformed
     /**
      * close the dialog.
-     * @param evt 
+     *
+     * @param evt
      */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
     /**
      * display the events by event type.
-     * @param evt 
+     *
+     * @param evt
      */
     private void eventTypeComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_eventTypeComboBoxItemStateChanged
 

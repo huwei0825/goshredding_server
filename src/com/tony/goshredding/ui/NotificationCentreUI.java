@@ -1,35 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
-
 import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.vo.EventVO;
 import com.tony.goshredding.vo.NotificationVO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 /**
+ * This is the notification management dialog.
  *
- * @author huwei
+ * @author Songyun hu.
  */
 public class NotificationCentreUI extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Login
-     */
-    public static String READ_TYPE_UNREAD = "1";
-    public static String READ_TYPE_READ = "2";
+    public static String READ_TYPE_UNREAD = "1";//notification is not readed.
+    public static String READ_TYPE_READ = "2";//notification is readed.
     ArrayList<NotificationVO> notificationList = new ArrayList<NotificationVO>();
-
     public NotificationCentreUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         try {
-
             notificationList = GoService.getInstance().getNotificationsByParticipantId(GoService.currentUserId);
 
         } catch (Exception e) {
@@ -39,7 +28,6 @@ public class NotificationCentreUI extends javax.swing.JDialog {
         notificationTable.setModel(notificationTableModel);
         notificationTable.setRowHeight(20);
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -165,12 +153,19 @@ public class NotificationCentreUI extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * close dialog.
+     *
+     * @param evt
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
+    /**
+     * set the notification as readed.
+     *
+     * @param evt
+     */
     private void markAsReadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markAsReadBtnActionPerformed
         int row = notificationTable.getSelectedRow();
         if (row < 0) {
@@ -179,21 +174,22 @@ public class NotificationCentreUI extends javax.swing.JDialog {
             NotificationVO notificationVO = (NotificationVO) notificationList.get(row);
             try {
                 GoService.getInstance().setNotificationReaded(notificationVO.NotificationID, Definition.READ_TYPE_READ);
-
                 //refresh the notification table start.
                 notificationList = GoService.getInstance().getNotificationsByParticipantId(GoService.currentUserId);
-
                 NotificationTableModel notificationTableModel = new NotificationTableModel(notificationList);
                 notificationTable.setModel(notificationTableModel);
                 notificationTable.repaint();
                 //refresh the notification table end.
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
-
         }
     }//GEN-LAST:event_markAsReadBtnActionPerformed
-
+    /**
+     * delete notification object.
+     *
+     * @param evt
+     */
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int row = notificationTable.getSelectedRow();
         if (row < 0) {
@@ -205,126 +201,18 @@ public class NotificationCentreUI extends javax.swing.JDialog {
 
                 if (delete == JOptionPane.YES_OPTION) {
                     GoService.getInstance().deleteNotification(notificationVO.NotificationID);
-
                     //refresh the notification table start.
                     notificationList = GoService.getInstance().getNotificationsByParticipantId(GoService.currentUserId);
-
                     NotificationTableModel notificationTableModel = new NotificationTableModel(notificationList);
                     notificationTable.setModel(notificationTableModel);
                     notificationTable.repaint();
                 }
                 //refresh the notification table end.
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
-
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NotificationCentreUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NotificationCentreUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NotificationCentreUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NotificationCentreUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                NotificationCentreUI dialog = new NotificationCentreUI(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

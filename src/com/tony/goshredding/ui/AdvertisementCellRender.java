@@ -34,12 +34,9 @@ public class AdvertisementCellRender extends DefaultTableCellRenderer {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
         }
         return super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-
     }
 
 }

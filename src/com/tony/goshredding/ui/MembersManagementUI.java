@@ -6,7 +6,6 @@ import com.tony.goshredding.vo.CommentVO;
 import com.tony.goshredding.vo.ParticipantVO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 /**
  * This is event's memeber management dialog.
  * @author Songyun hu.
@@ -16,24 +15,19 @@ public class MembersManagementUI extends javax.swing.JDialog {
     private String currentEventId = "";//the current event id.
     ArrayList<ParticipantVO> participantList = new ArrayList<ParticipantVO>();//the participant objects after search.
     ArrayList<ParticipantVO> participantListOriginal = new ArrayList<ParticipantVO>();//the all participant objects.
-    
     public MembersManagementUI(java.awt.Frame parent, boolean modal, String strEventId) {
         super(parent, modal);
         currentEventId = strEventId;
         initComponents();
         try {
             participantListOriginal = GoService.getInstance().getParticipantsByEventId(currentEventId);
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         participantList = participantListOriginal;
         MemeberTableModel memeberTableModel = new MemeberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
-        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,7 +169,6 @@ public class MembersManagementUI extends javax.swing.JDialog {
      * @param evt 
      */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
     /**
@@ -219,7 +212,6 @@ public class MembersManagementUI extends javax.swing.JDialog {
         } else {
             ParticipantVO participantVO = participantList.get(row);
             int delete = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?");
-            
             if (delete == JOptionPane.YES_OPTION) {
                 try {
                     GoService.getInstance().leaveEvent(participantVO.participantId, currentEventId);
@@ -230,13 +222,11 @@ public class MembersManagementUI extends javax.swing.JDialog {
                     memberTable.setModel(memeberTableModel);
                     memberTable.repaint();
                 } catch (Exception e) {
-                    
+                    e.printStackTrace();
                 }
             }
-            
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton allBtn;

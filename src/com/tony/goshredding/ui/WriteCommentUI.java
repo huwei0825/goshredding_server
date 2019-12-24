@@ -1,32 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
-
 import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.vo.CommentVO;
 import com.tony.goshredding.vo.EventVO;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
-
 /**
- *
- * @author huwei
+ * This is comment dialog.
+ * @author Songyun hu.
  */
-public class WriteReviewUI extends javax.swing.JDialog {
-
-    /**
-     * Creates new form Login
-     */
-    public String eventId="";
-    public WriteReviewUI(java.awt.Frame parent, boolean modal) {
+public class WriteCommentUI extends javax.swing.JDialog {
+    public String eventId="";//current event id.
+    public WriteCommentUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -130,12 +118,17 @@ public class WriteReviewUI extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * close the dialog.
+     * @param evt 
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
+    /**
+     * save the comment.
+     * @param evt 
+     */
     private void submitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitBtnActionPerformed
         try {
             CommentVO commentVO = new CommentVO();
@@ -146,65 +139,13 @@ public class WriteReviewUI extends javax.swing.JDialog {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String dateString = formatter.format(currentTime);
             commentVO.Date = dateString;
-
             GoService.getInstance().addComment(commentVO);
             JOptionPane.showMessageDialog(null, "successfully saved");
-
         } catch (Exception e) {
             e.printStackTrace();
         }
         this.dispose();
     }//GEN-LAST:event_submitBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(WriteReviewUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(WriteReviewUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(WriteReviewUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(WriteReviewUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new writeReviewUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

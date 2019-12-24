@@ -296,7 +296,6 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
             public String getDescription() {
                 return "images（png;jpg;PNG）";
             }
-
             @Override
             public boolean accept(File f) {
                 if (f.isDirectory()) {

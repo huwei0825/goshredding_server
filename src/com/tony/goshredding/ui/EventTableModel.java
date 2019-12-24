@@ -1,4 +1,3 @@
-
 package com.tony.goshredding.ui;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -7,7 +6,6 @@ import javax.swing.table.AbstractTableModel;
  * @author Songyun hu.
  */
 public class EventTableModel extends AbstractTableModel {
-
     private ArrayList eventList = null;
     public EventTableModel(ArrayList eventList) {
         this.eventList = eventList;

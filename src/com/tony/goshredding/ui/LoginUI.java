@@ -1,18 +1,15 @@
 package com.tony.goshredding.ui;
-
 import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.vo.OrganizerVO;
 import com.tony.goshredding.vo.ParticipantVO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
 /**
  * This class is for user to login.
  * @author Songyun hu.
  */
 public class LoginUI extends javax.swing.JFrame {
-
     /**
      * Creates new form Login
      */
@@ -156,7 +153,6 @@ public class LoginUI extends javax.swing.JFrame {
     private void loginBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBtnActionPerformed
         String username = usernameTxt.getText();
         String password = passwordTxt.getText();
-
         try {
             ArrayList<ParticipantVO> participantList = GoService.getInstance().getParticipantByUsername(username);
             if (participantList.size() == 0) {
@@ -167,7 +163,6 @@ public class LoginUI extends javax.swing.JFrame {
                     for (OrganizerVO organizerObj : organizerList) {
                         String dbPassword = organizerObj.password;
                         String userId = organizerObj.organizerId;
-
                         //check the password.
                         if (password.equals(dbPassword)) {
                             GoService.currentUserId = userId;
@@ -200,7 +195,6 @@ public class LoginUI extends javax.swing.JFrame {
                     }
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

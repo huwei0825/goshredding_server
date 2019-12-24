@@ -1,16 +1,13 @@
 package com.tony.goshredding.ui;
-
 import com.tony.goshredding.vo.AdvertisementVO;
 import com.tony.goshredding.vo.ParticipantVO;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-
 /**
  * This is member table model.
  * @author Songyun hu.
  */
 public class MemeberTableModel extends AbstractTableModel {
-
     private ArrayList participantList = null;
     public MemeberTableModel(ArrayList participantList) {
         this.participantList = participantList;

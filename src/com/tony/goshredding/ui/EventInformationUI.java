@@ -1,10 +1,8 @@
-
 package com.tony.goshredding.ui;
-
 import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.ui.MainFormUI;
 import com.tony.goshredding.ui.MyEventsUI;
-import com.tony.goshredding.ui.OpenEventsUI;
+import com.tony.goshredding.ui.OpenEventUI;
 import com.tony.goshredding.ui.advertisementManagementUI;
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.vo.AdvertisementVO;
@@ -17,7 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileFilter;
-
 /**
  * This the event object dialog,which used in create new event 
  * and modify an event.
@@ -31,7 +28,6 @@ public class EventInformationUI extends javax.swing.JDialog {
     public static int USER_TYPE_EDIT = 2;//the dialog used in mofify an event.
     public int currentUseType = USER_TYPE_NEW;//the current dialog used mode.
     private String currentSelectedAdvertisementId = "";//the current advertisement object id.
-
     /**
      * display the event object information.
      * @param eventvo the event object.
@@ -62,7 +58,6 @@ public class EventInformationUI extends javax.swing.JDialog {
         timeSlotComboBox.setSelectedItem(timeSlot);
         //display the event image.
         if (currentEventVO.eventPicName != null && currentEventVO.eventPicName.length() > 0) {
-
             try {
                 GoHelper.downloadImage(currentEventVO.eventPicName);
                 File directory = new File("");
@@ -86,13 +81,11 @@ public class EventInformationUI extends javax.swing.JDialog {
     private void displayAdvertisement(String advertisementID) {
         if (advertisementID != null && advertisementID.length() > 0) {
             try {
-
                 AdvertisementVO advertisementVO = GoService.getInstance().getAdvertisementById(advertisementID);
                 adNameTxt.setText(advertisementVO.AdvertisementName);
                 adSupplierTxt.setText(advertisementVO.Supplier);
                 adContentTextArea.setText(advertisementVO.Content);
                 adPriceTxt.setText(advertisementVO.PricePerPerson);
-                
                 //display the advertisement image.
                 if (advertisementVO.ImageName != null && advertisementVO.ImageName.length() > 0) {
 
@@ -112,14 +105,11 @@ public class EventInformationUI extends javax.swing.JDialog {
                 e.printStackTrace();
             }
         }
-
     }
-
     public EventInformationUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -420,7 +410,6 @@ public class EventInformationUI extends javax.swing.JDialog {
             time = String.valueOf(hours + 12) + ":" + minutes;
         }
         try {
-
             if (currentUseType == EventInformationUI.USER_TYPE_NEW) {
                 EventVO event = new EventVO();
                 event.eventName = name;
@@ -484,7 +473,6 @@ public class EventInformationUI extends javax.swing.JDialog {
             public String getDescription() {
                 return "images（png;jpg;PNG）";
             }
-
             @Override
             public boolean accept(File f) {
                 if (f.isDirectory()) {
@@ -508,17 +496,14 @@ public class EventInformationUI extends javax.swing.JDialog {
                 File targetFile = new File(targetPathName);
 
                 GoHelper.uploadImage(file, targetFile);
-
                 Image image = new ImageIcon(file.getAbsolutePath()).getImage();
                 image = image.getScaledInstance(300, 250, Image.SCALE_SMOOTH);
                 imageLbl.setIcon(new ImageIcon(image));
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
-
         }
     }//GEN-LAST:event_uploadBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adContentTextArea;

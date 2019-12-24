@@ -75,40 +75,30 @@ public class CalendarPanel extends JPanel {
         calendar.setTime(date);
         initCalendarPanel();
     }
-
     public JPanel getCalendarPanel() {
         return calendarPanel;
     }
-
     public static CalendarPanel getInstance(java.util.Date date, String format) {
         return new CalendarPanel(date, format, defaultStartDAY);
     }
-
     public static CalendarPanel getInstance(java.util.Date date) {
         return getInstance(date, DEFAULTFORMAT);
     }
-
     public static CalendarPanel getInstance(String format) {
         return getInstance(new java.util.Date(), format);
     }
-
     public static CalendarPanel getInstance() {
         return getInstance(new java.util.Date(), DEFAULTFORMAT);
     }
-
     private void initCalendarPanel() {
         calendarPanel = new JPanel(new java.awt.BorderLayout());
         calendarPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0xAA, 0xAA, 0xAA)));
         calendarPanel.add(titlePanel = new TitlePanel(), java.awt.BorderLayout.NORTH);
         calendarPanel.add(bodyPanel = new BodyPanel(), java.awt.BorderLayout.CENTER);
-
     }
-
     public void register(final JComponent showComponent) {
         this.showDate = showComponent;
-
     }
-
     //hide the main panel.
     private void hidePanel() {
         if (pop != null) {
@@ -117,7 +107,6 @@ public class CalendarPanel extends JPanel {
             pop = null;
         }
     }
-
     //show the main panel.
     private void showPanel(Component owner) {
         if (pop != null) {
@@ -146,29 +135,17 @@ public class CalendarPanel extends JPanel {
     private void commit() {
         myeventsui.displayEventsByDate(sdf.format(calendar.getTime()));
         System.out.println("date:" + sdf.format(calendar.getTime()));
-//        if (showDate instanceof JTextField) {
-//            ((JTextField) showDate).setText(sdf.format(calendar.getTime()));
-//        } else if (showDate instanceof JLabel) {
-//            ((JLabel) showDate).setText(sdf.format(calendar.getTime()));
-//        }
-//        hidePanel();
     }
-
     // control panel
     private class TitlePanel extends JPanel {
 
         private static final long serialVersionUID = -2865282186037420798L;
         private JLabel preYear, preMonth, center, nextMonth, nextYear, centercontainer;
-
         public TitlePanel() {
             super(new java.awt.BorderLayout());
-
-
             this.setBackground(new java.awt.Color(72, 124, 175));
-
             initTitlePanel();
         }
-
         private void initTitlePanel() {
             preYear = new JLabel("<<", JLabel.CENTER);
             preMonth = new JLabel("<", JLabel.CENTER);
@@ -210,62 +187,48 @@ public class CalendarPanel extends JPanel {
             nextMonth.addMouseListener(new MyMouseAdapter(nextMonth, Calendar.MONTH, 1));
             nextYear.addMouseListener(new MyMouseAdapter(nextYear, Calendar.YEAR, 1));
         }
-
         private void updateDate() {
-
             center.setText(calendar.get(Calendar.YEAR) + "-" + (calendar.get(Calendar.MONTH) + 1));
         }
-
         // listener for control label.
         class MyMouseAdapter extends java.awt.event.MouseAdapter {
-
             JLabel label;
             private int type, value;
-
             public MyMouseAdapter(final JLabel label, final int type, final int value) {
                 this.label = label;
                 this.type = type;
                 this.value = value;
             }
-
             public void mouseEntered(java.awt.event.MouseEvent me) {
                 label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
                 label.setForeground(java.awt.Color.BLACK);
             }
-
             public void mouseExited(java.awt.event.MouseEvent me) {
                 label.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
                 label.setForeground(java.awt.Color.WHITE);
             }
-
             public void mousePressed(java.awt.event.MouseEvent me) {
                 calendar.add(type, value);
                 label.setForeground(java.awt.Color.BLACK);
                 refresh();
             }
-
             public void mouseReleased(java.awt.event.MouseEvent me) {
                 label.setForeground(java.awt.Color.WHITE);
             }
         }
     }
-
     // body panel, include week labels and day labels.
     private class BodyPanel extends JPanel {
-
         private static final long serialVersionUID = 5677718768457235447L;
-
         public BodyPanel() {
             super(new GridLayout(7, 7));
             this.setPreferredSize(new java.awt.Dimension(210, 140));
             this.setBackground(new java.awt.Color(218, 227, 245));
             initMonthPanel();
         }
-
         private void initMonthPanel() {
             updateDate();
         }
-
         public void updateDate() {
             this.removeAll();
             lm.clear();
@@ -275,7 +238,6 @@ public class CalendarPanel extends JPanel {
             cal.set(Calendar.DAY_OF_MONTH, 1);
 
             int index = cal.get(Calendar.DAY_OF_WEEK);
-
             if(index > defaultStartDAY) cal.add(Calendar.DAY_OF_MONTH, -index + defaultStartDAY);
             else cal.add(Calendar.DAY_OF_MONTH, -index + defaultStartDAY - 7);
 
@@ -297,7 +259,6 @@ public class CalendarPanel extends JPanel {
         }
     }
     private class FooterPanel extends JPanel {
-
         private static final long serialVersionUID = 8135037333899746736L;
         private JLabel dateLabel;
 
@@ -305,7 +266,6 @@ public class CalendarPanel extends JPanel {
             super(new BorderLayout());
             initFooterPanel();
         }
-
         private void initFooterPanel() {
             dateLabel = new JLabel("Today is : " + sdf.format(new java.util.Date()));
             dateLabel.addMouseListener(new MouseListener() {
@@ -313,19 +273,16 @@ public class CalendarPanel extends JPanel {
                 @Override
                 public void mouseReleased(MouseEvent e) {
                 }
-
                 @Override
                 public void mousePressed(MouseEvent e) {
                     calendar.setTime(new Date());
                     refresh();
                     commit();
                 }
-                
                 @Override
                 public void mouseExited(MouseEvent e) {
                     dateLabel.setForeground(Color.BLACK);
                 }
-
                 @Override
                 public void mouseEntered(MouseEvent e) {
                     dateLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -337,7 +294,6 @@ public class CalendarPanel extends JPanel {
             });
             this.add(dateLabel);
         }
-
         public void updateDate() {
         }
     ;
@@ -353,7 +309,6 @@ public class CalendarPanel extends JPanel {
 
         private static final long serialVersionUID = -8053965084432740110L;
         private String name;
-
         public WeekLabel(int index, String name) {
             super(name, JLabel.CENTER);
             this.name = name;
@@ -363,7 +318,6 @@ public class CalendarPanel extends JPanel {
         }
     }
     private class DayLabel extends JLabel implements java.util.Comparator<DayLabel>, java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
-
         private static final long serialVersionUID = -6002103678554799020L;
         private boolean isSelected;
         private int year, month, day;
@@ -382,7 +336,6 @@ public class CalendarPanel extends JPanel {
             } else {
                 this.setForeground(java.awt.Color.LIGHT_GRAY);
             }
-
         }
         public boolean getIsSelected() {
             return isSelected;
@@ -400,7 +353,6 @@ public class CalendarPanel extends JPanel {
                 this.repaint();
             }
         }
-
         @Override
         protected void paintComponent(Graphics g) {
             //set curr select day's background
@@ -408,7 +360,6 @@ public class CalendarPanel extends JPanel {
                 g.setColor(new java.awt.Color(0xBB, 0xBF, 0xDA));
                 g.fillRect(0, 0, getWidth(), getHeight());
             }
-            
             //set current day's border
             if (year == now.get(Calendar.YEAR) && month == now.get(Calendar.MONTH) && day == now.get(Calendar.DAY_OF_MONTH)) {
                 Graphics2D gd = (Graphics2D) g;
@@ -433,33 +384,26 @@ public class CalendarPanel extends JPanel {
             }
             super.paintComponent(g);
         }
-
         public boolean contains(Point p) {
             return this.getBounds().contains(p);
         }
-
         private void update() {
             repaint();
         }
-
         @Override
         public void mouseDragged(MouseEvent e) {
         }
-
         @Override
         public void mouseMoved(MouseEvent e) {
         }
-
         @Override
         public void mouseClicked(MouseEvent e) {
         }
-
         @Override
         public void mousePressed(MouseEvent e) {
             isSelected = true;
             update();
         }
-
         @Override
         public void mouseReleased(MouseEvent e) {
             Point p = SwingUtilities.convertPoint(this, e.getPoint(), bodyPanel);
@@ -467,13 +411,11 @@ public class CalendarPanel extends JPanel {
             lm.setSelect(p, false);
             commit();
         }
-
         @Override // change color when mouse over.
         public void mouseEntered(MouseEvent e) {
             this.setForeground(hoverColor);
             this.repaint();
         }
-
         @Override // change color when mouse exit.
         public void mouseExited(MouseEvent e) {
             if (month == calendar.get(Calendar.MONTH)) {
@@ -483,7 +425,6 @@ public class CalendarPanel extends JPanel {
             }
             this.repaint();
         }
-
         @Override
         public int compare(DayLabel o1, DayLabel o2) {
             Calendar c1 = Calendar.getInstance();
@@ -492,33 +433,25 @@ public class CalendarPanel extends JPanel {
             c2.set(o2.year, o2.month, o2.day);
             return c1.compareTo(c2);
         }
-
     }
 
     private class LabelManager {
 
         private List<DayLabel> list;
-
         public LabelManager() {
             list = new ArrayList<CalendarPanel.DayLabel>();
         }
-
         public List<DayLabel> getLabels() {
             return list;
         }
-
         public void addLabel(DayLabel label) {
             list.add(label);
         }
-
         public void clear() {
             list.clear();
         }
-
         public void setSelect(Point p, boolean b) {
-            
             if (b) {
-                 
                 boolean findPrevious = false, findNext = false;
                 for (DayLabel lab : list) {
                     if (lab.contains(p)) {
@@ -551,7 +484,6 @@ public class CalendarPanel extends JPanel {
             }
         }
     }
-
     /**
      * @param args
      */
@@ -562,7 +494,6 @@ public class CalendarPanel extends JPanel {
         jf.setBounds(400, 200, 600, 400);
 
         CalendarPanel ser = CalendarPanel.getInstance();
-
         JPanel calendarPanel = ser.getCalendarPanel();
         calendarPanel.setPreferredSize(new Dimension(300, 300));
         javax.swing.JTextField text = new JTextField();
@@ -571,7 +502,6 @@ public class CalendarPanel extends JPanel {
 
         jf.add(calendarPanel);
         jf.add(text);
-
         jf.setVisible(true);
     }
 }

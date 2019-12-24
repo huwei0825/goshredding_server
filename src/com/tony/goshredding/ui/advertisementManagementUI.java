@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
@@ -15,48 +10,50 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 /**
+ * This is advertisement managemant dialog.
  *
- * @author huwei
+ * @author Songyun hu.
  */
 public class advertisementManagementUI extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Login
-     */
-    private int currentUseType = USE_TYPE_CHOOSE;
-    public static int USE_TYPE_CHOOSE = 0;
-    public static int USE_TYPE_MANAGE = 1;
-    ArrayList<AdvertisementVO> advertisementList = new ArrayList<AdvertisementVO>();
-    ArrayList<AdvertisementVO> advertisementListOriginal = new ArrayList<AdvertisementVO>();
-    public String selectedAdvertisementId;
-    public static int RETURN_TYPE_CHOOSE = 0;
-    public static int RETURN_TYPE_BACK = 1;
+    private int currentUseType = USE_TYPE_CHOOSE;//current use mode.
+    public static int USE_TYPE_CHOOSE = 0;//choose advertisement use mode.
+    public static int USE_TYPE_MANAGE = 1;//managemane advertisement use mode.
+    ArrayList<AdvertisementVO> advertisementList = new ArrayList<AdvertisementVO>();//advertisement objects after search.
+    ArrayList<AdvertisementVO> advertisementListOriginal = new ArrayList<AdvertisementVO>();//all advertisement objects.
+    public String selectedAdvertisementId;//return the current selected advertisement id.
+    public static int RETURN_TYPE_CHOOSE = 0;//user click the choose button.
+    public static int RETURN_TYPE_BACK = 1;//user click the back button.
     public int returnType = RETURN_TYPE_BACK;
 
     public advertisementManagementUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         advertisementTable.setRowHeight(60);
-
         try {
-
             advertisementListOriginal = GoService.getInstance().getAdvertisementsByParticipantId(GoService.currentUserId);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         advertisementList = advertisementListOriginal;
         initTableData();
         advertisementTable.setDefaultRenderer(Object.class, new AdvertisementCellRender());
     }
 
+    /**
+     * initialize the table.
+     */
     private void initTableData() {
         AdvertisementTableModel advertisementTableModel = new AdvertisementTableModel(advertisementList);
         advertisementTable.setModel(advertisementTableModel);
         advertisementTable.repaint();
     }
 
+    /**
+     * display different buttons in different use mode.
+     *
+     * @param _useType
+     */
     public void setUseType(int _useType) {
         this.currentUseType = _useType;
         if (this.currentUseType == USE_TYPE_MANAGE) {
@@ -240,12 +237,20 @@ public class advertisementManagementUI extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * close the dialog.
+     *
+     * @param evt
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.returnType = advertisementManagementUI.RETURN_TYPE_BACK;
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
+    /**
+     * choose a advertisement.
+     *
+     * @param evt
+     */
     private void chooseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseBtnActionPerformed
         int row = advertisementTable.getSelectedRow();
         if (row < 0) {
@@ -257,31 +262,35 @@ public class advertisementManagementUI extends javax.swing.JDialog {
         }
         this.dispose();
     }//GEN-LAST:event_chooseBtnActionPerformed
-
+    /**
+     * add a new advertisement.
+     *
+     * @param evt
+     */
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         AdvertisementInformationUI aiFrm = new AdvertisementInformationUI(null, true, "", AdvertisementInformationUI.OPEN_TYPE_NEW);
         aiFrm.setVisible(true);
         try {
             advertisementListOriginal = GoService.getInstance().getAdvertisementsByParticipantId(GoService.currentUserId);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         advertisementList = advertisementListOriginal;
         initTableData();
     }//GEN-LAST:event_addBtnActionPerformed
-
+    /**
+     * edit a advertisement.
+     *
+     * @param evt
+     */
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
         int row = advertisementTable.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(null, "Please select an advertisement first");
         } else {
             AdvertisementVO advertisementVO = advertisementList.get(row);
-
             AdvertisementInformationUI aiFrm = new AdvertisementInformationUI(null, true, advertisementVO.AdvertisementID, AdvertisementInformationUI.OPEN_TYPE_EDIT);
             aiFrm.setVisible(true);
-
             //refresh advertisement table.
             try {
                 advertisementListOriginal = GoService.getInstance().getAdvertisementsByParticipantId(GoService.currentUserId);
@@ -290,16 +299,17 @@ public class advertisementManagementUI extends javax.swing.JDialog {
             }
             advertisementList = advertisementListOriginal;
             initTableData();
-
         }
-
     }//GEN-LAST:event_editBtnActionPerformed
-
+    /**
+     * search advertisement.
+     *
+     * @param evt
+     */
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTextField.getText();
         ArrayList<AdvertisementVO> advertisementListNew = new ArrayList<AdvertisementVO>();
-
         for (int i = 0; i < advertisementListOriginal.size(); i++) {
             AdvertisementVO advertisementVO = advertisementListOriginal.get(i);
             if (advertisementVO.Content.contains(searchItem)) {
@@ -309,12 +319,20 @@ public class advertisementManagementUI extends javax.swing.JDialog {
         advertisementList = advertisementListNew;
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed
-
+    /**
+     * display all advertisement.
+     *
+     * @param evt
+     */
     private void allBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allBtnActionPerformed
         advertisementList = advertisementListOriginal;
         initTableData();
     }//GEN-LAST:event_allBtnActionPerformed
-
+    /**
+     * delete an advertisement.
+     *
+     * @param evt
+     */
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int row = advertisementTable.getSelectedRow();
         if (row < 0) {
@@ -322,7 +340,6 @@ public class advertisementManagementUI extends javax.swing.JDialog {
         } else {
             AdvertisementVO advertisementVO = advertisementList.get(row);
             int delete = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?");
-
             if (delete == JOptionPane.YES_OPTION) {
                 try {
                     // if the advertisement has been used,it can't be deleted.
@@ -341,55 +358,11 @@ public class advertisementManagementUI extends javax.swing.JDialog {
                         initTableData();
                     }
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 }
             }
-
         }
-
     }//GEN-LAST:event_deleteBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(advertisementManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(advertisementManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(advertisementManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(advertisementManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new advertisementManagementUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;

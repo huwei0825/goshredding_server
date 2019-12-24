@@ -1,38 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
-
 import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.vo.NotificationVO;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-
 /**
- *
- * @author SXR
+ * This is notification table model.
+ * @author Songyun hu.
  */
 public class NotificationTableModel extends AbstractTableModel {
 
-    private ArrayList notificationList = null;
-
+    private ArrayList notificationList = null;//notification objects.
     public NotificationTableModel(ArrayList notificationList) {
         this.notificationList = notificationList;
     }
-
     @Override
     public int getRowCount() {
         return notificationList.size();
     }
-
     @Override
     public int getColumnCount() {
         return 3;
     }
-
     @Override
     public String getColumnName(int columnIndex) {
         if (columnIndex == 0) {
@@ -45,7 +34,6 @@ public class NotificationTableModel extends AbstractTableModel {
             return "";
         }
     }
-
     @Override
     public String getValueAt(int rowIndex, int columnIndex) {
         NotificationVO notificationVO = (NotificationVO) notificationList.get(rowIndex);
@@ -63,5 +51,4 @@ public class NotificationTableModel extends AbstractTableModel {
             return "";
         }
     }
-
 }

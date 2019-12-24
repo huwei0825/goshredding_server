@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
@@ -19,24 +14,26 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
+ * This is event information dialog.
  *
- * @author huwei
+ * @author Songyun hu.
  */
-public class OpenEventsUI extends javax.swing.JDialog {
+public class OpenEventUI extends javax.swing.JDialog {
+
+    private EventVO event = null;//current event object.
+    private ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();//event's comment objects.
+    public static int DATA_VIEW_TYPE_OWN = 1;//display own events.
+    public static int DATA_VIEW_TYPE_OTHER = 2;//display other events.
+    private int currentDataViewType = DATA_VIEW_TYPE_OWN;//current view type.
 
     /**
-     * Creates new form Login
+     * display event object information.
+     *
+     * @param strEventId the event object id.
      */
-    private EventVO event = null;
-    private ArrayList<CommentVO> commentList = new ArrayList<CommentVO>();
-    public static int DATA_VIEW_TYPE_OWN = 1;
-    public static int DATA_VIEW_TYPE_OTHER = 2;
-    private int currentDataViewType = DATA_VIEW_TYPE_OWN;
-
     private void displayEventData(String strEventId) {
         if (strEventId != null && strEventId.length() > 0) {
             try {
-
                 event = GoService.getInstance().getEventByEventId(strEventId);
                 String time = null;
                 String timeSlot = null;
@@ -60,7 +57,6 @@ public class OpenEventsUI extends javax.swing.JDialog {
                 timeTxt.setText(time);
                 timeSlotTxt.setText("    " + timeSlot);
                 if (event.eventPicName != null && event.eventPicName.length() > 0) {
-
                     try {
                         GoHelper.downloadImage(event.eventPicName);
                         File directory = new File("");
@@ -80,10 +76,18 @@ public class OpenEventsUI extends javax.swing.JDialog {
         }
     }
 
-    public OpenEventsUI(java.awt.Frame parent, boolean modal, String strEventId,int dataViewType) {
+    /**
+     * constructor.
+     *
+     * @param parent the dialog parent.
+     * @param modal true or false.
+     * @param strEventId the event object id.
+     * @param dataViewType the view type.
+     */
+    public OpenEventUI(java.awt.Frame parent, boolean modal, String strEventId, int dataViewType) {
         super(parent, modal);
         initComponents();
-        currentDataViewType=dataViewType;
+        currentDataViewType = dataViewType;
         displayEventData(strEventId);
 
         adContentTxt.setEditable(false);
@@ -103,7 +107,6 @@ public class OpenEventsUI extends javax.swing.JDialog {
                 reviewDeleteBtn.setVisible(false);
                 manageMembersBtn.setVisible(false);
             }
-
         }
         if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             manageMembersBtn.setVisible(false);
@@ -122,17 +125,12 @@ public class OpenEventsUI extends javax.swing.JDialog {
             }
             if (found) {
                 joinEditBtn.setVisible(false);
-//                joinEditBtn.setText("joined");
             }
-
             manageMembersBtn.remove(manageMembersBtn);
-
         }
         //display this event's comment start.
         try {
-
             commentList = GoService.getInstance().getCommentsByEventId(event.eventId);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -143,26 +141,24 @@ public class OpenEventsUI extends javax.swing.JDialog {
 
         //display this event's participant numbers .
         try {
-
             ArrayList<ParticipantVO> participantList = GoService.getInstance().getParticipantsByEventId(event.eventId);
             numberOfMembersTxt.setText("" + participantList.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+    /**
+     * display the event's advertisement.
+     *
+     * @param advertisementID the advertisement id.
+     */
     private void displayAdvertisement(String advertisementID) {
         if (advertisementID != null && advertisementID.length() > 0) {
             try {
-
                 AdvertisementVO advertisementVO = GoService.getInstance().getAdvertisementById(advertisementID);
-//                adNameTxt.setText(advertisementVO.AdvertisementName);
-//                adSupplierTxt.setText(advertisementVO.Supplier);
                 adContentTxt.setText(advertisementVO.Content);
-//                adPriceTxt.setText(advertisementVO.PricePerPerson);
                 if (advertisementVO.ImageName != null && advertisementVO.ImageName.length() > 0) {
-
                     try {
                         GoHelper.downloadImage(advertisementVO.ImageName);
                         File directory = new File("");
@@ -179,7 +175,6 @@ public class OpenEventsUI extends javax.swing.JDialog {
                 e.printStackTrace();
             }
         }
-
     }
 
     /**
@@ -369,7 +364,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(numberOfMembersTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                         .addComponent(manageMembersBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(joinEditBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -426,7 +421,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -501,29 +496,34 @@ public class OpenEventsUI extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * open the memeber management dialog.
+     *
+     * @param evt
+     */
     private void manageMembersBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageMembersBtnActionPerformed
         MembersManagementUI mmFrm = new MembersManagementUI(null, true, event.eventId);
         mmFrm.setVisible(true);
     }//GEN-LAST:event_manageMembersBtnActionPerformed
-
+    /**
+     * delete the event's comment.
+     *
+     * @param evt
+     */
     private void reviewDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewDeleteBtnActionPerformed
         if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
-            WriteReviewUI wrFrm = new WriteReviewUI(null, true);
+            WriteCommentUI wrFrm = new WriteCommentUI(null, true);
             wrFrm.eventId = event.eventId;
             wrFrm.setVisible(true);
-
             //refresh the comment table start.
             try {
-
                 commentList = GoService.getInstance().getCommentsByEventId(event.eventId);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -537,7 +537,6 @@ public class OpenEventsUI extends javax.swing.JDialog {
             } else {
                 CommentVO commentVO = (CommentVO) commentList.get(row);
                 int delete = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?");
-
                 if (delete == JOptionPane.YES_OPTION) {
                     try {
                         GoService.getInstance().deleteComment(commentVO.CommentID);
@@ -547,26 +546,29 @@ public class OpenEventsUI extends javax.swing.JDialog {
                         commentTable.setModel(commentTableModel);
                         commentTable.repaint();
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
                 }
-
             }
         }
     }//GEN-LAST:event_reviewDeleteBtnActionPerformed
-
+    /**
+     * close dialog
+     * @param evt 
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
+    /**
+     * the current login user joins the event.
+     * @param evt 
+     */
     private void joinEditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinEditBtnActionPerformed
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             EventInformationUI ei = new EventInformationUI(null, true);
             ei.currentUseType = EventInformationUI.USER_TYPE_EDIT;
             ei.setEvent(event);
             ei.setVisible(true);
-
             displayEventData(event.eventId);//refresh data.
         }
         if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
@@ -581,72 +583,6 @@ public class OpenEventsUI extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_joinEditBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(OpenEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(OpenEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(OpenEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(OpenEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new OpenEventsUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adContentTxt;

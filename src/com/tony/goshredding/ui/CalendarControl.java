@@ -54,7 +54,6 @@ public class CalendarControl extends JPanel{
     private TitlePanel titlePanel;
     private BodyPanel bodyPanel;
     private FooterPanel footerPanel;
-    
     private JComponent showDate;
     private boolean isShow = false;
     private static final String DEFAULTFORMAT = "dd/MM/yyyy";
@@ -63,7 +62,6 @@ public class CalendarControl extends JPanel{
     private static int defaultStartDAY = 0;//0 is from Sun, 1 is from Mon, 2 is from Tue
     private static Color hoverColor = Color.BLUE; // hover color
     
-
     private CalendarControl(java.util.Date date, String format, int startDAY){
         if(startDAY > -1 && startDAY < 7) defaultStartDAY = startDAY;
         int dayIndex = defaultStartDAY;
@@ -83,7 +81,6 @@ public class CalendarControl extends JPanel{
     public static CalendarControl getInstance(java.util.Date date, String format){
         return new CalendarControl(date, format, defaultStartDAY);
     }
-
     public static CalendarControl getInstance(java.util.Date date){
         return getInstance(date, DEFAULTFORMAT);
     }
@@ -151,7 +148,6 @@ public class CalendarControl extends JPanel{
             pop = null;
         }
     }
- 
     //show the main panel.
     private void showPanel(Component owner) {
         if (pop != null) pop.hide();
@@ -176,7 +172,6 @@ public class CalendarControl extends JPanel{
         }
         hidePanel();
     }
-
     // control panel
     private class TitlePanel extends JPanel {
         
@@ -223,7 +218,6 @@ public class CalendarControl extends JPanel{
             nextMonth.addMouseListener(new MyMouseAdapter(nextMonth, Calendar.MONTH, 1));
             nextYear.addMouseListener(new MyMouseAdapter(nextYear, Calendar.YEAR, 1));
         }
-        
         private void updateDate() {
             center.setText(calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH) + 1));
         }
@@ -292,7 +286,6 @@ public class CalendarControl extends JPanel{
             }
         }
     }
-    
     private class FooterPanel extends JPanel {
         
         private static final long serialVersionUID = 8135037333899746736L;
@@ -351,7 +344,6 @@ public class CalendarControl extends JPanel{
             return name;
         }
     }
-    
     private class DayLabel extends JLabel implements java.util.Comparator<DayLabel>, java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
 
         private static final long serialVersionUID = -6002103678554799020L;
@@ -387,7 +379,6 @@ public class CalendarControl extends JPanel{
                 this.repaint();
             }
         }
-        
         @Override
         protected void paintComponent(Graphics g) {
             //set curr select day's background
@@ -438,7 +429,6 @@ public class CalendarControl extends JPanel{
             isSelected = true;
             update();
         }
-
         @Override
         public void mouseReleased(MouseEvent e) {
             Point p = SwingUtilities.convertPoint(this, e.getPoint(), bodyPanel);
@@ -465,16 +455,13 @@ public class CalendarControl extends JPanel{
             c2.set(o2.year, o2.month, o2.day);
             return c1.compareTo(c2);
         }
-        
     }
-    
     private class LabelManager {
         private List<DayLabel> list;
         
         public LabelManager(){
             list = new ArrayList<CalendarControl.DayLabel>();
         }
-        
         public List<DayLabel> getLabels(){
             return list;
         }
@@ -511,8 +498,6 @@ public class CalendarControl extends JPanel{
             }
         }
     }
-    
-    
     /**
      * @param args
      */

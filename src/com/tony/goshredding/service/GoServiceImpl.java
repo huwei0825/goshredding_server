@@ -812,7 +812,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             resultSet = this.getStatement().executeQuery("select max(" + primaryFieldName + ") as maxid from " + tableName);
             while (resultSet.next()) {
                 strMaxId = resultSet.getString("maxid");
-
             }
             if (strMaxId != null) {
                 strMaxId = String.valueOf(Integer.parseInt(strMaxId) + 1);
@@ -953,7 +952,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             e.printStackTrace();
         }
     }
-
     @Override
     /**
      * get participant objects by event id.
@@ -1015,7 +1013,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 participant.postcode = resultSet.getString("Postcode");
                 participant.num = resultSet.getString("ContactNumber");
                 participant.email = resultSet.getString("Email");
-
                 rsList.add(participant);
             }
         } catch (Exception e) {
@@ -1050,7 +1047,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 participant.postcode = resultSet.getString("Postcode");
                 participant.num = resultSet.getString("ContactNumber");
                 participant.email = resultSet.getString("Email");
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1059,7 +1055,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return participant;
     }
-
     @Override
     /**
      * the participant leave the event.
@@ -1105,7 +1100,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     public void updateParticipant(ParticipantVO participantVO) throws RemoteException {
 
     }
-
     @Override
     /**
      * delete participant from database.
@@ -1116,7 +1110,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     public void deleteParticipant(ParticipantVO participantVO) throws RemoteException {
 
     }
-
     /**
      * get database connection
      *
@@ -1131,7 +1124,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         conn = DriverManager.getConnection("jdbc:sqlite:" + dbFilePath);
         return conn;
     }
-
     /**
      * execute update sql.
      *
@@ -1147,9 +1139,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         } finally {
             destroyed();
         }
-
     }
-
     /**
      * execute multiple update sqls.
      *
@@ -1183,7 +1173,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             destroyed();
         }
     }
-
     /**
      * get database connection.
      *
@@ -1197,7 +1186,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return connection;
     }
-
     /**
      * get database statement.
      *
@@ -1211,7 +1199,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return statement;
     }
-
     /**
      * close the resources.
      */
@@ -1221,18 +1208,16 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 statement.close();
                 statement = null;
             }
-
             if (null != connection) {
                 connection.close();
                 connection = null;
             }
-
             if (null != resultSet) {
                 resultSet.close();
                 resultSet = null;
             }
         } catch (SQLException e) {
-
+            e.printStackTrace();
         }
     }
 

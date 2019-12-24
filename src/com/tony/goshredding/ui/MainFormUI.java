@@ -4,7 +4,7 @@ import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.vo.EventVO;
 import com.tony.goshredding.ui.MyEventsUI;
 import com.tony.goshredding.ui.NotificationCentreUI;
-import com.tony.goshredding.ui.OpenEventsUI;
+import com.tony.goshredding.ui.OpenEventUI;
 import com.tony.goshredding.util.Definition;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -19,7 +19,6 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
 /**
  * This is the application main screen.User can see the event list,view the
  * event information, view the notifications and manage the advertisements.
@@ -30,7 +29,6 @@ public class MainFormUI extends javax.swing.JFrame {
 
     ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the original event objects.
     ArrayList<EventVO> recommandEventList = new ArrayList<EventVO>();//the event objects after by filter or search.
-
     public MainFormUI() {
         initComponents();
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
@@ -40,7 +38,6 @@ public class MainFormUI extends javax.swing.JFrame {
             advertiseBtn.setVisible(false);
         }
         myProfileLbl.addMouseListener(new com.tony.goshredding.ui.MainFormUI.MyMouseAdapter(myProfileLbl));
-
         //set the event table ui style.
         eventTable.setRowHeight(75);
         eventTable.getTableHeader().setVisible(false);
@@ -59,7 +56,6 @@ public class MainFormUI extends javax.swing.JFrame {
                 eventListOriginal = GoService.getInstance().getOtherEventByOrganizerId(GoService.currentUserId);
             } catch (Exception e) {
                 e.printStackTrace();
-
             }
         }
         try {//get event member count to eventListOriginal.
@@ -74,7 +70,6 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-
         }
         if (eventListOriginal.size() == 0) {
             EventVO event = new EventVO();
@@ -85,7 +80,6 @@ public class MainFormUI extends javax.swing.JFrame {
         recommandEventList = eventListOriginal;
         recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
         initTableData();
-
         //double click events
         eventTable.addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
@@ -93,7 +87,7 @@ public class MainFormUI extends javax.swing.JFrame {
                     int row = eventTable.getSelectedRow();
                     EventVO event = (EventVO) eventTable.getValueAt(row, 0);
                     if (!event.eventName.equalsIgnoreCase("You have no events yet")) {
-                        OpenEventsUI oeFrm = new OpenEventsUI(null, true, event.eventId, OpenEventsUI.DATA_VIEW_TYPE_OTHER);
+                        OpenEventUI oeFrm = new OpenEventUI(null, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OTHER);
                         oeFrm.setVisible(true);
                     }
                 }
@@ -104,10 +98,8 @@ public class MainFormUI extends javax.swing.JFrame {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy K:m a");
         String dateString = formatter.format(currentTime);
         dateTxt.setText(dateString);
-
-        //display the greeting.
+        //display the greeting
         greetingTxt.setText("Hello " + GoService.currentUserName);
-
     }
     /**
      * init the event table data.
@@ -365,7 +357,6 @@ public class MainFormUI extends javax.swing.JFrame {
         } else if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             NotificationCentreUI ncFrm = new NotificationCentreUI(this, true);
             ncFrm.setVisible(true);
-
         }
     }//GEN-LAST:event_notificationNewGroupBtnActionPerformed
     /**
@@ -382,7 +373,6 @@ public class MainFormUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void myProfileLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myProfileLblMouseClicked
-
         UserInformationUI suFrm = new UserInformationUI(null, true, UserInformationUI.USE_TYPE_MODIFY);
         suFrm.setVisible(true);
     }//GEN-LAST:event_myProfileLblMouseClicked
@@ -391,7 +381,6 @@ public class MainFormUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void filterComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterComboBoxItemStateChanged
-
         ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (filterComboBox.getSelectedIndex() == 0) {//display all type events.
@@ -454,7 +443,6 @@ public class MainFormUI extends javax.swing.JFrame {
 
         String searchItem = searchTxt.getText();
         ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
-
         for (int i = 0; i < recommandEventList.size(); i++) {
             EventVO event = new EventVO();
             event = (EventVO) recommandEventList.get(i);

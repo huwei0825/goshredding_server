@@ -1,18 +1,14 @@
 package com.tony.goshredding.ui;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  * this class is splash screen.
  * @author Songyun hu
  */
 public class SplashScreenUI extends javax.swing.JFrame {
-
     public SplashScreenUI() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,12 +47,10 @@ public class SplashScreenUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
         try {
             //the splash screen will display 1500 milliseconds.
             Thread.sleep(1500);
             LoginUI login = new LoginUI();
-
             login.setVisible(true);
             this.dispose();
         } catch (InterruptedException ex) {
@@ -91,7 +85,6 @@ public class SplashScreenUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -99,7 +92,6 @@ public class SplashScreenUI extends javax.swing.JFrame {
             }
         });
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
