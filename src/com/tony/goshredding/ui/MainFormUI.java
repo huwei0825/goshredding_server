@@ -10,6 +10,7 @@ import com.tony.goshredding.vo.EventVO;
 import com.tony.goshredding.ui.MyEventsUI;
 import com.tony.goshredding.ui.NotificationCentreUI;
 import com.tony.goshredding.ui.OpenEventsUI;
+import com.tony.goshredding.util.Definition;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
@@ -38,7 +39,7 @@ public class MainFormUI extends javax.swing.JFrame {
 
     public MainFormUI() {
         initComponents();
-        if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+        if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             notificationNewGroupBtn.setText("New Event");
             titleLbl.setText("Events By Other Organizers");
         } else {
@@ -53,13 +54,13 @@ public class MainFormUI extends javax.swing.JFrame {
         renderer.setPreferredSize(new Dimension(0, 0));
         eventTable.getTableHeader().setDefaultRenderer(renderer);
 
-        if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+        if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             try {
                 eventListOriginal = GoService.getInstance().getUnjoinedEventsByParticipantId(GoService.currentUserId);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+        } else if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             try {
                 eventListOriginal = GoService.getInstance().getOtherEventByOrganizerId(GoService.currentUserId);
                 //get event member count to eventListOriginal.
@@ -368,11 +369,11 @@ public class MainFormUI extends javax.swing.JFrame {
     }//GEN-LAST:event_advertiseBtnActionPerformed
 
     private void notificationNewGroupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificationNewGroupBtnActionPerformed
-        if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+        if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             EventInformationUI eiFrm = new EventInformationUI(null, true);
             eiFrm.currentUseType = EventInformationUI.USER_TYPE_NEW;
             eiFrm.setVisible(true);
-        } else if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+        } else if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             NotificationCentreUI ncFrm = new NotificationCentreUI(this, true);
             ncFrm.setVisible(true);
 

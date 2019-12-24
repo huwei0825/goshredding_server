@@ -6,6 +6,7 @@
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.vo.AdvertisementVO;
 import com.tony.goshredding.vo.CommentVO;
@@ -93,7 +94,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
         timeTxt.setEditable(false);
         timeSlotTxt.setEditable(false);
         numberOfMembersTxt.setEditable(false);
-        if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+        if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             if (currentDataViewType == DATA_VIEW_TYPE_OWN) {
                 joinEditBtn.setText("Edit");
                 reviewDeleteBtn.setText("delete");
@@ -104,7 +105,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
             }
 
         }
-        if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+        if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             manageMembersBtn.setVisible(false);
             ArrayList<EventVO> eventList = new ArrayList<EventVO>();
             try {
@@ -513,7 +514,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
     }//GEN-LAST:event_manageMembersBtnActionPerformed
 
     private void reviewDeleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reviewDeleteBtnActionPerformed
-        if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+        if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             WriteReviewUI wrFrm = new WriteReviewUI(null, true);
             wrFrm.eventId = event.eventId;
             wrFrm.setVisible(true);
@@ -529,7 +530,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
             CommentTableModel commentTableModel = new CommentTableModel(commentList);
             commentTable.setModel(commentTableModel);
             //refresh the comment table end.
-        } else if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+        } else if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             int row = commentTable.getSelectedRow();
             if (row < 0) {
                 JOptionPane.showMessageDialog(null, "Please select a comment first");
@@ -560,7 +561,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void joinEditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinEditBtnActionPerformed
-        if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+        if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             EventInformationUI ei = new EventInformationUI(null, true);
             ei.currentUseType = EventInformationUI.USER_TYPE_EDIT;
             ei.setEvent(event);
@@ -568,7 +569,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
 
             displayEventData(event.eventId);//refresh data.
         }
-        if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+        if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             try {
                 GoService.getInstance().joinEvent(GoService.currentUserId, event.eventId);
                 JOptionPane.showMessageDialog(null, "Joined!");

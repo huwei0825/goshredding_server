@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.service;
 
 import com.tony.goshredding.util.GoHelper;
@@ -22,27 +17,24 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
+ * This is a rmi client and store the current login user information.
  *
- * @author SXR
+ * @author Songyun hu.
  */
 public class GoService {
 
-    public static int USER_TYPE_ORGANIZER = 1;
-    public static int USER_TYPE_PARTICIPANT = 2;
-    public static String currentUserName = "";
-    public static String currentUserId = "";
-    public static int currentUserType = 0;
-    private static IGoService _GoService = null;
-    public static String READ_TYPE_READ = "2";
-    public static String READ_TYPE_UNREAD = "1";
+    public static String currentUserName = "";//store the current login user name.
+    public static String currentUserId = "";//store the current login user id.
+    public static int currentUserType = 0;//store the current login user type.
+    private static IGoService _GoService = null;//store the rmi server.
 
     public static IGoService getInstance() {
         try {
             // 填写服务器ip
             if (_GoService == null) {
-                ConfigVO configVO =GoHelper.readConfig();
-                _GoService = (IGoService) Naming.lookup("rmi://"+configVO.ipAddress+":"+configVO.ipPort+"/GoService");
-                System.out.println(">>>>>INFO:GoClient connect "+configVO.ipAddress+":"+configVO.ipPort+" service successful！");
+                ConfigVO configVO = GoHelper.readConfig();
+                _GoService = (IGoService) Naming.lookup("rmi://" + configVO.ipAddress + ":" + configVO.ipPort + "/GoService");
+                System.out.println(">>>>>INFO:GoClient connect " + configVO.ipAddress + ":" + configVO.ipPort + " service successful！");
             }
 
         } catch (NotBoundException e) {
@@ -52,13 +44,11 @@ public class GoService {
             e.printStackTrace();
         } catch (RemoteException e) {
             e.printStackTrace();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return _GoService;
     }
-
-
 
     public static ArrayList bubbleSortEventByPopularity(ArrayList<EventVO> eventList) {
 

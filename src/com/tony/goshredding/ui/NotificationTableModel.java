@@ -6,6 +6,7 @@
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.vo.NotificationVO;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -53,7 +54,7 @@ public class NotificationTableModel extends AbstractTableModel {
         } else if (columnIndex == 1) {
             return notificationVO.CreateTime;
         } else if (columnIndex == 2) {
-            if (notificationVO.isReaded.equalsIgnoreCase(GoService.READ_TYPE_UNREAD)) {
+            if (notificationVO.isReaded.equalsIgnoreCase(Definition.READ_TYPE_UNREAD)) {
                 return "";
             } else {
                 return "YES";

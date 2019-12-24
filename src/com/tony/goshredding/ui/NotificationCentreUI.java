@@ -6,6 +6,7 @@
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.vo.EventVO;
 import com.tony.goshredding.vo.NotificationVO;
 import java.util.ArrayList;
@@ -177,7 +178,7 @@ public class NotificationCentreUI extends javax.swing.JDialog {
         } else {
             NotificationVO notificationVO = (NotificationVO) notificationList.get(row);
             try {
-                GoService.getInstance().setNotificationReaded(notificationVO.NotificationID, GoService.READ_TYPE_READ);
+                GoService.getInstance().setNotificationReaded(notificationVO.NotificationID, Definition.READ_TYPE_READ);
 
                 //refresh the notification table start.
                 notificationList = GoService.getInstance().getNotificationsByParticipantId(GoService.currentUserId);

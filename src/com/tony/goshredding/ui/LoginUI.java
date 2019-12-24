@@ -1,6 +1,7 @@
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.vo.OrganizerVO;
 import com.tony.goshredding.vo.ParticipantVO;
 import java.util.ArrayList;
@@ -172,7 +173,7 @@ public class LoginUI extends javax.swing.JFrame {
                             GoService.currentUserId = userId;
                             GoService.currentUserName = organizerObj.username;
                             JOptionPane.showMessageDialog(null, "login sucessful");
-                            GoService.currentUserType = GoService.USER_TYPE_ORGANIZER;
+                            GoService.currentUserType = Definition.USER_TYPE_ORGANIZER;
                             MainFormUI mainFrm = new MainFormUI();
                             mainFrm.setVisible(true);
                             this.dispose();
@@ -190,7 +191,7 @@ public class LoginUI extends javax.swing.JFrame {
                         GoService.currentUserId = userId;
                         GoService.currentUserName = participantObj.username;
                         JOptionPane.showMessageDialog(null, "login sucessful");
-                        GoService.currentUserType = GoService.USER_TYPE_PARTICIPANT;
+                        GoService.currentUserType = Definition.USER_TYPE_PARTICIPANT;
                         MainFormUI mainFrm = new MainFormUI();
                         mainFrm.setVisible(true);
                         this.dispose();

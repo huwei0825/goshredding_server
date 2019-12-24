@@ -8,6 +8,7 @@ package com.tony.goshredding.ui;
 import com.tony.goshredding.ui.OpenEventsUI;
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.vo.EventVO;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
@@ -36,7 +37,7 @@ public class MyEventsUI extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 //        editBtn.setVisible(false);
-        if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+        if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
             
             deleteAndLeaveBtn.setText("Leave");
         }
@@ -57,10 +58,10 @@ public class MyEventsUI extends javax.swing.JDialog {
         //display events on "my events" table
         try {
 
-            if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+            if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
                 eventListOriginal = GoService.getInstance().getEventByOrganizerId(GoService.currentUserId);
             }
-            if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+            if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
                 eventListOriginal = GoService.getInstance().getEventsByParticipantId(GoService.currentUserId);
             }
         } catch (Exception e) {
@@ -284,7 +285,7 @@ public class MyEventsUI extends javax.swing.JDialog {
     private void deleteAndLeaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAndLeaveBtnActionPerformed
         // TODO add your handling code here:
         try {
-            if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {//delete the event.
+            if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {//delete the event.
                 int row = myEventsTable.getSelectedRow();
                 if (row < 0) {
                     JOptionPane.showMessageDialog(null, "Please select an event first");
@@ -322,10 +323,10 @@ public class MyEventsUI extends javax.swing.JDialog {
             ///refresh the event list start.
             try {
 
-                if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+                if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
                     eventListOriginal = GoService.getInstance().getEventByOrganizerId(GoService.currentUserId);
                 }
-                if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+                if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
                     eventListOriginal = GoService.getInstance().getEventsByParticipantId(GoService.currentUserId);
                 }
             } catch (Exception e) {

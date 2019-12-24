@@ -38,7 +38,7 @@ public class UserInformationUI extends javax.swing.JDialog {
         CalendarControl calendarControl = CalendarControl.getInstance();
         calendarControl.register(dobTxt);
         if (currentUseType == USE_TYPE_MODIFY) {
-            if (GoService.currentUserType == GoService.USER_TYPE_ORGANIZER) {
+            if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
                 try {
                     OrganizerVO organizerVO = GoService.getInstance().getOrganizerByOrganizerID(GoService.currentUserId);
                     forenameTxt.setText(organizerVO.forename);
@@ -62,7 +62,7 @@ public class UserInformationUI extends javax.swing.JDialog {
 
                 }
 
-            } else if (GoService.currentUserType == GoService.USER_TYPE_PARTICIPANT) {
+            } else if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
                 try {
                     ParticipantVO participantVO = GoService.getInstance().getParticipantByParticipantID(GoService.currentUserId);
                     forenameTxt.setText(participantVO.forename);

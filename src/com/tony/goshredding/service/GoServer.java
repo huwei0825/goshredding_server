@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.service;
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.vo.ConfigVO;
@@ -12,12 +7,13 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 /**
- *
- * @author SXR
+ * This is a rmi server.
+ * @author Songyun hu
  */
 public class GoServer {
     public static void main(String args[]) {
         try {
+            //read the rmi ip and port from the config.ini file.
             ConfigVO configVO =GoHelper.readConfig();
             
             IGoService rGoService = new GoServiceImpl();
