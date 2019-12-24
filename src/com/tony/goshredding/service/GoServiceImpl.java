@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.service;
 
 import com.tony.goshredding.vo.AdvertisementVO;
@@ -34,22 +29,28 @@ import java.sql.Statement;
 import java.util.List;
 
 /**
+ * This is rmi interface implementation class.
  *
- * @author SXR
+ * @author Songyun hu.
  */
 public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
 
-    protected Connection connection;
-    protected Statement statement;
-    protected ResultSet resultSet;
-    protected String dbFilePath = "GoshreddingDB.db";
+    protected Connection connection;//store the database connection.
+    protected Statement statement;//store the database statement.
+    protected ResultSet resultSet;//store the database resultset.
+    protected String dbFilePath = "GoshreddingDB.db";//store the database file name.
 
     public GoServiceImpl() throws RemoteException {
-
         super();
     }
 
     @Override
+    /**
+     * get the event id and the event member count.
+     *
+     * @return the event id and the event member count map.
+     * @throws RemoteException
+     */
     public HashMap getEventIdAndMemberCount() throws RemoteException {
         HashMap eventMemberMap = new HashMap();
         try {
@@ -69,6 +70,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get all event objects from database.
+     *
+     * @return all event objects list.
+     * @throws RemoteException
+     */
     public ArrayList<EventVO> getEventAll() throws RemoteException {
         ArrayList<EventVO> rsList = new ArrayList<EventVO>();
         try {
@@ -97,7 +104,14 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
-    public ArrayList<EventVO> getEventByAdvertisementId(String advertisementId) throws RemoteException {
+    /**
+     * get event objects by advertisement id from database.
+     *
+     * @param advertisementId the advertisement id.
+     * @return the event objects.
+     * @throws RemoteException
+     */
+    public ArrayList<EventVO> getEventsByAdvertisementId(String advertisementId) throws RemoteException {
         ArrayList<EventVO> rsList = new ArrayList<EventVO>();
         try {
             resultSet = this.getStatement().executeQuery("select * from event_table where AdvertisementID = '" + advertisementId + "'");
@@ -125,7 +139,14 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
-    public ArrayList<EventVO> getEventByOrganizerId(String userId) throws RemoteException {
+    /**
+     * get event objects by organizer id.
+     *
+     * @param userId the organizer user id.
+     * @return the event objects.
+     * @throws RemoteException
+     */
+    public ArrayList<EventVO> getEventsByOrganizerId(String userId) throws RemoteException {
         ArrayList<EventVO> rsList = new ArrayList<EventVO>();
         try {
             resultSet = this.getStatement().executeQuery("select * from event_table where OrganizerID = '" + Integer.parseInt(userId) + "'");
@@ -153,6 +174,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get event objects by event id.
+     *
+     * @param eventId the event id.
+     * @return the event objects.
+     * @throws RemoteException
+     */
     public EventVO getEventByEventId(String eventId) throws RemoteException {
         EventVO event = new EventVO();
         try {
@@ -180,6 +208,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get comments by event id from database.
+     *
+     * @param eventId the event id.
+     * @return the comment objects list
+     * @throws RemoteException
+     */
     public ArrayList<CommentVO> getCommentsByEventId(String eventId) throws RemoteException {
         ArrayList<CommentVO> rsList = new ArrayList<CommentVO>();
         try {
@@ -203,6 +238,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get notification objects by participant user id.
+     *
+     * @param userId participant user id
+     * @return notification objects
+     * @throws RemoteException
+     */
     public ArrayList<NotificationVO> getNotificationsByParticipantId(String userId) throws RemoteException {
         ArrayList<NotificationVO> rsList = new ArrayList<NotificationVO>();
         try {
@@ -226,6 +268,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get event objects by participant user id.
+     *
+     * @param userId the participant user id.
+     * @return the event objects.
+     * @throws RemoteException
+     */
     public ArrayList<EventVO> getEventsByParticipantId(String userId) throws RemoteException {
         ArrayList<EventVO> rsList = new ArrayList<EventVO>();
         try {
@@ -254,6 +303,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get the events have not been joined by the participant user id.
+     *
+     * @param userId the participant user id.
+     * @return the event objects have not been joined.
+     * @throws RemoteException
+     */
     public ArrayList<EventVO> getUnjoinedEventsByParticipantId(String userId) throws RemoteException {
         ArrayList<EventVO> rsList = new ArrayList<EventVO>();
         try {
@@ -282,6 +338,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * add new advertisement to database.
+     *
+     * @param advertisementVO the advertisement object.
+     * @throws RemoteException
+     */
     public void addAdvertisement(AdvertisementVO advertisementVO) throws RemoteException {
         try {
             String strNewId = getNextMaxID("advertisement_table", "AdvertisementID");
@@ -301,6 +363,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * update advertisement object to database.
+     *
+     * @param advertisementVO the advertisement object.
+     * @throws RemoteException
+     */
     public void updateAdvertisement(AdvertisementVO advertisementVO) throws RemoteException {
         try {
             StringBuffer updSql = new StringBuffer();
@@ -335,6 +403,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * delete advertisement from database.
+     *
+     * @param advertisementID the advertisement object id.
+     * @throws RemoteException
+     */
     public void deleteAdvertisement(String advertisementID) throws RemoteException {
         try {
             this.executeUpdate("delete from advertisement_table where AdvertisementID='" + advertisementID + "'");
@@ -344,6 +418,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get advertisement object by advertisement id from database.
+     *
+     * @param advertisementId the advertisement id
+     * @return advertisement object
+     * @throws RemoteException
+     */
     public AdvertisementVO getAdvertisementById(String advertisementId) throws RemoteException {
         AdvertisementVO advertisementVO = new AdvertisementVO();
         try {
@@ -366,6 +447,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get advertisements by participant user id from database.
+     *
+     * @param userId participant user id
+     * @return the advertisement object list.
+     * @throws RemoteException
+     */
     public ArrayList<AdvertisementVO> getAdvertisementsByParticipantId(String userId) throws RemoteException {
         ArrayList<AdvertisementVO> rsList = new ArrayList<AdvertisementVO>();
         try {
@@ -391,6 +479,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * add new comment to database.
+     *
+     * @param commentVO the comment object.
+     * @throws RemoteException
+     */
     public void addComment(CommentVO commentVO) throws RemoteException {
         try {
             String strNewId = getNextMaxID("comment_table", "CommentID");
@@ -409,6 +503,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * add new event to database
+     *
+     * @param eventVO the event object.
+     * @throws RemoteException
+     */
     public void addEvent(EventVO eventVO) throws RemoteException {
         try {
             String strNewId = getNextMaxID("event_table", "EventID");
@@ -433,6 +533,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * set the notification object reading status.
+     *
+     * @param notificationId the notification id.
+     * @param isReaded whether is readed.
+     * @throws RemoteException
+     */
     public void setNotificationReaded(String notificationId, String isReaded) throws RemoteException {
         try {
             StringBuffer updSql = new StringBuffer();
@@ -453,6 +560,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get other organizer's event objects.
+     *
+     * @param userId the current participant user id.
+     * @return the other organizer's event objects.
+     * @throws RemoteException
+     */
     public ArrayList<EventVO> getOtherEventByOrganizerId(String userId) throws RemoteException {
         ArrayList<EventVO> rsList = new ArrayList<EventVO>();
         try {
@@ -481,6 +595,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * update event object to database.
+     *
+     * @param eventVO the event object.
+     * @throws RemoteException
+     */
     public void updateEvent(EventVO eventVO) throws RemoteException {
         try {
             StringBuffer updSql = new StringBuffer();
@@ -528,6 +648,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * delete notification from database.
+     *
+     * @param notificationID the notification object id.
+     * @throws RemoteException
+     */
     public void deleteNotification(String notificationID) throws RemoteException {
         try {
             this.executeUpdate("delete from notification_table where NotificationID='" + notificationID + "'");
@@ -537,6 +663,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * delete comment from database.
+     *
+     * @param commentID the comment object id.
+     * @throws RemoteException
+     */
     public void deleteComment(String commentID) throws RemoteException {
         try {
             this.executeUpdate("delete from comment_table where CommentID='" + commentID + "'");
@@ -546,6 +678,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * delete event from database.
+     *
+     * @param eventVO the event object.
+     * @throws RemoteException
+     */
     public void deleteEvent(EventVO eventVO) throws RemoteException {
         try {
             this.executeUpdate("delete from event_table where event_id='" + eventVO.eventId + "'");
@@ -555,6 +693,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get all organizer users.
+     *
+     * @return organizer objects.
+     * @throws RemoteException
+     */
     public ArrayList<OrganizerVO> getOrganizerAll() throws RemoteException {
         ArrayList<OrganizerVO> rsList = new ArrayList<OrganizerVO>();
         try {
@@ -584,6 +728,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get organizer object by organizer user id.
+     *
+     * @param strOrganizerID organizer user id
+     * @return the organizer object.
+     * @throws RemoteException
+     */
     public OrganizerVO getOrganizerByOrganizerID(String strOrganizerID) throws RemoteException {
         OrganizerVO organizer = new OrganizerVO();
         try {
@@ -611,6 +762,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get organizer object by organizer user name.
+     *
+     * @param username organizer user name
+     * @return the organizer object.
+     * @throws RemoteException
+     */
     public ArrayList<OrganizerVO> getOrganizerByUsername(String username) throws RemoteException {
         ArrayList<OrganizerVO> rsList = new ArrayList<OrganizerVO>();
         try {
@@ -639,8 +797,15 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         return rsList;
     }
 
-    @Override
-    public String getNextMaxID(String tableName, String primaryFieldName) throws RemoteException {
+    /**
+     * get the next id for the new record.
+     *
+     * @param tableName the table name.
+     * @param primaryFieldName the table primary key.
+     * @return the next primary id value.
+     * @throws Exception
+     */
+    private String getNextMaxID(String tableName, String primaryFieldName) throws Exception {
         String strMaxId = "0";
 
         try {
@@ -663,6 +828,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * add new organizer to database.
+     *
+     * @param organizerVO the organizer object.
+     * @throws RemoteException
+     */
     public void addOrganizer(OrganizerVO organizerVO) throws RemoteException {
         try {
             String strNewId = getNextMaxID("organizer_table", "OrganizerID");
@@ -686,6 +857,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * add new particpant to database.
+     *
+     * @param participantVO the participant object
+     * @throws RemoteException
+     */
     public void addParticipant(ParticipantVO participantVO) throws RemoteException {
         try {
             String strNewId = getNextMaxID("participant_table", "ParticipantID");
@@ -708,6 +885,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * update organizer object to database.
+     *
+     * @param organizerVO the organizer object.
+     * @throws RemoteException
+     */
     public void updateOrganizer(OrganizerVO organizerVO) throws RemoteException {
         try {
             StringBuffer updSql = new StringBuffer();
@@ -757,6 +940,12 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * delete organizer from database.
+     *
+     * @param organizerVO the notification object.
+     * @throws RemoteException
+     */
     public void deleteOrganizer(OrganizerVO organizerVO) throws RemoteException {
         try {
             this.executeUpdate("delete from organizer_table where OrganizerID='" + organizerVO.organizerId + "'");
@@ -766,6 +955,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get participant objects by event id.
+     *
+     * @param eventId the event id.
+     * @return the participant objects.
+     * @throws RemoteException
+     */
     public ArrayList<ParticipantVO> getParticipantsByEventId(String eventId) throws RemoteException {
         ArrayList<ParticipantVO> rsList = new ArrayList<ParticipantVO>();
         try {
@@ -795,6 +991,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get participant object by participant user name.
+     *
+     * @param username participant user name.
+     * @return the participant object
+     * @throws RemoteException
+     */
     public ArrayList<ParticipantVO> getParticipantByUsername(String username) throws RemoteException {
         ArrayList<ParticipantVO> rsList = new ArrayList<ParticipantVO>();
         try {
@@ -824,6 +1027,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * get participant object by participant user id.
+     *
+     * @param strParticipantID participant user id.
+     * @return the participant object
+     * @throws RemoteException
+     */
     public ParticipantVO getParticipantByParticipantID(String strParticipantID) throws RemoteException {
         ParticipantVO participant = new ParticipantVO();
         try {
@@ -851,6 +1061,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * the participant leave the event.
+     *
+     * @param participantId the participant id.
+     * @param eventId the event id.
+     * @throws RemoteException
+     */
     public void leaveEvent(String participantId, String eventId) throws RemoteException {
         try {
             this.executeUpdate("delete from participant_event_table where ParticipantID='" + participantId + "' and EventID='" + eventId + "'");
@@ -860,6 +1077,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * the participant join the event.
+     *
+     * @param participantId the participant id.
+     * @param eventId the event id.
+     * @throws RemoteException
+     */
     public void joinEvent(String participantId, String eventId) throws RemoteException {
         try {
             Map<String, Object> map = new HashMap<String, Object>();
@@ -872,20 +1096,32 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * update participant object to database.
+     *
+     * @param participantVO the participant object.
+     * @throws RemoteException
+     */
     public void updateParticipant(ParticipantVO participantVO) throws RemoteException {
 
     }
 
     @Override
+    /**
+     * delete participant from database.
+     *
+     * @param participantVO the participant object.
+     * @throws RemoteException
+     */
     public void deleteParticipant(ParticipantVO participantVO) throws RemoteException {
 
     }
 
     /**
-     * 获取数据库连接
+     * get database connection
      *
-     * @param dbFilePath db文件路径
-     * @return 数据库连接
+     * @param dbFilePath database file name.
+     * @return the database connection
      * @throws ClassNotFoundException
      * @throws SQLException
      */
@@ -897,10 +1133,10 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     /**
-     * 执行数据库更新sql语句
+     * execute update sql.
      *
-     * @param sql
-     * @return 更新行数
+     * @param sql the update sql.
+     * @return the row number updated.
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -915,9 +1151,9 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     /**
-     * 执行多个sql更新语句
+     * execute multiple update sqls.
      *
-     * @param sqls
+     * @param sqls the multiple update sqls.
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -932,9 +1168,9 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     /**
-     * 执行数据库更新 sql List
+     * execute multiple update sqls.
      *
-     * @param sqls sql列表
+     * @param sqls the multiple update sqls.
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -948,6 +1184,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
     }
 
+    /**
+     * get database connection.
+     *
+     * @return the database connection.
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     protected Connection getConnection() throws ClassNotFoundException, SQLException {
         if (null == connection) {
             connection = getConnection(dbFilePath);
@@ -955,6 +1198,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         return connection;
     }
 
+    /**
+     * get database statement.
+     *
+     * @return the database statement.
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     protected Statement getStatement() throws SQLException, ClassNotFoundException {
         if (null == statement) {
             statement = getConnection().createStatement();
@@ -963,7 +1213,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     /**
-     * 数据库资源关闭和释放
+     * close the resources.
      */
     private void destroyed() {
         try {
@@ -982,66 +1232,16 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 resultSet = null;
             }
         } catch (SQLException e) {
-//            logger.error("Sqlite数据库关闭时异常", e);
+
         }
     }
 
     /**
-     * 执行select查询，返回结果列表
+     * execute the insert sql.
      *
-     * @param sql sql select 语句
-     * @param clazz 实体泛型
-     * @return 实体集合
-     * @throws SQLException 异常信息
-     * @throws ClassNotFoundException 异常信息
-     */
-    private <T> List<T> executeQueryList(String sql, Class<T> clazz) throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        List<T> rsList = new ArrayList<T>();
-        try {
-            resultSet = getStatement().executeQuery(sql);
-            while (resultSet.next()) {
-                T t = clazz.newInstance();
-                for (Field field : t.getClass().getDeclaredFields()) {
-                    field.setAccessible(true);
-                    field.set(t, resultSet.getObject(field.getName()));
-                }
-                rsList.add(t);
-            }
-        } finally {
-            destroyed();
-        }
-        return rsList;
-    }
-
-    /**
-     * 执行sql查询,适用单条结果集
-     *
-     * @param sql sql select 语句
-     * @param clazz 结果集处理类对象
-     * @return 查询结果
-     * @throws SQLException
-     * @throws ClassNotFoundException
-     */
-    private <T> T executeQuery(String sql, Class<T> clazz) throws SQLException, ClassNotFoundException, IllegalAccessException, InstantiationException {
-        try {
-            resultSet = getStatement().executeQuery(sql);
-            T t = clazz.newInstance();
-            for (Field field : t.getClass().getDeclaredFields()) {
-                field.setAccessible(true);
-                field.set(t, resultSet.getObject(field.getName()));
-            }
-            return t;
-        } finally {
-            destroyed();
-        }
-    }
-
-    /**
-     * 执行数据库更新sql语句
-     *
-     * @param tableName 表名
-     * @param param key-value键值对,key:表中字段名,value:值
-     * @return 更新行数
+     * @param tableName the table name.
+     * @param param key and value map.
+     * @return the rows inserted.
      * @throws SQLException
      * @throws ClassNotFoundException
      */
@@ -1073,6 +1273,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * upload the file to server.
+     *
+     * @param fileName the file name
+     * @param fileContent the file byte content
+     * @throws RemoteException
+     */
     public void upLoadFile(String fileName, byte[] content) throws RemoteException {
         BufferedOutputStream output = null;
         try {
@@ -1080,7 +1287,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             if (fileName == null || content == null) {
                 throw new RemoteException("the file or the content  is null ");
             }
-            //create file
+            //check the file is existed.
             File directory = new File("");
             String filePath = directory.getCanonicalPath() + "/images_server/" + fileName;
             File file = new File(filePath);
@@ -1106,6 +1313,13 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     }
 
     @Override
+    /**
+     * download file from server
+     *
+     * @param fileName the file name
+     * @return the file byte[] content
+     * @throws RemoteException
+     */
     public byte[] downLoadFile(String fileName) throws RemoteException {
         byte[] content = null;
         BufferedInputStream input = null;

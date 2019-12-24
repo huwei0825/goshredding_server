@@ -22,6 +22,7 @@ public class GoServer {
             System.setProperty("java.rmi.server.hostname",configVO.ipAddress);
             Naming.bind("rmi://"+configVO.ipAddress+":"+configVO.ipPort+"/GoService", rGoService);
             System.out.println(">>>>>INFO:GoServer bind "+configVO.ipAddress+":"+configVO.ipPort+" successful！");
+            
         } catch (RemoteException e) {
             System.out.println("Create remote object failed！");
             e.printStackTrace();

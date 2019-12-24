@@ -30,17 +30,16 @@ public class GoService {
 
     public static IGoService getInstance() {
         try {
-            // 填写服务器ip
             if (_GoService == null) {
+                //read the rmi ip and port from the config.ini file.
                 ConfigVO configVO = GoHelper.readConfig();
                 _GoService = (IGoService) Naming.lookup("rmi://" + configVO.ipAddress + ":" + configVO.ipPort + "/GoService");
+                
                 System.out.println(">>>>>INFO:GoClient connect " + configVO.ipAddress + ":" + configVO.ipPort + " service successful！");
             }
-
         } catch (NotBoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
-
             e.printStackTrace();
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -49,9 +48,12 @@ public class GoService {
         }
         return _GoService;
     }
-
+    /**
+     * sort the event use bubble sort method by event memeber count.
+     * @param eventList the eventlist needed to be sorted.
+     * @return 
+     */
     public static ArrayList bubbleSortEventByPopularity(ArrayList<EventVO> eventList) {
-
         boolean found = false;
         boolean swap;
         EventVO temp;
@@ -64,6 +66,7 @@ public class GoService {
                 event1 = (EventVO) eventList.get(i);
                 event2 = (EventVO) eventList.get(i + 1);
                 try {
+                    //compare the event member count.
                     if (Integer.parseInt(event1.memberCount) > Integer.parseInt(event2.memberCount)) {
                         temp = eventList.get(i);
                         eventList.set(i, eventList.get(i + 1));
@@ -79,9 +82,12 @@ public class GoService {
         } while (swap == true);
         return eventList;
     }
-
+   /**
+     * sort the event use bubble sort method by event time .
+     * @param eventList the eventlist needed to be sorted.
+     * @return 
+     */
     public static ArrayList bubbleSortEventByTime(ArrayList<EventVO> eventList) {
-
         DateFormat df = new SimpleDateFormat("dd/MM/yyyyHH:mm");
         boolean found = false;
         boolean swap;
@@ -97,6 +103,7 @@ public class GoService {
                 try {
                     Date dt1 = df.parse(event1.eventDate + event1.eventTime);
                     Date dt2 = df.parse(event2.eventDate + event2.eventTime);
+                    //compare the event member count.
                     if (dt1.getTime() > dt2.getTime()) {
                         temp = eventList.get(i);
                         eventList.set(i, eventList.get(i + 1));

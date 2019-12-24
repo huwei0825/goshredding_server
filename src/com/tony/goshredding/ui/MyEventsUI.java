@@ -59,7 +59,7 @@ public class MyEventsUI extends javax.swing.JDialog {
         try {
 
             if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
-                eventListOriginal = GoService.getInstance().getEventByOrganizerId(GoService.currentUserId);
+                eventListOriginal = GoService.getInstance().getEventsByOrganizerId(GoService.currentUserId);
             }
             if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
                 eventListOriginal = GoService.getInstance().getEventsByParticipantId(GoService.currentUserId);
@@ -324,7 +324,7 @@ public class MyEventsUI extends javax.swing.JDialog {
             try {
 
                 if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
-                    eventListOriginal = GoService.getInstance().getEventByOrganizerId(GoService.currentUserId);
+                    eventListOriginal = GoService.getInstance().getEventsByOrganizerId(GoService.currentUserId);
                 }
                 if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
                     eventListOriginal = GoService.getInstance().getEventsByParticipantId(GoService.currentUserId);
