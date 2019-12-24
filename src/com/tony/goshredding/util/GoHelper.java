@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.util;
 
 import com.tony.goshredding.service.GoService;
@@ -24,34 +19,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
+ * This is a helper class.
  *
- * @author SXR
+ * @author Songyun hu.
  */
 public class GoHelper {
 
     public static Color BK_COLOR_BLUE = new Color(239, 246, 254);
     public static Color BK_COLOR_YELLOW = Color.YELLOW;
     public static Color currentBkColor = BK_COLOR_YELLOW;
-
-    public static void setBkColor(Container c) {
-        setBkColor(c, currentBkColor);
-    }
-
-    private static void setBkColor(Container c, Color clr) {
-        Component[] cArr = c.getComponents();
-
-        for (int i = 0; i < cArr.length; i++) {
-            if (cArr[i] instanceof Container) {
-                setBkColor((Container) cArr[i], clr);// 循环设置
-            } //cArr[i].setBackground(clr);
-        }
-        if (c instanceof JPanel) {
-            c.setBackground(clr);
-        } else if (c instanceof JLabel) {
-            c.setBackground(clr);
-        }
-    }
-
+    /**
+     * change the string time to milleseconds.
+     * @param dateStr the string time.
+     * @param formatStr the date format.
+     * @return the milliseconds.
+     */
     public static Long string2Millis(String dateStr, String formatStr) {
         try {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(formatStr);
@@ -60,7 +42,12 @@ public class GoHelper {
             return 0L;
         }
     }
-
+    /**
+     * get two time distance.
+     * @param time1 the first time.
+     * @param time2 the second time.
+     * @return the distance string.
+     */
     public static String getDistanceTime(long time1, long time2) {
 
         long day = 0;
@@ -75,10 +62,13 @@ public class GoHelper {
         hour = (diff / (60 * 60 * 1000) - day * 24);
         min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
         sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-
         return day + ":" + hour + ":" + min + ":" + sec;
     }
-
+    /**
+     * get event type image name.
+     * @param strEventType the event type.
+     * @return  the image name.
+     */
     public static String getEventTypeImageName(String strEventType) {
         if (strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_BIKE)) {
             return Definition.EVENT_TYPE_IMAGE_BIKE;
@@ -93,7 +83,12 @@ public class GoHelper {
             return "";
         }
     }
-
+    /**
+     * upload image.
+     * @param source thr source file.
+     * @param dest the destination file.
+     * @throws Exception 
+     */
     public static void uploadImage(File source, File dest)
             throws Exception {
         InputStream input = null;
@@ -116,7 +111,11 @@ public class GoHelper {
         input2.read(content);
         GoService.getInstance().upLoadFile(dest.getName(), content);
     }
-
+    /**
+     * download image.
+     * @param fileName the image file name.
+     * @throws Exception 
+     */
     public static void downloadImage(String fileName) throws Exception {
         File directory = new File("");
         String filePath = directory.getCanonicalPath() + "/images/" + fileName;
@@ -125,7 +124,11 @@ public class GoHelper {
             GoService.getInstance().downLoadFile(fileName);
         }
     }
-
+    /**
+     * read the application config information.
+     * @return the config object.
+     * @throws IOException 
+     */
     public static ConfigVO readConfig() throws IOException {
         FileReader fr = null;
         BufferedReader br = null;
@@ -139,16 +142,15 @@ public class GoHelper {
             String[] arrs = null;
             while ((line = br.readLine()) != null) {
                 arrs = line.split(":");
-                if(arrs[0].equalsIgnoreCase("server_ip")){
-                    configVO.ipAddress=arrs[1];
-                }else if(arrs[0].equalsIgnoreCase("server_port")){
-                    configVO.ipPort=arrs[1];
+                if (arrs[0].equalsIgnoreCase("server_ip")) {
+                    configVO.ipAddress = arrs[1];
+                } else if (arrs[0].equalsIgnoreCase("server_port")) {
+                    configVO.ipPort = arrs[1];
                 }
             }
         } finally {
             br.close();
             fr.close();
-
         }
         return configVO;
     }
