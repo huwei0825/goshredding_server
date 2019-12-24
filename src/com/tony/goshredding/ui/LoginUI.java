@@ -50,7 +50,6 @@ public class LoginUI extends javax.swing.JFrame {
         jLabel1.setText("Login");
 
         usernameTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        usernameTxt.setText("t");
 
         loginBtn.setBackground(new java.awt.Color(72, 124, 175));
         loginBtn.setText("Log in");
@@ -78,7 +77,6 @@ public class LoginUI extends javax.swing.JFrame {
         jLabel4.setText("Username:");
 
         passwordTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        passwordTxt.setText("12345678");
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
