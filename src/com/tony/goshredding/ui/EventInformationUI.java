@@ -8,7 +8,6 @@ package com.tony.goshredding.ui;
 import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.ui.MainFormUI;
 import com.tony.goshredding.ui.MyEventsUI;
-import com.tony.goshredding.ui.PictureViewPanel;
 import com.tony.goshredding.ui.OpenEventsUI;
 import com.tony.goshredding.ui.advertisementManagementUI;
 import com.tony.goshredding.util.GoHelper;
@@ -65,6 +64,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         if (currentEventVO.eventPicName != null && currentEventVO.eventPicName.length() > 0) {
 
             try {
+                GoHelper.downloadImage(currentEventVO.eventPicName);
                 File directory = new File("");
                 String filePath = directory.getCanonicalPath() + "/images/" + currentEventVO.eventPicName;
                 File targetFile = new File(filePath);
@@ -92,6 +92,7 @@ public class EventInformationUI extends javax.swing.JDialog {
                 if (advertisementVO.ImageName != null && advertisementVO.ImageName.length() > 0) {
 
                     try {
+                        GoHelper.downloadImage(advertisementVO.ImageName);
                         File directory = new File("");
                         String filePath = directory.getCanonicalPath() + "/images/" + advertisementVO.ImageName;
                         File targetFile = new File(filePath);
@@ -498,7 +499,7 @@ public class EventInformationUI extends javax.swing.JDialog {
                 System.out.println("targetPathName===" + targetPathName);
                 File targetFile = new File(targetPathName);
 
-                GoHelper.copyFile(file, targetFile);
+                GoHelper.uploadImage(file, targetFile);
 
                 Image image = new ImageIcon(file.getAbsolutePath()).getImage();
                 image = image.getScaledInstance(300, 250, Image.SCALE_SMOOTH);

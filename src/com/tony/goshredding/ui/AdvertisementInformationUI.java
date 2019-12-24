@@ -42,6 +42,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                 if (currentAdvertisementVO.ImageName != null && currentAdvertisementVO.ImageName.length() > 0) {
 
                     try {
+                        GoHelper.downloadImage(currentAdvertisementVO.ImageName);
                         File directory = new File("");
                         String filePath = directory.getCanonicalPath() + "/images/" + currentAdvertisementVO.ImageName;
                         File targetFile = new File(filePath);
@@ -317,7 +318,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                 File targetFile = new File(targetPathName);
 
                 //copy the picture to local folder.
-                GoHelper.copyFile(file, targetFile);
+                GoHelper.uploadImage(file, targetFile);
 
                 //display the picture.
                 Image image = new ImageIcon(file.getAbsolutePath()).getImage();

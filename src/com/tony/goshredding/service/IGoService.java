@@ -15,11 +15,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+
 /**
  *
  * @author SXR
  */
-public interface IGoService extends Remote{
+public interface IGoService extends Remote {
+
+    void upLoadFile(String fileName, byte[] fileContent) throws RemoteException;
+
+    byte[] downLoadFile(String fileName) throws RemoteException;
 
     void addAdvertisement(AdvertisementVO advertisementVO) throws RemoteException;
 
@@ -65,7 +70,6 @@ public interface IGoService extends Remote{
 
     ArrayList<NotificationVO> getNotificationsByParticipantId(String userId) throws RemoteException;
 
- 
     ArrayList<OrganizerVO> getOrganizerAll() throws RemoteException;
 
     OrganizerVO getOrganizerByOrganizerID(String strOrganizerID) throws RemoteException;
@@ -95,5 +99,5 @@ public interface IGoService extends Remote{
     void updateOrganizer(OrganizerVO organizerVO) throws RemoteException;
 
     void updateParticipant(ParticipantVO participantVO) throws RemoteException;
-    
+
 }

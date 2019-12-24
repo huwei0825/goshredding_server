@@ -5,6 +5,7 @@
  */
 package com.tony.goshredding.ui;
 
+import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.vo.EventVO;
 import java.awt.Color;
 import java.awt.Component;
@@ -56,6 +57,7 @@ public class EventCellPanel extends javax.swing.JPanel {
         }
         if (eventObj.eventPicName != null && eventObj.eventPicName.length() > 0) {
             try {
+                GoHelper.downloadImage(eventObj.eventPicName);
                 File directory = new File("");
                 String filePath = directory.getCanonicalPath() + "/images/" + eventObj.eventPicName;
                 File targetFile = new File(filePath);

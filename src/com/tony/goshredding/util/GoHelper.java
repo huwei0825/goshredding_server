@@ -5,9 +5,11 @@
  */
 package com.tony.goshredding.util;
 
+import com.tony.goshredding.service.GoService;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -40,10 +42,11 @@ public class GoHelper {
                 setBkColor((Container) cArr[i], clr);// 循环设置
             } //cArr[i].setBackground(clr);
         }
-        if(c instanceof JPanel)
+        if (c instanceof JPanel) {
             c.setBackground(clr);
-        else if(c instanceof JLabel)
+        } else if (c instanceof JLabel) {
             c.setBackground(clr);
+        }
     }
 
     public static Long string2Millis(String dateStr, String formatStr) {
@@ -72,21 +75,24 @@ public class GoHelper {
 
         return day + ":" + hour + ":" + min + ":" + sec;
     }
-    public static String getEventTypeImageName(String strEventType){
-        if(strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_BIKE)){
+
+    public static String getEventTypeImageName(String strEventType) {
+        if (strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_BIKE)) {
             return Definition.EVENT_TYPE_IMAGE_BIKE;
-            
-        }else if(strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_SKATE_BOARD)){
+
+        } else if (strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_SKATE_BOARD)) {
             return Definition.EVENT_TYPE_IMAGE_SKATE_BOARD;
-            
-        }else if(strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_SNOW_BOARD)){
+
+        } else if (strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_SNOW_BOARD)) {
             return Definition.EVENT_TYPE_IMAGE_SNOW_BOARD;
-            
-        }else
+
+        } else {
             return "";
+        }
     }
-    public static void copyFile(File source, File dest)
-            throws IOException {
+
+    public static void uploadImage(File source, File dest)
+            throws Exception {
         InputStream input = null;
         OutputStream output = null;
         try {
@@ -101,5 +107,20 @@ public class GoHelper {
             input.close();
             output.close();
         }
+        // get content
+        byte[] content = new byte[(int) dest.length()];
+        BufferedInputStream input2 = new BufferedInputStream(new FileInputStream(dest));
+        input2.read(content);
+        GoService.getInstance().upLoadFile(dest.getName(), content);
     }
+
+    public static void downloadImage(String fileName) throws Exception {
+        File directory = new File("");
+        String filePath = directory.getCanonicalPath() + "/images/" + fileName;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            GoService.getInstance().downLoadFile(fileName);
+        }
+    }
+
 }

@@ -6,6 +6,7 @@
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.vo.AdvertisementVO;
 import com.tony.goshredding.vo.CommentVO;
 import com.tony.goshredding.vo.EventVO;
@@ -60,6 +61,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
                 if (event.eventPicName != null && event.eventPicName.length() > 0) {
 
                     try {
+                        GoHelper.downloadImage(event.eventPicName);
                         File directory = new File("");
                         String filePath = directory.getCanonicalPath() + "/images/" + event.eventPicName;
                         File targetFile = new File(filePath);
@@ -161,6 +163,7 @@ public class OpenEventsUI extends javax.swing.JDialog {
                 if (advertisementVO.ImageName != null && advertisementVO.ImageName.length() > 0) {
 
                     try {
+                        GoHelper.downloadImage(advertisementVO.ImageName);
                         File directory = new File("");
                         String filePath = directory.getCanonicalPath() + "/images/" + advertisementVO.ImageName;
                         File targetFile = new File(filePath);

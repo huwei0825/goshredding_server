@@ -11,6 +11,11 @@ import com.tony.goshredding.vo.EventVO;
 import com.tony.goshredding.vo.NotificationVO;
 import com.tony.goshredding.vo.OrganizerVO;
 import com.tony.goshredding.vo.ParticipantVO;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -37,7 +42,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     protected Connection connection;
     protected Statement statement;
     protected ResultSet resultSet;
-    protected String dbFilePath="GoshreddingDB.db";
+    protected String dbFilePath = "GoshreddingDB.db";
 
     public GoServiceImpl() throws RemoteException {
 
@@ -275,10 +280,6 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return rsList;
     }
-
- 
-
- 
 
     @Override
     public void addAdvertisement(AdvertisementVO advertisementVO) throws RemoteException {
@@ -1069,5 +1070,75 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             destroyed();
         }
 
+    }
+
+    @Override
+    public void upLoadFile(String fileName, byte[] content) throws RemoteException {
+        BufferedOutputStream output = null;
+        try {
+
+            if (fileName == null || content == null) {
+                throw new RemoteException("the file or the content  is null ");
+            }
+            //create file
+            File directory = new File("");
+            String filePath = directory.getCanonicalPath() + "/images_server/" + fileName;
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            //save the content to the file
+            output = new BufferedOutputStream(new FileOutputStream(file));
+            output.write(content);
+        } catch (RemoteException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RemoteException(ex.getLocalizedMessage());
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                    output = null;
+                } catch (Exception ex) {
+                }
+            }
+        }
+    }
+
+    @Override
+    public byte[] downLoadFile(String fileName) throws RemoteException {
+        byte[] content = null;
+        BufferedInputStream input = null;
+        try {
+            // check paramter
+            if (fileName == null) {
+                throw new RemoteException("the paramter is null ");
+            }
+            // get path
+            File directory = new File("");
+            String filePath = directory.getCanonicalPath() + "/images_server/" + fileName;
+            File file = new File(filePath);
+            if (!file.exists()) {
+                throw new RemoteException("the file whose name is " + fileName + " not existed ");
+            }
+            // get content
+            content = new byte[(int) file.length()];
+            input = new BufferedInputStream(new FileInputStream(file));
+            input.read(content);
+
+        } catch (RemoteException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new RemoteException(ex.getLocalizedMessage());
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                    input = null;
+                } catch (Exception ex) {
+                }
+            }
+        }
+        return content;
     }
 }

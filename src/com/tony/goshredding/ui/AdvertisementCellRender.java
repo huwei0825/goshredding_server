@@ -5,6 +5,7 @@
  */
 package com.tony.goshredding.ui;
 
+import com.tony.goshredding.util.GoHelper;
 import java.awt.Component;
 import java.awt.Image;
 import java.awt.Label;
@@ -26,6 +27,7 @@ public class AdvertisementCellRender extends DefaultTableCellRenderer {
             String pictureName = (String) value;
             if (pictureName != null && pictureName.length() > 0) {
                 try {
+                    GoHelper.downloadImage(pictureName);
                     JLabel label = new JLabel();
                     File directory = new File("");
                     String filePath = directory.getCanonicalPath() + "/images/" + pictureName;
