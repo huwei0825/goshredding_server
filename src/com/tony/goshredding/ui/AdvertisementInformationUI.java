@@ -23,9 +23,9 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
     private String strImageName = "";//the current select advertisement picture.
     public static int OPEN_TYPE_NEW = 1;//used to create a new advertisement.
     public static int OPEN_TYPE_EDIT = 2;//used to edit a existing advertisement.
-    private int currentUseType = OPEN_TYPE_NEW;
-    private String currentAdvertisementId = "";
-    private AdvertisementVO currentAdvertisementVO = null;
+    private int currentUseType = OPEN_TYPE_NEW;//store the current open type.
+    private String currentAdvertisementId = "";//store the current advertisement id when used in edit mode.
+    private AdvertisementVO currentAdvertisementVO = null;//store the current advertisement object.
 
     public AdvertisementInformationUI(java.awt.Frame parent, boolean modal, String advertisementId, int openType) {
         super(parent, modal);
@@ -34,11 +34,14 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         initComponents();
         if (advertisementId != null && advertisementId.length() > 0) {
             try {
+                //if in edit mode ,get the advertisement object.
                 currentAdvertisementVO = GoService.getInstance().getAdvertisementById(advertisementId);
                 nameTxt.setText(currentAdvertisementVO.AdvertisementName);
                 supplierTxt.setText(currentAdvertisementVO.Supplier);
                 contentTxt.setText(currentAdvertisementVO.Content);
                 priceTxt.setText(currentAdvertisementVO.PricePerPerson);
+                
+                //display the advertisement image.
                 if (currentAdvertisementVO.ImageName != null && currentAdvertisementVO.ImageName.length() > 0) {
 
                     try {
@@ -281,8 +284,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
     /**
-     * select picture from current os,and copy the picture to current
-     * application local images folder.
+     * select picture from current os,and upload the picture to server.
      *
      * @param evt
      */
@@ -330,63 +332,6 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
 
         }
     }//GEN-LAST:event_uploadBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdvertisementInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdvertisementInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdvertisementInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdvertisementInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                AdvertisementInformationUI dialog = new AdvertisementInformationUI(new javax.swing.JFrame(), true);
-//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-//                    @Override
-//                    public void windowClosing(java.awt.event.WindowEvent e) {
-//                        System.exit(0);
-//                    }
-//                });
-//                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

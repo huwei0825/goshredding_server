@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
@@ -23,21 +19,23 @@ import javax.swing.border.BevelBorder;
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
- * @author huwei
+ * This the event object dialog,which used in create new event 
+ * and modify an event.
+ * @author Songyun hu.
  */
 public class EventInformationUI extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Login
-     */
-    private String strImageName = "";
-    EventVO currentEventVO = null;
-    public static int USER_TYPE_NEW = 1;
-    public static int USER_TYPE_EDIT = 2;
-    public int currentUseType = USER_TYPE_NEW;
-    private String currentSelectedAdvertisementId = "";
+    private String strImageName = "";//the current selected image.
+    EventVO currentEventVO = null;//the current modified event object.
+    public static int USER_TYPE_NEW = 1;//the dialog used in create new event.
+    public static int USER_TYPE_EDIT = 2;//the dialog used in mofify an event.
+    public int currentUseType = USER_TYPE_NEW;//the current dialog used mode.
+    private String currentSelectedAdvertisementId = "";//the current advertisement object id.
 
+    /**
+     * display the event object information.
+     * @param eventvo the event object.
+     */
     public void setEvent(EventVO eventvo) {
         currentEventVO = eventvo;
         String time = null;
@@ -48,6 +46,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         locationTxt.setText(currentEventVO.location);
         typeComboBox.setSelectedItem(currentEventVO.eventType);
         introductionTxt.setText(currentEventVO.introduction);
+        
         //converts between 12 hours system and 24 hours system
         String[] timeArray = currentEventVO.eventTime.split(":");
         int hours = Integer.parseInt(timeArray[0]);
@@ -61,6 +60,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         }
         timeTxt.setText(time);
         timeSlotComboBox.setSelectedItem(timeSlot);
+        //display the event image.
         if (currentEventVO.eventPicName != null && currentEventVO.eventPicName.length() > 0) {
 
             try {
@@ -79,7 +79,10 @@ public class EventInformationUI extends javax.swing.JDialog {
         ///display the event's advertisement information.
         displayAdvertisement(currentEventVO.advertisementId);
     }
-
+    /**
+     * display the advertisement object information.
+     * @param advertisementID the advertisement id.
+     */
     private void displayAdvertisement(String advertisementID) {
         if (advertisementID != null && advertisementID.length() > 0) {
             try {
@@ -89,6 +92,8 @@ public class EventInformationUI extends javax.swing.JDialog {
                 adSupplierTxt.setText(advertisementVO.Supplier);
                 adContentTextArea.setText(advertisementVO.Content);
                 adPriceTxt.setText(advertisementVO.PricePerPerson);
+                
+                //display the advertisement image.
                 if (advertisementVO.ImageName != null && advertisementVO.ImageName.length() > 0) {
 
                     try {
@@ -113,15 +118,6 @@ public class EventInformationUI extends javax.swing.JDialog {
     public EventInformationUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-
-        try {
-//
-//            Image image = new ImageIcon(getClass().getResource("/files/giantBike.png")).getImage();
-//            image = image.getScaledInstance(203, 57, Image.SCALE_SMOOTH);
-//            adImageLbl.setIcon(new ImageIcon(image));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -387,12 +383,18 @@ public class EventInformationUI extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * close the dialog.
+     * @param evt 
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
 
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
+    /**
+     * insert a new event or update an event.
+     * @param evt 
+     */
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
 
         String organizerId = GoService.currentUserId;
@@ -457,7 +459,10 @@ public class EventInformationUI extends javax.swing.JDialog {
         }
         this.dispose();
     }//GEN-LAST:event_saveBtnActionPerformed
-
+    /**
+     * select or change the event's advertisement.
+     * @param evt 
+     */
     private void changeAdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeAdBtnActionPerformed
         advertisementManagementUI amFrm = new advertisementManagementUI(null, true);
         amFrm.setUseType(advertisementManagementUI.USE_TYPE_CHOOSE);
@@ -467,7 +472,10 @@ public class EventInformationUI extends javax.swing.JDialog {
             displayAdvertisement(currentSelectedAdvertisementId);
         }
     }//GEN-LAST:event_changeAdBtnActionPerformed
-
+    /**
+     * select the event's picture.
+     * @param evt 
+     */
     private void uploadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadBtnActionPerformed
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showOpenDialog(uploadBtn);
@@ -511,71 +519,6 @@ public class EventInformationUI extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_uploadBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EventInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EventInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EventInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EventInformationUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new EventInformationUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea adContentTextArea;

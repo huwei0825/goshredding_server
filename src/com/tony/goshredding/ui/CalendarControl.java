@@ -36,7 +36,8 @@ import javax.swing.event.AncestorEvent;
 import javax.swing.event.AncestorListener;
 
 /**
- * @author Ares
+ * This is the calendar ui control.
+ * @author Songyun hu.
  * @Describe(Date Chooser class)
  */
 public class CalendarControl extends JPanel{

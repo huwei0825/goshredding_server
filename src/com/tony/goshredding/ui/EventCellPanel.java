@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.util.GoHelper;
@@ -18,8 +14,8 @@ import javax.swing.border.BevelBorder;
 import javax.swing.table.TableCellRenderer;
 
 /**
- *
- * @author syp386
+ * This is the event table cell panel.
+ * @author Songyun hu.
  */
 public class EventCellPanel extends javax.swing.JPanel {
 
@@ -67,12 +63,10 @@ public class EventCellPanel extends javax.swing.JPanel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         if (eventObj.eventTypePicName != null && eventObj.eventTypePicName.length() > 0) {
 
             try {
-
                 Image image2 = new ImageIcon(getClass().getResource("/com/tony/goshredding/files/" + eventObj.eventTypePicName)).getImage();
                 image2 = image2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
                 eventTypeLbl.setIcon(new ImageIcon(image2));
@@ -82,7 +76,6 @@ public class EventCellPanel extends javax.swing.JPanel {
         }
         
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,7 +132,6 @@ public class EventCellPanel extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel eventDateLbl;

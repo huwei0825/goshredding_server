@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.vo.CommentVO;
@@ -11,8 +6,8 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
 /**
- *
- * @author SXR
+ * This is comment table model.
+ * @author Songyun hu.
  */
 public class CommentTableModel extends AbstractTableModel{
 private ArrayList commentList = null;

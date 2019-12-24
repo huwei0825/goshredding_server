@@ -1,11 +1,4 @@
 
-
-/**
- * 1. you can change date format by parameter.
- * 2. you can change week label content by showTEXT.
- * 3. you can change dayOfWeek order by defaultStartDAY.
- */
-
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.ui.MyEventsUI;
@@ -38,6 +31,7 @@ import javax.swing.PopupFactory;
 import javax.swing.SwingUtilities;
 
 /**
+ * This is the calendar control panel.
  * @author Songyun Hu
  * @Describe(Date Chooser class)
  */
@@ -282,18 +276,14 @@ public class CalendarPanel extends JPanel {
 
             int index = cal.get(Calendar.DAY_OF_WEEK);
 
-            
             if(index > defaultStartDAY) cal.add(Calendar.DAY_OF_MONTH, -index + defaultStartDAY);
             else cal.add(Calendar.DAY_OF_MONTH, -index + defaultStartDAY - 7);
-            
 
-            
             if (index > defaultStartDAY) {
                 cal.add(Calendar.DAY_OF_MONTH, -index + defaultStartDAY);
             } else {
                 cal.add(Calendar.DAY_OF_MONTH, -index + defaultStartDAY - 7);
             }
-
             for (WeekLabel weekLabel : weekLabels) {
                 this.add(weekLabel);
             }
@@ -306,7 +296,6 @@ public class CalendarPanel extends JPanel {
             }
         }
     }
-
     private class FooterPanel extends JPanel {
 
         private static final long serialVersionUID = 8135037333899746736L;
@@ -332,7 +321,6 @@ public class CalendarPanel extends JPanel {
                     commit();
                 }
                 
-
                 @Override
                 public void mouseExited(MouseEvent e) {
                     dateLabel.setForeground(Color.BLACK);
@@ -343,7 +331,6 @@ public class CalendarPanel extends JPanel {
                     dateLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
                     dateLabel.setForeground(hoverColor);
                 }
-
                 @Override
                 public void mouseClicked(MouseEvent e) {
                 }
@@ -354,7 +341,6 @@ public class CalendarPanel extends JPanel {
         public void updateDate() {
         }
     ;
-
     }
     //refresh all panel
     private void refresh() {
@@ -363,7 +349,6 @@ public class CalendarPanel extends JPanel {
 //        footerPanel.updateDate();
         SwingUtilities.updateComponentTreeUI(this);
     }
-
     private class WeekLabel extends JLabel {
 
         private static final long serialVersionUID = -8053965084432740110L;
@@ -373,12 +358,10 @@ public class CalendarPanel extends JPanel {
             super(name, JLabel.CENTER);
             this.name = name;
         }
-
         public String toString() {
             return name;
         }
     }
-
     private class DayLabel extends JLabel implements java.util.Comparator<DayLabel>, java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
 
         private static final long serialVersionUID = -6002103678554799020L;
@@ -401,11 +384,9 @@ public class CalendarPanel extends JPanel {
             }
 
         }
-
         public boolean getIsSelected() {
             return isSelected;
         }
-
         public void setSelected(boolean b, boolean isDrag) {
             isSelected = b;
             if (b && !isDrag) {
