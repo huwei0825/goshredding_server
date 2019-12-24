@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
@@ -13,17 +8,14 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author huwei
+ * This is event's memeber management dialog.
+ * @author Songyun hu.
  */
 public class MembersManagementUI extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Login
-     */
-    private String currentEventId = "";
-    ArrayList<ParticipantVO> participantList = new ArrayList<ParticipantVO>();
-    ArrayList<ParticipantVO> participantListOriginal = new ArrayList<ParticipantVO>();
+    private String currentEventId = "";//the current event id.
+    ArrayList<ParticipantVO> participantList = new ArrayList<ParticipantVO>();//the participant objects after search.
+    ArrayList<ParticipantVO> participantListOriginal = new ArrayList<ParticipantVO>();//the all participant objects.
     
     public MembersManagementUI(java.awt.Frame parent, boolean modal, String strEventId) {
         super(parent, modal);
@@ -59,7 +51,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
         searchBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
         deleteBtn = new javax.swing.JButton();
-        alljBtn = new javax.swing.JButton();
+        allBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(239, 246, 254));
@@ -111,11 +103,11 @@ public class MembersManagementUI extends javax.swing.JDialog {
             }
         });
 
-        alljBtn.setBackground(new java.awt.Color(72, 124, 175));
-        alljBtn.setText("All");
-        alljBtn.addActionListener(new java.awt.event.ActionListener() {
+        allBtn.setBackground(new java.awt.Color(72, 124, 175));
+        allBtn.setText("All");
+        allBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alljBtnActionPerformed(evt);
+                allBtnActionPerformed(evt);
             }
         });
 
@@ -133,7 +125,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(alljBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(allBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanelLayout.createSequentialGroup()
                                     .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -154,7 +146,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(searchTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(alljBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(allBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -178,20 +170,29 @@ public class MembersManagementUI extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * close the dialog.
+     * @param evt 
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
-        
+
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
-    private void alljBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alljBtnActionPerformed
+    /**
+     * display all members.
+     * @param evt 
+     */
+    private void allBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allBtnActionPerformed
         searchTxt.setText("");
         participantList = participantListOriginal;
         MemeberTableModel memeberTableModel = new MemeberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
         memberTable.repaint();
-    }//GEN-LAST:event_alljBtnActionPerformed
-
+    }//GEN-LAST:event_allBtnActionPerformed
+    /**
+     * display searched members.
+     * @param evt 
+     */
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
         String searchItem = searchTxt.getText();
         ArrayList<ParticipantVO> participantListNew = new ArrayList<ParticipantVO>();
@@ -207,7 +208,10 @@ public class MembersManagementUI extends javax.swing.JDialog {
         memberTable.setModel(memeberTableModel);
         memberTable.repaint();
     }//GEN-LAST:event_searchBtnActionPerformed
-
+    /**
+     * remove a member from event.
+     * @param evt 
+     */
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int row = memberTable.getSelectedRow();
         if (row < 0) {
@@ -233,74 +237,9 @@ public class MembersManagementUI extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_deleteBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MembersManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MembersManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MembersManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MembersManagementUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new membersManagementUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alljBtn;
+    private javax.swing.JButton allBtn;
     private javax.swing.JButton backBtn;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JLabel jLabel2;

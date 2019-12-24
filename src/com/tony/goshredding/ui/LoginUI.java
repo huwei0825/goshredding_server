@@ -19,7 +19,6 @@ public class LoginUI extends javax.swing.JFrame {
     public LoginUI() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,7 +140,7 @@ public class LoginUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     /**
-     * click the signup button to display SignUpUI.
+     * click the signup button to display user information dialog.
      * @param evt 
      */
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
@@ -164,11 +163,12 @@ public class LoginUI extends javax.swing.JFrame {
                 ArrayList<OrganizerVO> organizerList = GoService.getInstance().getOrganizerByUsername(username);
                 if (organizerList.size() == 0) {
                     JOptionPane.showMessageDialog(null, "User not found");
-                } else {
+                } else {//the login user is an organizer.
                     for (OrganizerVO organizerObj : organizerList) {
                         String dbPassword = organizerObj.password;
                         String userId = organizerObj.organizerId;
 
+                        //check the password.
                         if (password.equals(dbPassword)) {
                             GoService.currentUserId = userId;
                             GoService.currentUserName = organizerObj.username;
@@ -182,7 +182,7 @@ public class LoginUI extends javax.swing.JFrame {
                         }
                     }
                 }
-            } else {
+            } else {//the login user is a participant.
                 for (ParticipantVO participantObj : participantList) {
                     String dbPassword = participantObj.password;
                     String userId = participantObj.participantId;
@@ -204,50 +204,7 @@ public class LoginUI extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }//GEN-LAST:event_loginBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LoginUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

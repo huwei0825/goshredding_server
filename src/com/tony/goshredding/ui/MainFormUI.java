@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
@@ -26,29 +21,28 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 /**
+ * This is the application main screen.User can see the event list,view the
+ * event information, view the notifications and manage the advertisements.
  *
- * @author huwei
+ * @author Songyun hu.
  */
 public class MainFormUI extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
-    ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();
-    ArrayList<EventVO> recommandEventList = new ArrayList<EventVO>();
+    ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the original event objects.
+    ArrayList<EventVO> recommandEventList = new ArrayList<EventVO>();//the event objects after by filter or search.
 
     public MainFormUI() {
         initComponents();
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             notificationNewGroupBtn.setText("New Event");
             titleLbl.setText("Events By Other Organizers");
-        } else {
+        } else {//if the logni user is a participant,can't manage advertisements.
             advertiseBtn.setVisible(false);
         }
         myProfileLbl.addMouseListener(new com.tony.goshredding.ui.MainFormUI.MyMouseAdapter(myProfileLbl));
-        //eventTable
-        eventTable.setRowHeight(75);
 
+        //set the event table ui style.
+        eventTable.setRowHeight(75);
         eventTable.getTableHeader().setVisible(false);
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setPreferredSize(new Dimension(0, 0));
@@ -63,29 +57,33 @@ public class MainFormUI extends javax.swing.JFrame {
         } else if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             try {
                 eventListOriginal = GoService.getInstance().getOtherEventByOrganizerId(GoService.currentUserId);
-                //get event member count to eventListOriginal.
-                HashMap eventIdAndMemberMap = GoService.getInstance().getEventIdAndMemberCount();
-                for (int i = 0; i < eventListOriginal.size(); i++) {
-                    EventVO event = eventListOriginal.get(i);
-                    if (eventIdAndMemberMap.containsKey(event.eventId)) {
-                        event.memberCount = (String) eventIdAndMemberMap.get(event.eventId);
-                    }else{
-                        event.memberCount="0";
-                    }
-                }
             } catch (Exception e) {
                 e.printStackTrace();
 
             }
+        }
+        try {//get event member count to eventListOriginal.
+            HashMap eventIdAndMemberMap = GoService.getInstance().getEventIdAndMemberCount();
+            for (int i = 0; i < eventListOriginal.size(); i++) {
+                EventVO event = eventListOriginal.get(i);
+                if (eventIdAndMemberMap.containsKey(event.eventId)) {
+                    event.memberCount = (String) eventIdAndMemberMap.get(event.eventId);
+                } else {
+                    event.memberCount = "0";
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
         }
         if (eventListOriginal.size() == 0) {
             EventVO event = new EventVO();
             event.eventName = "You have no events yet";
             eventListOriginal.add(event);
         }
-
+        //first sort by time.
         recommandEventList = eventListOriginal;
-        recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);//first sort by time.
+        recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
         initTableData();
 
         //double click events
@@ -98,9 +96,6 @@ public class MainFormUI extends javax.swing.JFrame {
                         OpenEventsUI oeFrm = new OpenEventsUI(null, true, event.eventId, OpenEventsUI.DATA_VIEW_TYPE_OTHER);
                         oeFrm.setVisible(true);
                     }
-
-                    ///to do:open event with event.eventId
-                    System.out.println("double click ");
                 }
             }
         });
@@ -114,7 +109,9 @@ public class MainFormUI extends javax.swing.JFrame {
         greetingTxt.setText("Hello " + GoService.currentUserName);
 
     }
-
+    /**
+     * init the event table data.
+     */
     public void initTableData() {
         EventTableModel eventTableModel = new EventTableModel(recommandEventList);
         eventTable.setModel(eventTableModel);
@@ -124,27 +121,18 @@ public class MainFormUI extends javax.swing.JFrame {
         tc.setCellRenderer(new EventCellRender());
         eventTable.repaint();
     }
-
     class MyMouseAdapter extends java.awt.event.MouseAdapter {
-
         JLabel label;
-        //private int type, value;
-
         public MyMouseAdapter(final JLabel label) {
             this.label = label;
         }
-
         public void mouseEntered(java.awt.event.MouseEvent me) {
-
             label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0xAA, 0xAA, 0xAA)));
         }
-
         public void mouseExited(java.awt.event.MouseEvent me) {
-
             label.setBorder(null);
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -210,17 +198,17 @@ public class MainFormUI extends javax.swing.JFrame {
         greetingTxt.setForeground(new java.awt.Color(68, 114, 196));
         greetingTxt.setText("Good morning, Tony");
         jPanel.add(greetingTxt);
-        greetingTxt.setBounds(470, 20, 140, 18);
+        greetingTxt.setBounds(470, 20, 140, 15);
 
         dateTxt.setForeground(new java.awt.Color(68, 114, 196));
         dateTxt.setText("dd/mm/yyyy 9:00 AM");
         jPanel.add(dateTxt);
-        dateTxt.setBounds(620, 20, 144, 18);
+        dateTxt.setBounds(620, 20, 108, 15);
 
         jLabel3.setForeground(new java.awt.Color(68, 114, 196));
         jLabel3.setText("\"Do want you can't\" --- Casey Neistat");
         jPanel.add(jLabel3);
-        jLabel3.setBounds(30, 20, 320, 18);
+        jLabel3.setBounds(30, 20, 320, 15);
 
         titleLbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         titleLbl.setText("Find your next event");
@@ -235,7 +223,7 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         });
         jPanel.add(searchBtn);
-        searchBtn.setBounds(200, 83, 81, 35);
+        searchBtn.setBounds(200, 83, 69, 35);
 
         filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All types", "biking", "skateboarding", "snowboarding", " ", " " }));
         filterComboBox.setToolTipText("");
@@ -245,7 +233,7 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         });
         jPanel.add(filterComboBox);
-        filterComboBox.setBounds(510, 83, 133, 35);
+        filterComboBox.setBounds(510, 83, 104, 35);
 
         eventTable.setBackground(new java.awt.Color(239, 246, 254));
         eventTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -336,11 +324,6 @@ public class MainFormUI extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         searchTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        searchTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchTxtActionPerformed(evt);
-            }
-        });
         jPanel1.add(searchTxt);
         searchTxt.setBounds(1, 3, 160, 35);
 
@@ -361,13 +344,19 @@ public class MainFormUI extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * display the advertisement management dialog.
+     * @param evt 
+     */
     private void advertiseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advertiseBtnActionPerformed
         advertisementManagementUI myFrm = new advertisementManagementUI(this, true);
         myFrm.setUseType(advertisementManagementUI.USE_TYPE_MANAGE);
         myFrm.setVisible(true);
     }//GEN-LAST:event_advertiseBtnActionPerformed
-
+    /**
+     * display the notification management dialog.
+     * @param evt 
+     */
     private void notificationNewGroupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificationNewGroupBtnActionPerformed
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             EventInformationUI eiFrm = new EventInformationUI(null, true);
@@ -379,28 +368,33 @@ public class MainFormUI extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_notificationNewGroupBtnActionPerformed
-
+    /**
+     * display the my event management dialog.
+     * @param evt 
+     */
     private void myEventBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myEventBtnActionPerformed
 
         MyEventsUI myFrm = new MyEventsUI(null, true);
         myFrm.setVisible(true);
     }//GEN-LAST:event_myEventBtnActionPerformed
-
-    private void searchTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTxtActionPerformed
-
-    }//GEN-LAST:event_searchTxtActionPerformed
-
+    /**
+     * display user information dialog.
+     * @param evt 
+     */
     private void myProfileLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myProfileLblMouseClicked
 
         UserInformationUI suFrm = new UserInformationUI(null, true, UserInformationUI.USE_TYPE_MODIFY);
         suFrm.setVisible(true);
     }//GEN-LAST:event_myProfileLblMouseClicked
-
+    /**
+     * filer the event objects.
+     * @param evt 
+     */
     private void filterComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterComboBoxItemStateChanged
 
         ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (filterComboBox.getSelectedIndex() == 0) {//ALL
+            if (filterComboBox.getSelectedIndex() == 0) {//display all type events.
                 recommandEventList = eventListOriginal;
                 initTableData();
             } else if (filterComboBox.getSelectedIndex() == 1) {
@@ -437,7 +431,10 @@ public class MainFormUI extends javax.swing.JFrame {
             eventTable.repaint();
         }
     }//GEN-LAST:event_filterComboBoxItemStateChanged
-
+    /**
+     * sort event objects.
+     * @param evt 
+     */
     private void sortComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sortComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (sortComboBox.getSelectedIndex() == 0) {//sort by time.
@@ -449,7 +446,10 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_sortComboBoxItemStateChanged
-
+    /**
+     * search event objects.
+     * @param evt 
+     */
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTxt.getText();
@@ -465,48 +465,6 @@ public class MainFormUI extends javax.swing.JFrame {
         recommandEventList = eventListNew;
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFormUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFormUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFormUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFormUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        try {
-            UIManager.setLookAndFeel("com.jtatto.plaf.aluminium.AluminiumLookAndFeel");
-        } catch (Exception ee) {
-
-        }
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFormUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton advertiseBtn;

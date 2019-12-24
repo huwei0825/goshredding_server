@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.ui.OpenEventsUI;
@@ -22,34 +17,29 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 /**
- *
- * @author huwei
+ * This is my events management dialog.
+ * @author Songyun hu.
  */
 public class MyEventsUI extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Login
-     */
-    ArrayList<EventVO> eventList = new ArrayList<EventVO>();
-    ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();
+    ArrayList<EventVO> eventList = new ArrayList<EventVO>();//the event objects after search.
+    ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the all event objects.
 
     public MyEventsUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-//        editBtn.setVisible(false);
         if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
-            
             deleteAndLeaveBtn.setText("Leave");
         }
-
+        //set the calendar control.
         CalendarPanel ser = CalendarPanel.getInstance();
         JPanel calendarPanel = ser.getCalendarPanel();
         calendarPanel.setPreferredSize(new Dimension(300, 300));
         calendarContainerPanel.add(calendarPanel);
         ser.myeventsui = this;
 
+        //set the event table style.
         myEventsTable.setRowHeight(60);
-
         myEventsTable.getTableHeader().setVisible(false);
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setPreferredSize(new Dimension(0, 0));
@@ -70,6 +60,7 @@ public class MyEventsUI extends javax.swing.JDialog {
 
         eventList = eventListOriginal;
 
+        //set the event table model.
         EventTableModel eventTableModel = new EventTableModel(eventList);
         myEventsTable.setModel(eventTableModel);
         TableColumnModel tcm = myEventsTable.getColumnModel();
@@ -87,7 +78,6 @@ public class MyEventsUI extends javax.swing.JDialog {
                     long eventTimeLong = GoHelper.string2Millis(eventVO.eventDate + " " + eventVO.eventTime, "dd/MM/yyyy hh:mm");
                     if (eventTimeLong > currentTimeLong) {
                         eventVO.eventTimeRemaining = GoHelper.getDistanceTime(currentTimeLong, eventTimeLong);
-                        //System.out.println("index " + i + " time remaining is:" + eventVO.eventTimeRemaining);
                     }
                 }
                 myEventsTable.repaint();
@@ -246,7 +236,11 @@ public class MyEventsUI extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-   public void displayEventsByDate(String date) {
+   /**
+    * Display the date's events.
+    * @param date 
+    */
+    public void displayEventsByDate(String date) {
         ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
 
         for (int i = 0; i < eventListOriginal.size(); i++) {
@@ -269,6 +263,10 @@ public class MyEventsUI extends javax.swing.JDialog {
         myEventsTable.repaint();
         eventTypeComboBox.setSelectedIndex(3);
     }
+    /**
+     * display the event information dialog.
+     * @param evt 
+     */
     private void openBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBtnActionPerformed
         int row = myEventsTable.getSelectedRow();
         if (row < 0) {
@@ -281,9 +279,13 @@ public class MyEventsUI extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_openBtnActionPerformed
-
+    /**
+     * if the login user is an organizer,then can delete the event.
+     * if the login user is a participant,then can leave the event.
+     * @param evt 
+     */
     private void deleteAndLeaveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAndLeaveBtnActionPerformed
-        // TODO add your handling code here:
+
         try {
             if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {//delete the event.
                 int row = myEventsTable.getSelectedRow();
@@ -297,10 +299,8 @@ public class MyEventsUI extends javax.swing.JDialog {
                         try {
                             GoService.getInstance().deleteEvent(event);
                         } catch (Exception e) {
-
                         }
                     }
-
                 }
             } else {//leave the event.
                 int row = myEventsTable.getSelectedRow();
@@ -317,12 +317,10 @@ public class MyEventsUI extends javax.swing.JDialog {
 
                         }
                     }
-
                 }
             }
             ///refresh the event list start.
             try {
-
                 if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
                     eventListOriginal = GoService.getInstance().getEventsByOrganizerId(GoService.currentUserId);
                 }
@@ -343,17 +341,22 @@ public class MyEventsUI extends javax.swing.JDialog {
             ///refresh the event list end.
             
         } catch (Exception e) {
-
         }
     }//GEN-LAST:event_deleteAndLeaveBtnActionPerformed
-
+    /**
+     * close the dialog.
+     * @param evt 
+     */
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
 
         this.dispose();
     }//GEN-LAST:event_backBtnActionPerformed
-
+    /**
+     * display the events by event type.
+     * @param evt 
+     */
     private void eventTypeComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_eventTypeComboBoxItemStateChanged
-        // TODO add your handling code here:
+
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (eventTypeComboBox.getSelectedIndex() == 0) {
                 eventList = eventListOriginal;
@@ -369,56 +372,6 @@ public class MyEventsUI extends javax.swing.JDialog {
             myEventsTable.repaint();
         }
     }//GEN-LAST:event_eventTypeComboBoxItemStateChanged
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MyEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MyEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MyEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MyEventsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new MyEventsUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;

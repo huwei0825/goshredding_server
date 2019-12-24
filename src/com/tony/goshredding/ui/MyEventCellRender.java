@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.vo.EventVO;
@@ -11,18 +6,13 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 /**
- *
- * @author syp386
+ * This is my event table cell render.
+ * @author Songyun hu.
  */
 public class MyEventCellRender extends javax.swing.JPanel implements TableCellRenderer {
-
-    /**
-     * Creates new form EventItemPanel
-     */
     public MyEventCellRender() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
