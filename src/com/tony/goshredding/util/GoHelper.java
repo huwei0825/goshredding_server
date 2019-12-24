@@ -6,13 +6,16 @@
 package com.tony.goshredding.util;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.vo.ConfigVO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -123,4 +126,30 @@ public class GoHelper {
         }
     }
 
+    public static ConfigVO readConfig() throws IOException {
+        FileReader fr = null;
+        BufferedReader br = null;
+        ConfigVO configVO = new ConfigVO();
+        try {
+            File directory = new File("");
+            String filePath = directory.getCanonicalPath() + "/config.ini";
+            fr = new FileReader(filePath);
+            br = new BufferedReader(fr);
+            String line = "";
+            String[] arrs = null;
+            while ((line = br.readLine()) != null) {
+                arrs = line.split(":");
+                if(arrs[0].equalsIgnoreCase("server_ip")){
+                    configVO.ipAddress=arrs[1];
+                }else if(arrs[0].equalsIgnoreCase("server_port")){
+                    configVO.ipPort=arrs[1];
+                }
+            }
+        } finally {
+            br.close();
+            fr.close();
+
+        }
+        return configVO;
+    }
 }

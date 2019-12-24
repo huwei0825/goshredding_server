@@ -5,6 +5,8 @@
  */
 package com.tony.goshredding.service;
 
+import com.tony.goshredding.util.GoHelper;
+import com.tony.goshredding.vo.ConfigVO;
 import com.tony.goshredding.vo.EventVO;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -38,7 +40,9 @@ public class GoService {
         try {
             // 填写服务器ip
             if (_GoService == null) {
-                _GoService = (IGoService) Naming.lookup("rmi://127.0.0.1:8888/GoService");
+                ConfigVO configVO =GoHelper.readConfig();
+                _GoService = (IGoService) Naming.lookup("rmi://"+configVO.ipAddress+":"+configVO.ipPort+"/GoService");
+                System.out.println(">>>>>INFO:GoClient connect "+configVO.ipAddress+":"+configVO.ipPort+" service successful！");
             }
 
         } catch (NotBoundException e) {
@@ -47,6 +51,8 @@ public class GoService {
 
             e.printStackTrace();
         } catch (RemoteException e) {
+            e.printStackTrace();
+        }catch(Exception e){
             e.printStackTrace();
         }
         return _GoService;
