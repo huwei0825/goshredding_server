@@ -7,9 +7,9 @@ import javax.swing.table.AbstractTableModel;
  * This is member table model.
  * @author Songyun hu.
  */
-public class MemeberTableModel extends AbstractTableModel {
+public class MemberTableModel extends AbstractTableModel {
     private ArrayList participantList = null;
-    public MemeberTableModel(ArrayList participantList) {
+    public MemberTableModel(ArrayList participantList) {
         this.participantList = participantList;
     }
     @Override

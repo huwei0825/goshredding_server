@@ -25,7 +25,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
             e.printStackTrace();
         }
         participantList = participantListOriginal;
-        MemeberTableModel memeberTableModel = new MemeberTableModel(participantList);
+        MemberTableModel memeberTableModel = new MemberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
     }
     /**
@@ -178,7 +178,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
     private void allBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allBtnActionPerformed
         searchTxt.setText("");
         participantList = participantListOriginal;
-        MemeberTableModel memeberTableModel = new MemeberTableModel(participantList);
+        MemberTableModel memeberTableModel = new MemberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
         memberTable.repaint();
     }//GEN-LAST:event_allBtnActionPerformed
@@ -197,7 +197,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
             }
         }
         participantList = participantListNew;
-        MemeberTableModel memeberTableModel = new MemeberTableModel(participantList);
+        MemberTableModel memeberTableModel = new MemberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
         memberTable.repaint();
     }//GEN-LAST:event_searchBtnActionPerformed
@@ -218,7 +218,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
                     //refresh member data.
                     participantListOriginal = GoService.getInstance().getParticipantsByEventId(currentEventId);
                     participantList = participantListOriginal;
-                    MemeberTableModel memeberTableModel = new MemeberTableModel(participantList);
+                    MemberTableModel memeberTableModel = new MemberTableModel(participantList);
                     memberTable.setModel(memeberTableModel);
                     memberTable.repaint();
                 } catch (Exception e) {
