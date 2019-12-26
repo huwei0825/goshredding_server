@@ -90,6 +90,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 event.eventType = resultSet.getString("EventType");
                 event.eventTypePicName = resultSet.getString("EventTypeImageName");
                 event.introduction = resultSet.getString("EventIntroduction");
+                event.introduction = event.introduction.replace("#", "\'");
                 event.location = resultSet.getString("Location");
                 event.organizerId = resultSet.getString("OrganizerID");
                 event.advertisementId = resultSet.getString("AdvertisementID");
@@ -125,6 +126,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 event.eventType = resultSet.getString("EventType");
                 event.eventTypePicName = resultSet.getString("EventTypeImageName");
                 event.introduction = resultSet.getString("EventIntroduction");
+                event.introduction = event.introduction.replace("#", "\'");
                 event.location = resultSet.getString("Location");
                 event.organizerId = resultSet.getString("OrganizerID");
                 event.advertisementId = resultSet.getString("AdvertisementID");
@@ -160,6 +162,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 event.eventType = resultSet.getString("EventType");
                 event.eventTypePicName = resultSet.getString("EventTypeImageName");
                 event.introduction = resultSet.getString("EventIntroduction");
+                event.introduction = event.introduction.replace("#", "\'");
                 event.location = resultSet.getString("Location");
                 event.organizerId = resultSet.getString("OrganizerID");
                 event.advertisementId = resultSet.getString("AdvertisementID");
@@ -194,6 +197,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 event.eventType = resultSet.getString("EventType");
                 event.eventTypePicName = resultSet.getString("EventTypeImageName");
                 event.introduction = resultSet.getString("EventIntroduction");
+                event.introduction = event.introduction.replace("#", "\'");
                 event.location = resultSet.getString("Location");
                 event.organizerId = resultSet.getString("OrganizerID");
                 event.advertisementId = resultSet.getString("AdvertisementID");
@@ -289,6 +293,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 event.eventType = resultSet.getString("EventType");
                 event.eventTypePicName = resultSet.getString("EventTypeImageName");
                 event.introduction = resultSet.getString("EventIntroduction");
+                event.introduction = event.introduction.replace("#", "\'");
                 event.location = resultSet.getString("Location");
                 event.organizerId = resultSet.getString("OrganizerID");
                 event.advertisementId = resultSet.getString("AdvertisementID");
@@ -520,6 +525,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             map.put("Time", eventVO.eventTime);
             map.put("EventType", eventVO.eventType);
             map.put("EventName", eventVO.eventName);
+            eventVO.introduction = eventVO.introduction.replace("\'", "#");
             map.put("EventIntroduction", eventVO.introduction);
             map.put("AdvertisementID", eventVO.advertisementId);
             map.put("ImageName", eventVO.eventPicName);
@@ -581,6 +587,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 event.eventType = resultSet.getString("EventType");
                 event.eventTypePicName = resultSet.getString("EventTypeImageName");
                 event.introduction = resultSet.getString("EventIntroduction");
+                event.introduction.replace("#", "\'");
                 event.location = resultSet.getString("Location");
                 event.organizerId = resultSet.getString("OrganizerID");
                 event.advertisementId = resultSet.getString("AdvertisementID");
@@ -626,6 +633,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             updSql.append(eventVO.eventName);
             updSql.append("',");
             updSql.append(" EventIntroduction = '");
+            eventVO.introduction = eventVO.introduction.replace("\'", "#");
             updSql.append(eventVO.introduction);
             updSql.append("',");
             updSql.append(" AdvertisementID = '");
@@ -952,6 +960,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             e.printStackTrace();
         }
     }
+
     @Override
     /**
      * get participant objects by event id.
@@ -1055,6 +1064,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return participant;
     }
+
     @Override
     /**
      * the participant leave the event.
@@ -1100,6 +1110,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     public void updateParticipant(ParticipantVO participantVO) throws RemoteException {
 
     }
+
     @Override
     /**
      * delete participant from database.
@@ -1110,6 +1121,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
     public void deleteParticipant(ParticipantVO participantVO) throws RemoteException {
 
     }
+
     /**
      * get database connection
      *
@@ -1124,6 +1136,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         conn = DriverManager.getConnection("jdbc:sqlite:" + dbFilePath);
         return conn;
     }
+
     /**
      * execute update sql.
      *
@@ -1140,6 +1153,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             destroyed();
         }
     }
+
     /**
      * execute multiple update sqls.
      *
@@ -1173,6 +1187,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             destroyed();
         }
     }
+
     /**
      * get database connection.
      *
@@ -1186,6 +1201,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return connection;
     }
+
     /**
      * get database statement.
      *
@@ -1199,6 +1215,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return statement;
     }
+
     /**
      * close the resources.
      */
