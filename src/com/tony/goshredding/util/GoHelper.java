@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,8 +30,10 @@ public class GoHelper {
     public static Color BK_COLOR_BLUE = new Color(239, 246, 254);
     public static Color BK_COLOR_YELLOW = Color.YELLOW;
     public static Color currentBkColor = BK_COLOR_YELLOW;
+
     /**
      * change the string time to milleseconds.
+     *
      * @param dateStr the string time.
      * @param formatStr the date format.
      * @return the milliseconds.
@@ -42,8 +46,10 @@ public class GoHelper {
             return 0L;
         }
     }
+
     /**
      * get two time distance.
+     *
      * @param time1 the first time.
      * @param time2 the second time.
      * @return the distance string.
@@ -64,10 +70,12 @@ public class GoHelper {
         sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
         return day + ":" + hour + ":" + min + ":" + sec;
     }
+
     /**
      * get event type image name.
+     *
      * @param strEventType the event type.
-     * @return  the image name.
+     * @return the image name.
      */
     public static String getEventTypeImageName(String strEventType) {
         if (strEventType.equalsIgnoreCase(Definition.EVENT_TYPE_BIKE)) {
@@ -83,11 +91,13 @@ public class GoHelper {
             return "";
         }
     }
+
     /**
      * upload image.
+     *
      * @param source thr source file.
      * @param dest the destination file.
-     * @throws Exception 
+     * @throws Exception
      */
     public static void uploadImage(File source, File dest)
             throws Exception {
@@ -111,23 +121,43 @@ public class GoHelper {
         input2.read(content);
         GoService.getInstance().upLoadFile(dest.getName(), content);
     }
+
     /**
      * download image.
+     *
      * @param fileName the image file name.
-     * @throws Exception 
+     * @throws Exception
      */
     public static void downloadImage(String fileName) throws Exception {
         File directory = new File("");
         String filePath = directory.getCanonicalPath() + "/images/" + fileName;
         File file = new File(filePath);
         if (!file.exists()) {
-            GoService.getInstance().downLoadFile(fileName);
+            
+            byte[] imageContent=GoService.getInstance().downLoadFile(fileName);
+            file.createNewFile();
+            BufferedOutputStream output = null;
+            try {
+                //save the content to the file
+                output = new BufferedOutputStream(new FileOutputStream(file));
+                output.write(imageContent);
+            } finally {
+                if (output != null) {
+                    try {
+                        output.close();
+                        output = null;
+                    } catch (Exception ex) {
+                    }
+                }
+            }
         }
     }
+
     /**
      * read the application config information.
+     *
      * @return the config object.
-     * @throws IOException 
+     * @throws IOException
      */
     public static ConfigVO readConfig() throws IOException {
         FileReader fr = null;
