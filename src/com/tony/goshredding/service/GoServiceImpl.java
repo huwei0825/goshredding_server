@@ -459,7 +459,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
      * @return the advertisement object list.
      * @throws RemoteException
      */
-    public ArrayList<AdvertisementVO> getAdvertisementsByParticipantId(String userId) throws RemoteException {
+    public ArrayList<AdvertisementVO> getAdvertisementsByOrganizerId(String userId) throws RemoteException {
         ArrayList<AdvertisementVO> rsList = new ArrayList<AdvertisementVO>();
         try {
             resultSet = this.getStatement().executeQuery("select * from advertisement_table where OrganizerID='" + Integer.parseInt(userId) + "'");

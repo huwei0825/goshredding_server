@@ -200,7 +200,9 @@ public class MembersManagementUI extends javax.swing.JDialog {
 
         for (int i = 0; i < participantListOriginal.size(); i++) {
             ParticipantVO participantVO = participantListOriginal.get(i);
-            if (participantVO.username.contains(searchItem)) {
+            if (participantVO.username.contains(searchItem)||
+                    (participantVO.forename!=null&&participantVO.forename.contains(searchItem))||
+                    (participantVO.surname!=null&&participantVO.surname.contains(searchItem))) {
                 participantListNew.add(participantVO);
             }
         }

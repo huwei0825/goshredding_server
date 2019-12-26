@@ -31,7 +31,7 @@ public class advertisementManagementUI extends javax.swing.JDialog {
         initComponents();
         advertisementTable.setRowHeight(60);
         try {
-            advertisementListOriginal = GoService.getInstance().getAdvertisementsByParticipantId(GoService.currentUserId);
+            advertisementListOriginal = GoService.getInstance().getAdvertisementsByOrganizerId(GoService.currentUserId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -271,7 +271,7 @@ public class advertisementManagementUI extends javax.swing.JDialog {
         AdvertisementInformationUI aiFrm = new AdvertisementInformationUI(null, true, "", AdvertisementInformationUI.OPEN_TYPE_NEW);
         aiFrm.setVisible(true);
         try {
-            advertisementListOriginal = GoService.getInstance().getAdvertisementsByParticipantId(GoService.currentUserId);
+            advertisementListOriginal = GoService.getInstance().getAdvertisementsByOrganizerId(GoService.currentUserId);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -293,7 +293,7 @@ public class advertisementManagementUI extends javax.swing.JDialog {
             aiFrm.setVisible(true);
             //refresh advertisement table.
             try {
-                advertisementListOriginal = GoService.getInstance().getAdvertisementsByParticipantId(GoService.currentUserId);
+                advertisementListOriginal = GoService.getInstance().getAdvertisementsByOrganizerId(GoService.currentUserId);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -350,7 +350,7 @@ public class advertisementManagementUI extends javax.swing.JDialog {
                         GoService.getInstance().deleteAdvertisement(advertisementVO.AdvertisementID);
                         //refresh advertisement data.
                         try {
-                            advertisementListOriginal = GoService.getInstance().getAdvertisementsByParticipantId(GoService.currentUserId);
+                            advertisementListOriginal = GoService.getInstance().getAdvertisementsByOrganizerId(GoService.currentUserId);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
