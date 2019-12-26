@@ -453,9 +453,9 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
 
     @Override
     /**
-     * get advertisements by participant user id from database.
+     * get advertisements by organizer user id from database.
      *
-     * @param userId participant user id
+     * @param userId organizer user id
      * @return the advertisement object list.
      * @throws RemoteException
      */
