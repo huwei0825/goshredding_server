@@ -256,7 +256,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
                 notification.EventID = resultSet.getString("EventID");
                 notification.CreateTime = resultSet.getString("CreateTime");
                 notification.Content = resultSet.getString("Content");
-                notification.isReaded = resultSet.getString("isReaded");
+                notification.isRead = resultSet.getString("isRead");
                 rsList.add(notification);
             }
         } catch (Exception e) {
@@ -546,7 +546,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             updSql.append("UPDATE ");
             updSql.append("notification_table");
             updSql.append(" SET ");
-            updSql.append(" isReaded = '");
+            updSql.append(" isRead = '");
             updSql.append(isReaded);
             updSql.append("' WHERE NotificationID='");
             updSql.append(notificationId);
@@ -1355,7 +1355,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
             map.put("EventID", notificationVO.EventID);
             map.put("CreateTime", notificationVO.CreateTime);
             map.put("Content", notificationVO.Content);
-            map.put("isRead", notificationVO.isReaded);
+            map.put("isRead", notificationVO.isRead);
             this.executeInsert("notification_table", map);
         } catch (Exception e) {
             e.printStackTrace();

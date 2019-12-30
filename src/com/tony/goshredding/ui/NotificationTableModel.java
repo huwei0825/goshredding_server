@@ -42,7 +42,7 @@ public class NotificationTableModel extends AbstractTableModel {
         } else if (columnIndex == 1) {
             return notificationVO.CreateTime;
         } else if (columnIndex == 2) {
-            if (notificationVO.isReaded.equalsIgnoreCase(Definition.READ_TYPE_UNREAD)) {
+            if (notificationVO.isRead.equalsIgnoreCase(Definition.READ_TYPE_UNREAD)) {
                 return "";
             } else {
                 return "YES";
