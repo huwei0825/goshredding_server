@@ -143,7 +143,7 @@ public class LoginUI extends javax.swing.JFrame {
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
         UserInformationUI suFrm = new UserInformationUI(null,true,UserInformationUI.USE_TYPE_NEW);
         suFrm.setVisible(true);
-        this.dispose();
+
     }//GEN-LAST:event_signUpBtnActionPerformed
     /**
      * click the button,the application will check whether the user is existed,
