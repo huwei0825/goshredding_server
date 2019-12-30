@@ -1340,4 +1340,25 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
         }
         return content;
     }
+   /**
+     * add new notification to database.
+     * @param notificationVO the notification object.
+     * @throws RemoteException 
+     */
+    @Override
+    public void addNotification(NotificationVO notificationVO) throws RemoteException {
+            try {
+            String strNewId = getNextMaxID("notification_table", "NotificationID");
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("NotificationID", strNewId);
+            map.put("ParticipantID", notificationVO.ParticipantID);
+            map.put("EventID", notificationVO.EventID);
+            map.put("CreateTime", notificationVO.CreateTime);
+            map.put("Content", notificationVO.Content);
+            map.put("isRead", notificationVO.isReaded);
+            this.executeInsert("notification_table", map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

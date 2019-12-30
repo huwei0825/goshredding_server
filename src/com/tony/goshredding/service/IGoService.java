@@ -36,6 +36,12 @@ public interface IGoService extends Remote {
      * @throws RemoteException 
      */
     void addAdvertisement(AdvertisementVO advertisementVO) throws RemoteException;
+     /**
+     * add new notification to database.
+     * @param notificationVO the notification object.
+     * @throws RemoteException 
+     */
+    void addNotification(NotificationVO notificationVO) throws RemoteException;
     /**
      * add new comment to database.
      * @param commentVO the comment object.
