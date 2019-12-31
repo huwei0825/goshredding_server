@@ -9,6 +9,7 @@ import com.tony.goshredding.vo.NotificationVO;
 import com.tony.goshredding.vo.ParticipantVO;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class MyEventsUI extends javax.swing.JDialog {
 
     ArrayList<EventVO> eventList = new ArrayList<EventVO>();//the event objects after search.
     ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the all event objects.
+    CalendarPanel calendarPanelControl = null;
 
     public MyEventsUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -37,11 +39,11 @@ public class MyEventsUI extends javax.swing.JDialog {
             deleteAndLeaveBtn.setText("Leave");
         }
         //set the calendar control.
-        CalendarPanel ser = CalendarPanel.getInstance();
-        JPanel calendarPanel = ser.getCalendarPanel();
+        calendarPanelControl = CalendarPanel.getInstance();
+        JPanel calendarPanel = calendarPanelControl.getCalendarPanel();
         calendarPanel.setPreferredSize(new Dimension(300, 300));
         calendarContainerPanel.add(calendarPanel);
-        ser.myeventsui = this;
+        calendarPanelControl.myeventsui = this;
 
         //set the event table style.
         myEventsTable.setRowHeight(60);
@@ -380,17 +382,71 @@ public class MyEventsUI extends javax.swing.JDialog {
     private void eventTypeComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_eventTypeComboBoxItemStateChanged
 
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (eventTypeComboBox.getSelectedIndex() == 0) {
+            if (eventTypeComboBox.getSelectedIndex() == 0) {//all events
                 eventList = eventListOriginal;
-                EventTableModel eventTableModel = new EventTableModel(eventList);
-                myEventsTable.setModel(eventTableModel);
-                TableColumnModel tcm = myEventsTable.getColumnModel();
-                TableColumn tc = tcm.getColumn(0);
-                tc.setPreferredWidth(200);
-                tc.setCellRenderer(new MyEventCellRender());
-            } else if (eventTypeComboBox.getSelectedIndex() == 1) {
-                System.out.println("select all events 1");
+
+            } else if (eventTypeComboBox.getSelectedIndex() == 1) {//past events.
+                ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyyHH:mm");
+                for (int i = 0; i < eventListOriginal.size(); i++) {
+                    EventVO event = new EventVO();
+                    event = (EventVO) eventListOriginal.get(i);
+                    try {
+                        Date dt1 = df.parse(event.eventDate + event.eventTime);
+                        Date dt2 = new Date();
+                        if (dt1.getTime() < dt2.getTime()) {
+                            eventListNew.add(event);
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+                eventList = eventListNew;
+
+            } else if (eventTypeComboBox.getSelectedIndex() == 2) {//future events.
+                ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyyHH:mm");
+                for (int i = 0; i < eventListOriginal.size(); i++) {
+                    EventVO event = new EventVO();
+                    event = (EventVO) eventListOriginal.get(i);
+                    try {
+                        Date dt1 = df.parse(event.eventDate + event.eventTime);
+                        Date dt2 = new Date();
+                        if (dt1.getTime() > dt2.getTime()) {
+                            eventListNew.add(event);
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+                eventList = eventListNew;
+
+            } else if (eventTypeComboBox.getSelectedIndex() == 3) {//value from calendar.
+                ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
+                DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                for (int i = 0; i < eventListOriginal.size(); i++) {
+                    EventVO event = new EventVO();
+                    event = (EventVO) eventListOriginal.get(i);
+                    try {
+
+                        Date dt2 = calendarPanelControl.getCurrentSelectedDate();
+                        String dateString2 = df.format(dt2);
+                        if (event.eventDate.equalsIgnoreCase(dateString2)) {
+                            eventListNew.add(event);
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+                eventList = eventListNew;
+
             }
+            EventTableModel eventTableModel = new EventTableModel(eventList);
+            myEventsTable.setModel(eventTableModel);
+            TableColumnModel tcm = myEventsTable.getColumnModel();
+            TableColumn tc = tcm.getColumn(0);
+            tc.setPreferredWidth(200);
+            tc.setCellRenderer(new MyEventCellRender());
             myEventsTable.repaint();
         }
     }//GEN-LAST:event_eventTypeComboBoxItemStateChanged

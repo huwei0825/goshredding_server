@@ -58,6 +58,9 @@ public class CalendarPanel extends JPanel {
     private static int defaultStartDAY = 0;//0 is from Sun, 1 is from Mon, 2 is from Tue
     private static Color hoverColor = Color.WHITE; // hover color
 
+    public Date getCurrentSelectedDate(){
+        return calendar.getTime();
+    }
     private CalendarPanel(java.util.Date date, String format, int startDAY) {
         if (startDAY > -1 && startDAY < 7) {
             defaultStartDAY = startDAY;
