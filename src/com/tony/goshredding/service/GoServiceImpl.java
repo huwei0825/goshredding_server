@@ -694,7 +694,7 @@ public class GoServiceImpl extends UnicastRemoteObject implements IGoService {
      */
     public void deleteEvent(EventVO eventVO) throws RemoteException {
         try {
-            this.executeUpdate("delete from event_table where event_id='" + eventVO.eventId + "'");
+            this.executeUpdate("delete from event_table where EventID='" + eventVO.eventId + "'");
         } catch (Exception e) {
             e.printStackTrace();
         }
