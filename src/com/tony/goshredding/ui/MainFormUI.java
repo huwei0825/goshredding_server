@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -31,6 +32,7 @@ public class MainFormUI extends javax.swing.JFrame {
     ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the original event objects.
     ArrayList<EventVO> recommandEventList = new ArrayList<EventVO>();//the event objects after by filter or search.
     public MainFormUI() {
+        
         initComponents();
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             notificationNewGroupBtn.setText("New Event");
@@ -108,7 +110,22 @@ public class MainFormUI extends javax.swing.JFrame {
         }else if(hour>=18){
             greetingTxt.setText("Good evening, " + GoService.currentUserName);
         }
-        
+        ArrayList<String> dailyQuotes=new ArrayList<String>();
+        dailyQuotes.add("Be nice to nerds, chances are you’ll end up working for one — Bill Gates");
+        dailyQuotes.add("Follow your heart.");
+        dailyQuotes.add("Nothing is ever too late.");
+        dailyQuotes.add("Have faith in yourself.");
+        dailyQuotes.add("Youth means limitless possibilities.");
+        dailyQuotes.add("I know that my future is not just a dream. ");
+        dailyQuotes.add("If you get tired, learn to rest, not to quit. ");
+        dailyQuotes.add("Youth gives you light please don't let it down. ");
+        dailyQuotes.add("Life is too short to spend time regretting.");
+        dailyQuotes.add("The true sign of intelligence is not knowledge but imagination. — Einstein");
+        dailyQuotes.add("I can set the world on fire.");
+        Random random = new Random();
+        //create [0,10] random index.
+        int i = random.nextInt(10);
+        dailyQuoteLabel.setText(dailyQuotes.get(i));
     }
     /**
      * init the event table data.
@@ -148,7 +165,7 @@ public class MainFormUI extends javax.swing.JFrame {
         jPanel = new javax.swing.JPanel();
         greetingTxt = new javax.swing.JLabel();
         dateTxt = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        dailyQuoteLabel = new javax.swing.JLabel();
         titleLbl = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
         filterComboBox = new javax.swing.JComboBox<>();
@@ -206,10 +223,10 @@ public class MainFormUI extends javax.swing.JFrame {
         jPanel.add(dateTxt);
         dateTxt.setBounds(600, 20, 160, 18);
 
-        jLabel3.setForeground(new java.awt.Color(68, 114, 196));
-        jLabel3.setText("\"Do want you can't\" --- Casey Neistat");
-        jPanel.add(jLabel3);
-        jLabel3.setBounds(30, 20, 320, 18);
+        dailyQuoteLabel.setForeground(new java.awt.Color(68, 114, 196));
+        dailyQuoteLabel.setText("\"Do want you can't\" --- Casey Neistat");
+        jPanel.add(dailyQuoteLabel);
+        dailyQuoteLabel.setBounds(30, 20, 320, 18);
 
         titleLbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         titleLbl.setText("Find your next event");
@@ -465,12 +482,12 @@ public class MainFormUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton advertiseBtn;
+    private javax.swing.JLabel dailyQuoteLabel;
     private javax.swing.JLabel dateTxt;
     private javax.swing.JTable eventTable;
     private javax.swing.JComboBox<String> filterComboBox;
     private javax.swing.JLabel greetingTxt;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;
