@@ -37,6 +37,7 @@ public class UserInformationUI extends javax.swing.JDialog {
         initComponents();
         CalendarControl calendarControl = CalendarControl.getInstance();
         calendarControl.register(dobTxt);
+        dobTxt.setEditable(false);
         if (currentUseType == USE_TYPE_MODIFY) {
             if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
                 try {

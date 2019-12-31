@@ -103,11 +103,11 @@ public class MainFormUI extends javax.swing.JFrame {
         dateTxt.setText(dateString);
         //display the greeting
         int hour=GoHelper.getHour(currentTime);
-        if(hour<=11){
+        if(hour<=11&&hour>=5){
             greetingTxt.setText("Good morning, " + GoService.currentUserName);
-        }else if(hour>11&&hour<18){
+        }else if(hour>11&&hour<17){
             greetingTxt.setText("Good afternoon, " + GoService.currentUserName);
-        }else if(hour>=18){
+        }else if(hour>=17||hour<5){
             greetingTxt.setText("Good evening, " + GoService.currentUserName);
         }
         ArrayList<String> dailyQuotes=new ArrayList<String>();

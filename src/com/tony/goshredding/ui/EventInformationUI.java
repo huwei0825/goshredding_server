@@ -123,6 +123,9 @@ public class EventInformationUI extends javax.swing.JDialog {
     public EventInformationUI(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        CalendarControl calendarControl = CalendarControl.getInstance();
+        calendarControl.register(dateTxt);
+        dateTxt.setEditable(false);
     }
 
     /**
@@ -215,9 +218,9 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel6.setBounds(7, 269, 135, 25);
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel7.setText("Time:");
+        jLabel7.setText("Time(hh:mm):");
         jPanel.add(jLabel7);
-        jLabel7.setBounds(114, 156, 45, 26);
+        jLabel7.setBounds(49, 156, 110, 26);
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel9.setText("Event type:");
@@ -363,12 +366,12 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("The preferable image");
         jPanel.add(jLabel1);
-        jLabel1.setBounds(21, 402, 120, 15);
+        jLabel1.setBounds(21, 402, 160, 18);
 
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("size is 175x90");
         jPanel.add(jLabel3);
-        jLabel3.setBounds(21, 424, 84, 15);
+        jLabel3.setBounds(21, 424, 112, 18);
         jPanel.add(imageLbl);
         imageLbl.setBounds(230, 380, 175, 90);
 
