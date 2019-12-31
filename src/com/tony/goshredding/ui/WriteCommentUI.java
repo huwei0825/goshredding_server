@@ -139,6 +139,11 @@ public class WriteCommentUI extends javax.swing.JDialog {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             String dateString = formatter.format(currentTime);
             commentVO.Date = dateString;
+                            if (commentVO.Content.length() > 500) {
+                    JOptionPane.showMessageDialog(null, "The content of comment length must be within 500 characters long!", "Comment content",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
             GoService.getInstance().addComment(commentVO);
             JOptionPane.showMessageDialog(null, "successfully saved");
         } catch (Exception e) {

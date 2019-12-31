@@ -7,6 +7,7 @@ import com.tony.goshredding.ui.OpenEventUI;
 import com.tony.goshredding.ui.advertisementManagementUI;
 import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.util.GoHelper;
+import com.tony.goshredding.util.Validation;
 import com.tony.goshredding.vo.AdvertisementVO;
 import com.tony.goshredding.vo.EventVO;
 import com.tony.goshredding.vo.NotificationVO;
@@ -411,17 +412,19 @@ public class EventInformationUI extends javax.swing.JDialog {
         String type = (String) typeComboBox.getSelectedItem();
         String introduction = introductionTxt.getText();
 
-        String[] timeArray = timeOld.split(":");
-        int hours = Integer.parseInt(timeArray[0]);
-        String minutes = timeArray[1];
-        if (timeSlot.equalsIgnoreCase("AM") && hours == 12) {
-            time = "00:" + minutes;
-        } else if (timeSlot.equalsIgnoreCase("AM") && hours != 12) {
-            time = timeOld;
-        } else if (timeSlot.equalsIgnoreCase("PM") && hours == 12) {
-            time = timeOld;
-        } else if (timeSlot.equalsIgnoreCase("PM") && hours != 12) {
-            time = String.valueOf(hours + 12) + ":" + minutes;
+        if (timeOld != null && timeOld.length() > 0) {
+            String[] timeArray = timeOld.split(":");
+            int hours = Integer.parseInt(timeArray[0]);
+            String minutes = timeArray[1];
+            if (timeSlot.equalsIgnoreCase("AM") && hours == 12) {
+                time = "00:" + minutes;
+            } else if (timeSlot.equalsIgnoreCase("AM") && hours != 12) {
+                time = timeOld;
+            } else if (timeSlot.equalsIgnoreCase("PM") && hours == 12) {
+                time = timeOld;
+            } else if (timeSlot.equalsIgnoreCase("PM") && hours != 12) {
+                time = String.valueOf(hours + 12) + ":" + minutes;
+            }
         }
         try {
             if (currentUseType == EventInformationUI.USER_TYPE_NEW) {
@@ -439,6 +442,38 @@ public class EventInformationUI extends javax.swing.JDialog {
                     strImageName = "goshreddingB&W.png";
                 }
                 event.eventPicName = strImageName;
+                if (Validation.isPresent(event.eventName) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event name",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                if (Validation.isPresent(event.eventDate) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event date",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (Validation.isPresent(timeOld) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event time",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (!event.eventTime.matches("([0-9]{2}):([0-9]{2})")) {
+                    JOptionPane.showMessageDialog(null, "The time format must be 00:00!", "Event time",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (Validation.isPresent(event.location) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event location",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (event.location.length() > 500) {
+                    JOptionPane.showMessageDialog(null, "The introduction length must be within 500 characters long!", "Event introduction",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
                 GoService.getInstance().addEvent(event);
             } else if (currentUseType == EventInformationUI.USER_TYPE_EDIT) {
                 boolean bUpdated = false;
@@ -469,6 +504,38 @@ public class EventInformationUI extends javax.swing.JDialog {
                     strImageName = "goshreddingB&W.png";
                 }
                 currentEventVO.eventPicName = strImageName;
+                if (Validation.isPresent(currentEventVO.eventName) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event name",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (Validation.isPresent(currentEventVO.eventDate) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event date",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (Validation.isPresent(timeOld) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event time",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (!currentEventVO.eventTime.matches("([0-9]{2}):([0-9]{2})")) {
+                    JOptionPane.showMessageDialog(null, "The time format must be 00:00!", "Event time",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (Validation.isPresent(currentEventVO.location) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event location",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
+                if (currentEventVO.location.length() > 500) {
+                    JOptionPane.showMessageDialog(null, "The introduction length must be within 500 characters long!", "Event introduction",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+
                 GoService.getInstance().updateEvent(currentEventVO);
                 if (bUpdated) {//create the new notification.
                     ArrayList<ParticipantVO> participantList = GoService.getInstance().getParticipantsByEventId(currentEventVO.eventId);
@@ -479,9 +546,9 @@ public class EventInformationUI extends javax.swing.JDialog {
                         Date currentTime = new Date();
                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                         String dateString = formatter.format(currentTime);
-                        notificationVO.CreateTime =dateString;
-                        notificationVO.Content="The event \""+currentEventVO.eventName+"\" information has updated,please check it.";
-                        notificationVO.isRead=Definition.READ_TYPE_UNREAD;
+                        notificationVO.CreateTime = dateString;
+                        notificationVO.Content = "The event \"" + currentEventVO.eventName + "\" information has updated,please check it.";
+                        notificationVO.isRead = Definition.READ_TYPE_UNREAD;
                         GoService.getInstance().addNotification(notificationVO);
                     }
                 }
