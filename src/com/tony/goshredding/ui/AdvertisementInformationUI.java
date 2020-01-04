@@ -339,7 +339,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                 }
                 GoService.getInstance().updateAdvertisement(currentAdvertisementVO);
             }
-            JOptionPane.showMessageDialog(null, "successfully saved");
+            JOptionPane.showMessageDialog(this, "successfully saved");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -29,7 +29,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
             e.printStackTrace();
         }
         participantList = participantListOriginal;
-        sortMembersByForname(participantList);
+        sortMembersByUsername(participantList);
         MemberTableModel memeberTableModel = new MemberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
     }
@@ -184,7 +184,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
     private void allBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allBtnActionPerformed
         searchTxt.setText("");
         participantList = participantListOriginal;
-        sortMembersByForname(participantList);
+        sortMembersByUsername(participantList);
         MemberTableModel memeberTableModel = new MemberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
         memberTable.repaint();
@@ -207,12 +207,12 @@ public class MembersManagementUI extends javax.swing.JDialog {
             }
         }
         participantList = participantListNew;
-        sortMembersByForname(participantList);
+        sortMembersByUsername(participantList);
         MemberTableModel memeberTableModel = new MemberTableModel(participantList);
         memberTable.setModel(memeberTableModel);
         memberTable.repaint();
     }//GEN-LAST:event_searchBtnActionPerformed
-    private void sortMembersByForname(ArrayList<ParticipantVO> participantList) {
+    private void sortMembersByUsername(ArrayList<ParticipantVO> participantList) {
         participantList.sort(new Comparator<ParticipantVO>() {
             @Override
             public int compare(ParticipantVO arg0, ParticipantVO arg1) {

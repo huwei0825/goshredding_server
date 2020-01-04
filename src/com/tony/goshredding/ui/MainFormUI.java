@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
@@ -456,7 +457,8 @@ public class MainFormUI extends javax.swing.JFrame {
                 recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
                 initTableData();
             } else if (sortComboBox.getSelectedIndex() == 1) {//sort by popularity.
-                recommandEventList = GoService.bubbleSortEventByPopularity(recommandEventList);//first sort by Popularity.
+                GoService.quickSortEventByPopularity(recommandEventList,0,recommandEventList.size()-1);//first sort by Popularity.
+//                Collections.reverse(recommandEventList);
                 initTableData();
             }
         }
