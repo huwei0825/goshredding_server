@@ -399,7 +399,7 @@ public class MainFormUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void myProfileLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myProfileLblMouseClicked
-        UserInformationUI suFrm = new UserInformationUI(this, true, UserInformationUI.USE_TYPE_MODIFY);
+        UserProfileUI suFrm = new UserProfileUI(this, true);
         suFrm.setVisible(true);
     }//GEN-LAST:event_myProfileLblMouseClicked
     /**
