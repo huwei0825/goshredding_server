@@ -470,15 +470,7 @@ public class MainFormUI extends javax.swing.JFrame {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTxt.getText();
-        ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
-        for (int i = 0; i < recommandEventList.size(); i++) {
-            EventVO event = new EventVO();
-            event = (EventVO) recommandEventList.get(i);
-            if (event.eventName.contains(searchItem)) {
-                eventListNew.add(event);
-            }
-        }
-        recommandEventList = eventListNew;
+        recommandEventList=GoService.linearSearchEvent(recommandEventList,searchItem);
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed
 

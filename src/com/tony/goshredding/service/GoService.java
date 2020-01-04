@@ -89,7 +89,7 @@ public class GoService {
     /**
      * search the advertisement use linear search.
      *
-     * @param eventList the eventlist needed to be sorted.
+     * @param advertisementList the advertisementList needed to be searched.
      * @return
      */
     public static ArrayList<AdvertisementVO> linearSearchAdvertisement(ArrayList<AdvertisementVO> advertisementList, String searchText) {
@@ -101,6 +101,24 @@ public class GoService {
             }
         }
         return advertisementListNew;
+    }
+
+    /**
+     * search the event use linear search.
+     *
+     * @param eventList the eventList needed to be searched.
+     * @return
+     */
+    public static ArrayList<EventVO> linearSearchEvent(ArrayList<EventVO> eventList, String searchText) {
+        ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
+        for (int i = 0; i < eventList.size(); i++) {
+            EventVO event = new EventVO();
+            event = (EventVO) eventList.get(i);
+            if (event.eventName.contains(searchText)) {
+                eventListNew.add(event);
+            }
+        }
+        return eventListNew;
     }
 
     /**
