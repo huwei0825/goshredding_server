@@ -72,7 +72,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Participant ID", "Forename", "Surname", "DOB", "Address1", "Address2", "Postcode", "Contact number"
+                "Username", "Forename", "Surname", "DOB", "Address1", "Address2", "Postcode", "Contact number"
             }
         ));
         jScrollPane1.setViewportView(memberTable);

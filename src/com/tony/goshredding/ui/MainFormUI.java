@@ -217,22 +217,22 @@ public class MainFormUI extends javax.swing.JFrame {
         greetingTxt.setForeground(new java.awt.Color(68, 114, 196));
         greetingTxt.setText("Good morning, Tony");
         jPanel.add(greetingTxt);
-        greetingTxt.setBounds(450, 20, 140, 18);
+        greetingTxt.setBounds(470, 20, 140, 16);
 
         dateTxt.setForeground(new java.awt.Color(68, 114, 196));
         dateTxt.setText("dd/mm/yyyy 9:00 AM");
         jPanel.add(dateTxt);
-        dateTxt.setBounds(600, 20, 160, 18);
+        dateTxt.setBounds(620, 20, 150, 16);
 
         dailyQuoteLabel.setForeground(new java.awt.Color(68, 114, 196));
         dailyQuoteLabel.setText("\"Do want you can't\" --- Casey Neistat");
         jPanel.add(dailyQuoteLabel);
-        dailyQuoteLabel.setBounds(30, 20, 320, 18);
+        dailyQuoteLabel.setBounds(30, 20, 430, 16);
 
         titleLbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         titleLbl.setText("Find your next event");
         jPanel.add(titleLbl);
-        titleLbl.setBounds(30, 40, 330, 34);
+        titleLbl.setBounds(30, 40, 330, 30);
 
         searchBtn.setBackground(new java.awt.Color(72, 124, 175));
         searchBtn.setText("search");
@@ -242,7 +242,7 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         });
         jPanel.add(searchBtn);
-        searchBtn.setBounds(200, 83, 81, 35);
+        searchBtn.setBounds(200, 83, 85, 35);
 
         filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All types", "biking", "skateboarding", "snowboarding", " ", " " }));
         filterComboBox.setToolTipText("");
@@ -252,7 +252,7 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         });
         jPanel.add(filterComboBox);
-        filterComboBox.setBounds(510, 83, 133, 35);
+        filterComboBox.setBounds(510, 83, 146, 35);
 
         eventTable.setBackground(new java.awt.Color(239, 246, 254));
         eventTable.setModel(new javax.swing.table.DefaultTableModel(

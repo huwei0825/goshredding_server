@@ -51,7 +51,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                         String filePath = directory.getCanonicalPath() + "/images/" + currentAdvertisementVO.ImageName;
                         File targetFile = new File(filePath);
                         Image image = new ImageIcon(targetFile.getAbsolutePath()).getImage();
-                        image = image.getScaledInstance(155, 90, Image.SCALE_SMOOTH);
+                        image = image.getScaledInstance(160, 70, Image.SCALE_SMOOTH);
                         imageLbl.setIcon(new ImageIcon(image));
                         strImageName=currentAdvertisementVO.ImageName;
                     } catch (Exception e) {
@@ -75,7 +75,6 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         nameTxt = new javax.swing.JTextField();
         supplierTxt = new javax.swing.JTextField();
-        contentTxt = new javax.swing.JTextField();
         priceTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -87,6 +86,8 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         uploadBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         imageLbl = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        contentTxt = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(239, 246, 254));
@@ -102,8 +103,6 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         nameTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
 
         supplierTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-
-        contentTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
 
         priceTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
 
@@ -147,7 +146,14 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         });
 
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("The preferable image size is 270 x 75");
+        jLabel1.setText("The preferable image size is 16：7");
+
+        imageLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        contentTxt.setColumns(20);
+        contentTxt.setLineWrap(true);
+        contentTxt.setRows(5);
+        jScrollPane1.setViewportView(contentTxt);
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
@@ -166,8 +172,8 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                             .addComponent(supplierTxt)
-                            .addComponent(contentTxt)
-                            .addComponent(priceTxt))
+                            .addComponent(priceTxt)
+                            .addComponent(jScrollPane1))
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanelLayout.createSequentialGroup()
                                 .addGap(78, 78, 78)
@@ -177,7 +183,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                             .addGroup(jPanelLayout.createSequentialGroup()
                                 .addGap(37, 37, 37)
                                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(imageLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(imageLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanelLayout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addGap(56, 56, 56)
@@ -186,7 +192,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(265, 265, 265)
                         .addComponent(jLabel2)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,26 +206,26 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                     .addComponent(jLabel13)
                     .addComponent(uploadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addComponent(imageLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(supplierTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contentTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelLayout.createSequentialGroup()
-                        .addComponent(imageLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)))
-                .addGap(21, 21, 21)
+                            .addComponent(jLabel7)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(priceTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -388,7 +394,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
 
                 //display the picture.
                 Image image = new ImageIcon(file.getAbsolutePath()).getImage();
-                image = image.getScaledInstance(300, 250, Image.SCALE_SMOOTH);
+                image = image.getScaledInstance(160, 70, Image.SCALE_SMOOTH);
                 imageLbl.setIcon(new ImageIcon(image));
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -399,7 +405,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
-    private javax.swing.JTextField contentTxt;
+    private javax.swing.JTextArea contentTxt;
     private javax.swing.JLabel imageLbl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -409,6 +415,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameTxt;
     private javax.swing.JTextField priceTxt;
     private javax.swing.JButton saveBtn;
