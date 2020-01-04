@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import com.tony.goshredding.vo.AdvertisementVO;
+import com.tony.goshredding.vo.ParticipantVO;
 
 /**
  * This is a rmi client and store the current login user information.
@@ -102,7 +103,25 @@ public class GoService {
         }
         return advertisementListNew;
     }
-
+public static int binarySearchMember(ArrayList<ParticipantVO> participantList, String searchText){ 
+     
+//        int low = 0; 
+//        int high = participantList.size()-1;
+//        while(low <= high) { 
+//            int middle = (low + high)/2; 
+//            ParticipantVO participantVO=participantList.get(middle);
+//            if(participantVO.username.contains(searchText)||
+//                    (participantVO.forename!=null&&participantVO.forename.contains(searchText))||
+//                    (participantVO.surname!=null&&participantVO.surname.contains(searchText))) { 
+//                return middle; 
+//            }else if(searchText.compareTo(currentUserId)) { 
+//                high = middle - 1; 
+//            }else { 
+//                low = middle + 1; 
+//            }
+//        }
+        return -1;
+   }
     /**
      * search the event use linear search.
      *
