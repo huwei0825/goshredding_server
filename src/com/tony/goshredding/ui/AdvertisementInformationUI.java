@@ -53,6 +53,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                         Image image = new ImageIcon(targetFile.getAbsolutePath()).getImage();
                         image = image.getScaledInstance(155, 90, Image.SCALE_SMOOTH);
                         imageLbl.setIcon(new ImageIcon(image));
+                        strImageName=currentAdvertisementVO.ImageName;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
