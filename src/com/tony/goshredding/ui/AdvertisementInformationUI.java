@@ -147,7 +147,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         });
 
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel1.setText("The preferable image size is 270 x 75");
+        jLabel1.setText("The preferable image size is 16：7");
 
         javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
         jPanel.setLayout(jPanelLayout);
