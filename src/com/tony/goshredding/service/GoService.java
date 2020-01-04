@@ -15,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import com.tony.goshredding.vo.AdvertisementVO;
 
 /**
  * This is a rmi client and store the current login user information.
@@ -74,7 +75,7 @@ public class GoService {
             }
             eventList.set(left, rightValue);
             EventVO leftValue = eventList.get(left);
-            while (Integer.parseInt(leftValue.memberCount)<= Integer.parseInt(middleValue.memberCount) && left < right) {
+            while (Integer.parseInt(leftValue.memberCount) <= Integer.parseInt(middleValue.memberCount) && left < right) {
                 left++;
             }
             eventList.set(right, leftValue);
@@ -82,7 +83,24 @@ public class GoService {
         }
         eventList.set(left, middleValue);
         return left;
-    
+
+    }
+
+    /**
+     * search the advertisement use linear search.
+     *
+     * @param eventList the eventlist needed to be sorted.
+     * @return
+     */
+    public static ArrayList<AdvertisementVO> linearSearchAdvertisement(ArrayList<AdvertisementVO> advertisementList, String searchText) {
+        ArrayList<AdvertisementVO> advertisementListNew = new ArrayList<AdvertisementVO>();
+        for (int i = 0; i < advertisementList.size(); i++) {
+            AdvertisementVO advertisementVO = advertisementList.get(i);
+            if (advertisementVO.Content.contains(searchText)) {
+                advertisementListNew.add(advertisementVO);
+            }
+        }
+        return advertisementListNew;
     }
 
     /**

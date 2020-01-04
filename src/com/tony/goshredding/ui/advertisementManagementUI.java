@@ -309,14 +309,8 @@ public class advertisementManagementUI extends javax.swing.JDialog {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTextField.getText();
-        ArrayList<AdvertisementVO> advertisementListNew = new ArrayList<AdvertisementVO>();
-        for (int i = 0; i < advertisementListOriginal.size(); i++) {
-            AdvertisementVO advertisementVO = advertisementListOriginal.get(i);
-            if (advertisementVO.Content.contains(searchItem)) {
-                advertisementListNew.add(advertisementVO);
-            }
-        }
-        advertisementList = advertisementListNew;
+        advertisementList=GoService.linearSearchAdvertisement(advertisementListOriginal,searchItem);
+  
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed
     /**
