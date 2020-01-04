@@ -6,6 +6,7 @@ import com.tony.goshredding.ui.MyEventsUI;
 import com.tony.goshredding.ui.NotificationCentreUI;
 import com.tony.goshredding.ui.OpenEventUI;
 import com.tony.goshredding.util.Definition;
+import com.tony.goshredding.util.GoHelper;
 import java.awt.Dimension;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
@@ -14,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -30,6 +32,7 @@ public class MainFormUI extends javax.swing.JFrame {
     ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the original event objects.
     ArrayList<EventVO> recommandEventList = new ArrayList<EventVO>();//the event objects after by filter or search.
     public MainFormUI() {
+        
         initComponents();
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             notificationNewGroupBtn.setText("New Event");
@@ -99,7 +102,30 @@ public class MainFormUI extends javax.swing.JFrame {
         String dateString = formatter.format(currentTime);
         dateTxt.setText(dateString);
         //display the greeting
-        greetingTxt.setText("Hello " + GoService.currentUserName);
+        int hour=GoHelper.getHour(currentTime);
+        if(hour<=11&&hour>=5){
+            greetingTxt.setText("Good morning, " + GoService.currentUserName);
+        }else if(hour>11&&hour<17){
+            greetingTxt.setText("Good afternoon, " + GoService.currentUserName);
+        }else if(hour>=17||hour<5){
+            greetingTxt.setText("Good evening, " + GoService.currentUserName);
+        }
+        ArrayList<String> dailyQuotes=new ArrayList<String>();
+        dailyQuotes.add("Be nice to nerds, chances are you’ll end up working for one — Bill Gates");
+        dailyQuotes.add("Follow your heart.");
+        dailyQuotes.add("Nothing is ever too late.");
+        dailyQuotes.add("Have faith in yourself.");
+        dailyQuotes.add("Youth means limitless possibilities.");
+        dailyQuotes.add("I know that my future is not just a dream. ");
+        dailyQuotes.add("If you get tired, learn to rest, not to quit. ");
+        dailyQuotes.add("Youth gives you light please don't let it down. ");
+        dailyQuotes.add("Life is too short to spend time regretting.");
+        dailyQuotes.add("The true sign of intelligence is not knowledge but imagination. — Einstein");
+        dailyQuotes.add("I can set the world on fire.");
+        Random random = new Random();
+        //create [0,10] random index.
+        int i = random.nextInt(10);
+        dailyQuoteLabel.setText(dailyQuotes.get(i));
     }
     /**
      * init the event table data.
@@ -139,7 +165,7 @@ public class MainFormUI extends javax.swing.JFrame {
         jPanel = new javax.swing.JPanel();
         greetingTxt = new javax.swing.JLabel();
         dateTxt = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        dailyQuoteLabel = new javax.swing.JLabel();
         titleLbl = new javax.swing.JLabel();
         searchBtn = new javax.swing.JButton();
         filterComboBox = new javax.swing.JComboBox<>();
@@ -190,17 +216,17 @@ public class MainFormUI extends javax.swing.JFrame {
         greetingTxt.setForeground(new java.awt.Color(68, 114, 196));
         greetingTxt.setText("Good morning, Tony");
         jPanel.add(greetingTxt);
-        greetingTxt.setBounds(470, 20, 140, 15);
+        greetingTxt.setBounds(450, 20, 140, 18);
 
         dateTxt.setForeground(new java.awt.Color(68, 114, 196));
         dateTxt.setText("dd/mm/yyyy 9:00 AM");
         jPanel.add(dateTxt);
-        dateTxt.setBounds(620, 20, 108, 15);
+        dateTxt.setBounds(600, 20, 160, 18);
 
-        jLabel3.setForeground(new java.awt.Color(68, 114, 196));
-        jLabel3.setText("\"Do want you can't\" --- Casey Neistat");
-        jPanel.add(jLabel3);
-        jLabel3.setBounds(30, 20, 320, 15);
+        dailyQuoteLabel.setForeground(new java.awt.Color(68, 114, 196));
+        dailyQuoteLabel.setText("\"Do want you can't\" --- Casey Neistat");
+        jPanel.add(dailyQuoteLabel);
+        dailyQuoteLabel.setBounds(30, 20, 320, 18);
 
         titleLbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         titleLbl.setText("Find your next event");
@@ -215,7 +241,7 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         });
         jPanel.add(searchBtn);
-        searchBtn.setBounds(200, 83, 69, 35);
+        searchBtn.setBounds(200, 83, 81, 35);
 
         filterComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All types", "biking", "skateboarding", "snowboarding", " ", " " }));
         filterComboBox.setToolTipText("");
@@ -225,7 +251,7 @@ public class MainFormUI extends javax.swing.JFrame {
             }
         });
         jPanel.add(filterComboBox);
-        filterComboBox.setBounds(510, 83, 104, 35);
+        filterComboBox.setBounds(510, 83, 133, 35);
 
         eventTable.setBackground(new java.awt.Color(239, 246, 254));
         eventTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -373,7 +399,7 @@ public class MainFormUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void myProfileLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myProfileLblMouseClicked
-        UserInformationUI suFrm = new UserInformationUI(null, true, UserInformationUI.USE_TYPE_MODIFY);
+        UserProfileUI suFrm = new UserProfileUI(this, true);
         suFrm.setVisible(true);
     }//GEN-LAST:event_myProfileLblMouseClicked
     /**
@@ -456,12 +482,12 @@ public class MainFormUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton advertiseBtn;
+    private javax.swing.JLabel dailyQuoteLabel;
     private javax.swing.JLabel dateTxt;
     private javax.swing.JTable eventTable;
     private javax.swing.JComboBox<String> filterComboBox;
     private javax.swing.JLabel greetingTxt;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane2;

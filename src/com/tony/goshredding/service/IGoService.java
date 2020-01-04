@@ -36,6 +36,12 @@ public interface IGoService extends Remote {
      * @throws RemoteException 
      */
     void addAdvertisement(AdvertisementVO advertisementVO) throws RemoteException;
+     /**
+     * add new notification to database.
+     * @param notificationVO the notification object.
+     * @throws RemoteException 
+     */
+    void addNotification(NotificationVO notificationVO) throws RemoteException;
     /**
      * add new comment to database.
      * @param commentVO the comment object.
@@ -104,12 +110,12 @@ public interface IGoService extends Remote {
      */
     AdvertisementVO getAdvertisementById(String advertisementId) throws RemoteException;
     /**
-     * get advertisements by participant user id from database.
-     * @param userId participant user id
+     * get advertisements by organizer user id from database.
+     * @param userId organizer user id
      * @return the advertisement object list.
      * @throws RemoteException 
      */
-    ArrayList<AdvertisementVO> getAdvertisementsByParticipantId(String userId) throws RemoteException;
+    ArrayList<AdvertisementVO> getAdvertisementsByOrganizerId(String userId) throws RemoteException;
     /**
      * get comments by event id from database.
      * @param eventId the event id.

@@ -17,6 +17,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -45,6 +47,12 @@ public class GoHelper {
         } catch (Exception e) {
             return 0L;
         }
+    }
+
+    public static int getHour(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        return calendar.get(Calendar.HOUR_OF_DAY);
     }
 
     /**
@@ -133,8 +141,8 @@ public class GoHelper {
         String filePath = directory.getCanonicalPath() + "/images/" + fileName;
         File file = new File(filePath);
         if (!file.exists()) {
-            
-            byte[] imageContent=GoService.getInstance().downLoadFile(fileName);
+
+            byte[] imageContent = GoService.getInstance().downLoadFile(fileName);
             file.createNewFile();
             BufferedOutputStream output = null;
             try {

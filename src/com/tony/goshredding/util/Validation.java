@@ -24,11 +24,11 @@ public class Validation {
      * @return  true if a real number, false otherwise
      */
     public static boolean isReal(String inputStr) {
-        boolean valid = true;
+        boolean valid = false;
         try {
             Float.parseFloat(inputStr);
             valid = true;
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             valid = false;
         }
         return valid;

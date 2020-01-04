@@ -10,5 +10,5 @@ public class NotificationVO implements Serializable{
     public String EventID;
     public String CreateTime;
     public String Content;
-    public String isReaded;
+    public String isRead;
 }

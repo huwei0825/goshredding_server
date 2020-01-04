@@ -1,0 +1,18 @@
+1.My file list:
+
+GoShredding_src --- this is my project source code
+GoShredding_bin --- this is my project executable files
+
+2.How to view my application:
+
+2.1 In terminal window,change the directory to this current folder.
+2.2 In terminal window,execute the command to start the server:java -cp GoShredding.jar com.tony.goshredding.service.GoServer
+2.3 In terminal window,execute the command to start the client:java -jar GoShredding.jar
+2.4 To log in the client as organizer role, you can use the following account:
+
+username: goofytony password: 12345678
+username: Jackham password: 11111111
+
+2.5 To log in the client as participant role, you can use the following account:
+
+username: tom password: 12345678
