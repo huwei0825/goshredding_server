@@ -1,7 +1,7 @@
-1.My file list:
+﻿1.My file list:
 
-GoShredding_src --- this is my project source code
-GoShredding_bin --- this is my project executable files
+GoShredding_src --- this is my project source code
+GoShredding_bin --- this is my project executable files
 
 2.How to view my application:
 

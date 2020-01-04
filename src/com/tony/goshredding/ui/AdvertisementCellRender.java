@@ -28,7 +28,7 @@ public class AdvertisementCellRender extends DefaultTableCellRenderer {
                     String filePath = directory.getCanonicalPath() + "/images/" + pictureName;
                     File targetFile = new File(filePath);
                     Image image = new ImageIcon(targetFile.getAbsolutePath()).getImage();
-                    image = image.getScaledInstance(104, 60, Image.SCALE_SMOOTH);
+                    image = image.getScaledInstance(160, 70, Image.SCALE_SMOOTH);
                     label.setIcon(new ImageIcon(image));
                     return label;
                 } catch (Exception e) {

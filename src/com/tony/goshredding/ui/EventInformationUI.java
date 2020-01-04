@@ -184,7 +184,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel2.setText("Event Information");
         jPanel.add(jLabel2);
-        jLabel2.setBounds(319, 20, 188, 34);
+        jLabel2.setBounds(319, 20, 207, 30);
 
         nameTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         jPanel.add(nameTxt);
@@ -205,37 +205,37 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel4.setText("Date:");
         jPanel.add(jLabel4);
-        jLabel4.setBounds(117, 112, 43, 26);
+        jLabel4.setBounds(117, 112, 46, 22);
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel5.setText("Event name:");
         jPanel.add(jLabel5);
-        jLabel5.setBounds(64, 73, 90, 25);
+        jLabel5.setBounds(64, 73, 99, 21);
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel6.setText("Event introduction:");
         jPanel.add(jLabel6);
-        jLabel6.setBounds(7, 269, 135, 25);
+        jLabel6.setBounds(7, 269, 156, 21);
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel7.setText("Time(hh:mm):");
         jPanel.add(jLabel7);
-        jLabel7.setBounds(49, 156, 110, 26);
+        jLabel7.setBounds(49, 156, 123, 22);
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel9.setText("Event type:");
         jPanel.add(jLabel9);
-        jLabel9.setBounds(67, 233, 90, 26);
+        jLabel9.setBounds(67, 233, 96, 22);
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel10.setText("Location:");
         jPanel.add(jLabel10);
-        jLabel10.setBounds(83, 196, 73, 26);
+        jLabel10.setBounds(83, 196, 80, 22);
 
         jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel12.setText("Upload picture:");
         jPanel.add(jLabel12);
-        jLabel12.setBounds(37, 375, 110, 25);
+        jLabel12.setBounds(37, 375, 126, 21);
 
         timeSlotComboBox.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         timeSlotComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
@@ -259,7 +259,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel11.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel11.setText("Picture:");
         jPanel1.add(jLabel11);
-        jLabel11.setBounds(35, 220, 70, 23);
+        jLabel11.setBounds(35, 220, 70, 20);
 
         adNameTxt.setEditable(false);
         adNameTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
@@ -274,7 +274,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel14.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel14.setText("supplier:");
         jPanel1.add(jLabel14);
-        jLabel14.setBounds(24, 50, 59, 23);
+        jLabel14.setBounds(24, 50, 69, 20);
 
         adPriceTxt.setEditable(false);
         adPriceTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
@@ -289,7 +289,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel16.setFont(new java.awt.Font("Lucida Grande", 0, 16)); // NOI18N
         jLabel16.setText("Price:");
         jPanel1.add(jLabel16);
-        jLabel16.setBounds(52, 180, 50, 23);
+        jLabel16.setBounds(52, 180, 50, 20);
 
         changeAdBtn.setBackground(new java.awt.Color(72, 124, 175));
         changeAdBtn.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
@@ -315,6 +315,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         jScrollPane2.setBounds(100, 78, 240, 100);
 
         adImageLbl.setBackground(new java.awt.Color(255, 255, 255));
+        adImageLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(adImageLbl);
         adImageLbl.setBounds(120, 228, 203, 57);
 
@@ -366,12 +367,14 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("The preferable image");
         jPanel.add(jLabel1);
-        jLabel1.setBounds(21, 402, 160, 18);
+        jLabel1.setBounds(21, 402, 132, 16);
 
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel3.setText("size is 175x90");
+        jLabel3.setText("size is 2:1");
         jPanel.add(jLabel3);
-        jLabel3.setBounds(21, 424, 112, 18);
+        jLabel3.setBounds(21, 424, 64, 16);
+
+        imageLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel.add(imageLbl);
         imageLbl.setBounds(230, 380, 175, 90);
 
