@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
@@ -456,7 +457,8 @@ public class MainFormUI extends javax.swing.JFrame {
                 recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
                 initTableData();
             } else if (sortComboBox.getSelectedIndex() == 1) {//sort by popularity.
-                recommandEventList = GoService.bubbleSortEventByPopularity(recommandEventList);//first sort by Popularity.
+                GoService.quickSortEventByPopularity(recommandEventList,0,recommandEventList.size()-1);//first sort by Popularity.
+//                Collections.reverse(recommandEventList);
                 initTableData();
             }
         }
@@ -468,15 +470,7 @@ public class MainFormUI extends javax.swing.JFrame {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTxt.getText();
-        ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
-        for (int i = 0; i < recommandEventList.size(); i++) {
-            EventVO event = new EventVO();
-            event = (EventVO) recommandEventList.get(i);
-            if (event.eventName.contains(searchItem)) {
-                eventListNew.add(event);
-            }
-        }
-        recommandEventList = eventListNew;
+        recommandEventList=GoService.linearSearchEvent(recommandEventList,searchItem);
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed
 
