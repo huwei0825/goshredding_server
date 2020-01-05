@@ -107,16 +107,16 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
         priceTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel4.setText("supplier:");
+        jLabel4.setText("supplier*:");
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel5.setText("Ad name:");
+        jLabel5.setText("Ad name*:");
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel7.setText("Content:");
+        jLabel7.setText("Content*:");
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel10.setText("Price per person:");
+        jLabel10.setText("Price per person*:");
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         jLabel13.setText("Upload picture:");
@@ -162,12 +162,12 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
             .addGroup(jPanelLayout.createSequentialGroup()
                 .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addGap(14, 14, 14)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel10))
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nameTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
@@ -280,6 +280,11 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                 }
                 if (Validation.isPresent(advertisementVO.Supplier) == false) {
                     JOptionPane.showMessageDialog(this, "Cannot be empty!", "Advertisement supplier",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                if (Validation.isPresent(advertisementVO.Content) == false) {
+                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Advertisement content",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
