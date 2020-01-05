@@ -252,7 +252,7 @@ public class MyEventsUI extends javax.swing.JDialog {
             }
         }
         if (eventListNew.size() == 0) {
-            JOptionPane.showMessageDialog(null, "No events on this date");
+            JOptionPane.showMessageDialog(this, "No events on this date");
         }
         eventList = eventListNew;
         EventTableModel eventTableModel = new EventTableModel(eventList);
@@ -273,11 +273,11 @@ public class MyEventsUI extends javax.swing.JDialog {
     private void openBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openBtnActionPerformed
         int row = myEventsTable.getSelectedRow();
         if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Please select an event first");
+            JOptionPane.showMessageDialog(this, "Please select an event first");
         } else {
             EventVO event = (EventVO) eventList.get(row);
             if (!event.eventName.equalsIgnoreCase("You have no events yet")) {
-                OpenEventUI oeFrm = new OpenEventUI(null, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OWN);
+                OpenEventUI oeFrm = new OpenEventUI(this, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OWN);
                 oeFrm.setVisible(true);
             }
         }
@@ -293,15 +293,15 @@ public class MyEventsUI extends javax.swing.JDialog {
             if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {//delete the event.
                 int row = myEventsTable.getSelectedRow();
                 if (row < 0) {
-                    JOptionPane.showMessageDialog(null, "Please select an event first");
+                    JOptionPane.showMessageDialog(this, "Please select an event first");
                 } else {
                     EventVO event = (EventVO) eventList.get(row);
-                    int delete = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?");
+                    int delete = JOptionPane.showConfirmDialog(this, "Are you sure want to delete?");
                     if (delete == JOptionPane.YES_OPTION) {
                         try {
                             ArrayList<ParticipantVO> participantList = GoService.getInstance().getParticipantsByEventId(event.eventId);
                             if (participantList.size() > 0) {
-                                delete = JOptionPane.showConfirmDialog(null, "Some people has joined this event,Are you sure want to delete?");
+                                delete = JOptionPane.showConfirmDialog(this, "Some people has joined this event,Are you sure want to delete?");
                                 if (delete == JOptionPane.YES_OPTION) {
                                     //first create notification to participants who have joined this event.
                                     for (ParticipantVO participantVO : participantList) {
@@ -328,10 +328,10 @@ public class MyEventsUI extends javax.swing.JDialog {
             } else {//leave the event.
                 int row = myEventsTable.getSelectedRow();
                 if (row < 0) {
-                    JOptionPane.showMessageDialog(null, "Please select an event first");
+                    JOptionPane.showMessageDialog(this, "Please select an event first");
                 } else {
                     EventVO event = (EventVO) eventList.get(row);
-                    int leaveResult = JOptionPane.showConfirmDialog(null, "Are you sure want to leave?");
+                    int leaveResult = JOptionPane.showConfirmDialog(this, "Are you sure want to leave?");
 
                     if (leaveResult == JOptionPane.YES_OPTION) {
                         try {

@@ -34,10 +34,12 @@ public class MainFormUI extends javax.swing.JFrame {
 
     ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the original event objects.
     ArrayList<EventVO> recommandEventList = new ArrayList<EventVO>();//the event objects after by filter or search.
+    MainFormUI mainFormUI = null;
 
     public MainFormUI() {
 
         initComponents();
+        mainFormUI = this;
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             notificationNewGroupBtn.setText("New Event");
             titleLbl.setText("Events By Other Organizers");
@@ -94,13 +96,13 @@ public class MainFormUI extends javax.swing.JFrame {
                     int row = eventTable.getSelectedRow();
                     EventVO event = (EventVO) eventTable.getValueAt(row, 0);
                     if (!event.eventName.equalsIgnoreCase("You have no events yet")) {
-                        OpenEventUI oeFrm = new OpenEventUI(null, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OTHER);
+                        OpenEventUI oeFrm = new OpenEventUI(mainFormUI, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OTHER);
                         oeFrm.setVisible(true);
                     }
                 }
             }
         });
-        
+
         //display current datatime.
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -410,7 +412,7 @@ public class MainFormUI extends javax.swing.JFrame {
      */
     private void myEventBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myEventBtnActionPerformed
 
-        MyEventsUI myFrm = new MyEventsUI(null, true);
+        MyEventsUI myFrm = new MyEventsUI(this, true);
         myFrm.setVisible(true);
     }//GEN-LAST:event_myEventBtnActionPerformed
     /**

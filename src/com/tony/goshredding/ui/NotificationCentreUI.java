@@ -169,7 +169,7 @@ public class NotificationCentreUI extends javax.swing.JDialog {
     private void markAsReadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_markAsReadBtnActionPerformed
         int row = notificationTable.getSelectedRow();
         if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Please select an notification first");
+            JOptionPane.showMessageDialog(this, "Please select an notification first");
         } else {
             NotificationVO notificationVO = (NotificationVO) notificationList.get(row);
             try {
@@ -193,11 +193,11 @@ public class NotificationCentreUI extends javax.swing.JDialog {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int row = notificationTable.getSelectedRow();
         if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Please select an notification first");
+            JOptionPane.showMessageDialog(this, "Please select an notification first");
         } else {
             NotificationVO notificationVO = (NotificationVO) notificationList.get(row);
             try {
-                int delete = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?");
+                int delete = JOptionPane.showConfirmDialog(this, "Are you sure want to delete?");
 
                 if (delete == JOptionPane.YES_OPTION) {
                     GoService.getInstance().deleteNotification(notificationVO.NotificationID);

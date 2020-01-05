@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 public class WriteCommentUI extends javax.swing.JDialog {
     public String eventId="";//current event id.
-    public WriteCommentUI(java.awt.Frame parent, boolean modal) {
+    public WriteCommentUI(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -140,12 +140,12 @@ public class WriteCommentUI extends javax.swing.JDialog {
             String dateString = formatter.format(currentTime);
             commentVO.Date = dateString;
                             if (commentVO.Content.length() > 500) {
-                    JOptionPane.showMessageDialog(null, "The content of comment length must be within 500 characters long!", "Comment content",
+                    JOptionPane.showMessageDialog(this, "The content of comment length must be within 500 characters long!", "Comment content",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             GoService.getInstance().addComment(commentVO);
-            JOptionPane.showMessageDialog(null, "successfully saved");
+            JOptionPane.showMessageDialog(this, "successfully saved");
         } catch (Exception e) {
             e.printStackTrace();
         }

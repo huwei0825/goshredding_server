@@ -28,7 +28,7 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
     private String currentAdvertisementId = "";//store the current advertisement id when used in edit mode.
     private AdvertisementVO currentAdvertisementVO = null;//store the current advertisement object.
 
-    public AdvertisementInformationUI(java.awt.Frame parent, boolean modal, String advertisementId, int openType) {
+    public AdvertisementInformationUI(java.awt.Dialog parent, boolean modal, String advertisementId, int openType) {
         super(parent, modal);
         currentUseType = openType;
         currentAdvertisementId = advertisementId;
@@ -274,33 +274,33 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                 advertisementVO.Supplier = strSupplier;
                 advertisementVO.ImageName = strImageName;
                 if (Validation.isPresent(advertisementVO.AdvertisementName) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Advertisement name",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Advertisement name",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(advertisementVO.Supplier) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Advertisement supplier",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Advertisement supplier",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (advertisementVO.Content.length() > 500) {
-                    JOptionPane.showMessageDialog(null, "The content of ad length must be within 500 characters long!", "Advertisement content",
+                    JOptionPane.showMessageDialog(this, "The content of ad length must be within 500 characters long!", "Advertisement content",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(advertisementVO.PricePerPerson) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Advertisement price per person",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Advertisement price per person",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isReal(advertisementVO.PricePerPerson) == false) {
-                    JOptionPane.showMessageDialog(null, "Must be real number!", "Advertisement price per person",
+                    JOptionPane.showMessageDialog(this, "Must be real number!", "Advertisement price per person",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 } else {
                     float pricePerPerson = Float.parseFloat(advertisementVO.PricePerPerson);
                     if (pricePerPerson <= 0 || pricePerPerson >= 1000) {
-                        JOptionPane.showMessageDialog(null, "Must be between 0 and 1000!", "Advertisement price per person",
+                        JOptionPane.showMessageDialog(this, "Must be between 0 and 1000!", "Advertisement price per person",
                                 JOptionPane.INFORMATION_MESSAGE);
                         return;
                     }
@@ -313,33 +313,33 @@ public class AdvertisementInformationUI extends javax.swing.JDialog {
                 currentAdvertisementVO.Supplier = strSupplier;
                 currentAdvertisementVO.ImageName = strImageName;
                 if (Validation.isPresent(currentAdvertisementVO.AdvertisementName) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Advertisement name",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Advertisement name",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(currentAdvertisementVO.Supplier) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Advertisement supplier",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Advertisement supplier",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (currentAdvertisementVO.Content.length() > 500) {
-                    JOptionPane.showMessageDialog(null, "The content of ad length must be within 500 characters long!", "Advertisement content",
+                    JOptionPane.showMessageDialog(this, "The content of ad length must be within 500 characters long!", "Advertisement content",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(currentAdvertisementVO.PricePerPerson) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Advertisement price per person",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Advertisement price per person",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isReal(currentAdvertisementVO.PricePerPerson) == false) {
-                    JOptionPane.showMessageDialog(null, "Must be real number!", "Advertisement price per person",
+                    JOptionPane.showMessageDialog(this, "Must be real number!", "Advertisement price per person",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 } else {
                     float pricePerPerson = Float.parseFloat(currentAdvertisementVO.PricePerPerson);
                     if (pricePerPerson <= 0 || pricePerPerson >= 1000) {
-                        JOptionPane.showMessageDialog(null, "Must be between 0 and 1000!", "Advertisement price per person",
+                        JOptionPane.showMessageDialog(this, "Must be between 0 and 1000!", "Advertisement price per person",
                                 JOptionPane.INFORMATION_MESSAGE);
                         return;
                     }
