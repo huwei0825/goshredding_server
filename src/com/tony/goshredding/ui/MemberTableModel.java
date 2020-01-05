@@ -18,7 +18,7 @@ public class MemberTableModel extends AbstractTableModel {
     }
     @Override
     public int getColumnCount() {
-        return 8;
+        return 9;
     }
     @Override
     public String getColumnName(int columnIndex) {

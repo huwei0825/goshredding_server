@@ -42,6 +42,11 @@ public class AdvertisementManagementUI extends javax.swing.JDialog {
         advertisementList = advertisementListOriginal;
         initTableData();
         advertisementTable.setDefaultRenderer(Object.class, new AdvertisementCellRender());
+        TableColumnModel tcm = advertisementTable.getColumnModel();
+        TableColumn tc = tcm.getColumn(0);
+        tc.setPreferredWidth(20);
+        TableColumn tc1 = tcm.getColumn(5);
+        tc1.setPreferredWidth(150);
     }
 
     public AdvertisementManagementUI(java.awt.Dialog parent, boolean modal) {

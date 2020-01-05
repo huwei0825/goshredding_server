@@ -18,7 +18,7 @@ import javax.swing.table.TableCellRenderer;
 public class AdvertisementCellRender extends DefaultTableCellRenderer {
 
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-        if (column == 4) {
+        if (column == 5) {
             String pictureName = (String) value;
             if (pictureName != null && pictureName.length() > 0) {
                 try {

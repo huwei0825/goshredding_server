@@ -1,4 +1,3 @@
-
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.vo.AdvertisementVO;
@@ -8,6 +7,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  * This is advertisement table model.
+ *
  * @author Songyun hu.
  */
 public class AdvertisementTableModel extends AbstractTableModel {
@@ -17,25 +17,30 @@ public class AdvertisementTableModel extends AbstractTableModel {
     public AdvertisementTableModel(ArrayList advertisementList) {
         this.advertisementList = advertisementList;
     }
+
     @Override
     public int getRowCount() {
         return advertisementList.size();
     }
+
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
+
     @Override
     public String getColumnName(int columnIndex) {
         if (columnIndex == 0) {
-            return "Ad Name";
+            return "Ad ID";
         } else if (columnIndex == 1) {
-            return "Supplier";
+            return "Ad Name";
         } else if (columnIndex == 2) {
-            return "Content";
+            return "Supplier";
         } else if (columnIndex == 3) {
-            return "Price per person";
+            return "Content";
         } else if (columnIndex == 4) {
+            return "Price per person";
+        } else if (columnIndex == 5) {
             return "Picture";
         } else {
             return "";
@@ -44,16 +49,18 @@ public class AdvertisementTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-       AdvertisementVO advertisementVO= (AdvertisementVO) advertisementList.get(rowIndex);
+        AdvertisementVO advertisementVO = (AdvertisementVO) advertisementList.get(rowIndex);
         if (columnIndex == 0) {
-            return advertisementVO.AdvertisementName;
+            return advertisementVO.AdvertisementID;
         } else if (columnIndex == 1) {
-            return advertisementVO.Supplier;
+            return advertisementVO.AdvertisementName;
         } else if (columnIndex == 2) {
-            return advertisementVO.Content;
+            return advertisementVO.Supplier;
         } else if (columnIndex == 3) {
-            return advertisementVO.PricePerPerson;
+            return advertisementVO.Content;
         } else if (columnIndex == 4) {
+            return advertisementVO.PricePerPerson;
+        } else if (columnIndex == 5) {
             return advertisementVO.ImageName;
         } else {
             return "";
