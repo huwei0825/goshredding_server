@@ -392,7 +392,7 @@ public class UserProfileUI extends javax.swing.JDialog {
      * @param evt
      */
     private void editBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editBtnActionPerformed
-        UserInformationUI suFrm = new UserInformationUI(null,true,UserInformationUI.USE_TYPE_MODIFY);
+        EditProfileUI suFrm = new EditProfileUI(this,true);
         suFrm.setVisible(true);
     }//GEN-LAST:event_editBtnActionPerformed
     /**

@@ -141,7 +141,7 @@ public class LoginUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void signUpBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpBtnActionPerformed
-        UserInformationUI suFrm = new UserInformationUI(null,true,UserInformationUI.USE_TYPE_NEW);
+        SignUpUI suFrm = new SignUpUI(this,true);
         suFrm.setVisible(true);
 
     }//GEN-LAST:event_signUpBtnActionPerformed
@@ -158,7 +158,7 @@ public class LoginUI extends javax.swing.JFrame {
             if (participantList.size() == 0) {
                 ArrayList<OrganizerVO> organizerList = GoService.getInstance().getOrganizerByUsername(username);
                 if (organizerList.size() == 0) {
-                    JOptionPane.showMessageDialog(null, "User not found");
+                    JOptionPane.showMessageDialog(this, "User not found");
                 } else {//the login user is an organizer.
                     for (OrganizerVO organizerObj : organizerList) {
                         String dbPassword = organizerObj.password;
@@ -167,13 +167,13 @@ public class LoginUI extends javax.swing.JFrame {
                         if (password.equals(dbPassword)) {
                             GoService.currentUserId = userId;
                             GoService.currentUserName = organizerObj.username;
-                            JOptionPane.showMessageDialog(null, "login sucessful");
+                            JOptionPane.showMessageDialog(this, "login sucessful");
                             GoService.currentUserType = Definition.USER_TYPE_ORGANIZER;
                             MainFormUI mainFrm = new MainFormUI();
                             mainFrm.setVisible(true);
                             this.dispose();
                         } else {
-                            JOptionPane.showMessageDialog(null, "Password is wrong");
+                            JOptionPane.showMessageDialog(this, "Password is wrong");
                         }
                     }
                 }
@@ -185,13 +185,13 @@ public class LoginUI extends javax.swing.JFrame {
                     if (password.equals(dbPassword)) {//check the password.
                         GoService.currentUserId = userId;
                         GoService.currentUserName = participantObj.username;
-                        JOptionPane.showMessageDialog(null, "login sucessful");
+                        JOptionPane.showMessageDialog(this, "login sucessful");
                         GoService.currentUserType = Definition.USER_TYPE_PARTICIPANT;
                         MainFormUI mainFrm = new MainFormUI();
                         mainFrm.setVisible(true);
                         this.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Password is wrong");
+                        JOptionPane.showMessageDialog(this, "Password is wrong");
                     }
                 }
             }

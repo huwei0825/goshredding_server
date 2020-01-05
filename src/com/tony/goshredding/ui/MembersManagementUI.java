@@ -19,7 +19,7 @@ public class MembersManagementUI extends javax.swing.JDialog {
     ArrayList<ParticipantVO> participantList = new ArrayList<ParticipantVO>();//the participant objects after search.
     ArrayList<ParticipantVO> participantListOriginal = new ArrayList<ParticipantVO>();//the all participant objects.
 
-    public MembersManagementUI(java.awt.Frame parent, boolean modal, String strEventId) {
+    public MembersManagementUI(java.awt.Dialog parent, boolean modal, String strEventId) {
         super(parent, modal);
         currentEventId = strEventId;
         initComponents();
@@ -230,10 +230,10 @@ public class MembersManagementUI extends javax.swing.JDialog {
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         int row = memberTable.getSelectedRow();
         if (row < 0) {
-            JOptionPane.showMessageDialog(null, "Please select a member first");
+            JOptionPane.showMessageDialog(this, "Please select a member first");
         } else {
             ParticipantVO participantVO = participantList.get(row);
-            int delete = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?");
+            int delete = JOptionPane.showConfirmDialog(this, "Are you sure want to delete?");
             if (delete == JOptionPane.YES_OPTION) {
                 try {
                     GoService.getInstance().leaveEvent(participantVO.participantId, currentEventId);

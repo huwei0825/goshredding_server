@@ -4,7 +4,7 @@ import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.ui.MainFormUI;
 import com.tony.goshredding.ui.MyEventsUI;
 import com.tony.goshredding.ui.OpenEventUI;
-import com.tony.goshredding.ui.advertisementManagementUI;
+import com.tony.goshredding.ui.AdvertisementManagementUI;
 import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.util.Validation;
@@ -120,7 +120,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         }
     }
 
-    public EventInformationUI(java.awt.Frame parent, boolean modal) {
+    public EventInformationUI(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
         initComponents();
         CalendarControl calendarControl = CalendarControl.getInstance();
@@ -518,33 +518,33 @@ public class EventInformationUI extends javax.swing.JDialog {
                 }
                 event.eventPicName = strImageName;
                 if (Validation.isPresent(event.eventName) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event name",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event name",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
 
                 if (Validation.isPresent(event.eventDate) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event date",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event date",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(timeOld) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event time",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event time",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (!event.eventTime.matches("([0-9]{2}):([0-9]{2})")) {
-                    JOptionPane.showMessageDialog(null, "The time format must be 00:00!", "Event time",
+                    JOptionPane.showMessageDialog(this, "The time format must be 00:00!", "Event time",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(event.location) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event location",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event location",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (event.location.length() > 500) {
-                    JOptionPane.showMessageDialog(null, "The introduction length must be within 500 characters long!", "Event introduction",
+                    JOptionPane.showMessageDialog(this, "The introduction length must be within 500 characters long!", "Event introduction",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
@@ -580,33 +580,33 @@ public class EventInformationUI extends javax.swing.JDialog {
                 }
                 currentEventVO.eventPicName = strImageName;
                 if (Validation.isPresent(currentEventVO.eventName) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event name",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event name",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(currentEventVO.eventDate) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event date",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event date",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(timeOld) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event time",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event time",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (!currentEventVO.eventTime.matches("([0-9]{2}):([0-9]{2})")) {
-                    JOptionPane.showMessageDialog(null, "The time format must be 00:00!", "Event time",
+                    JOptionPane.showMessageDialog(this, "The time format must be 00:00!", "Event time",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
                 if (Validation.isPresent(currentEventVO.location) == false) {
-                    JOptionPane.showMessageDialog(null, "Cannot be empty!", "Event location",
+                    JOptionPane.showMessageDialog(this, "Cannot be empty!", "Event location",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
 
                 if (currentEventVO.location.length() > 500) {
-                    JOptionPane.showMessageDialog(null, "The introduction length must be within 500 characters long!", "Event introduction",
+                    JOptionPane.showMessageDialog(this, "The introduction length must be within 500 characters long!", "Event introduction",
                             JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
@@ -622,13 +622,13 @@ public class EventInformationUI extends javax.swing.JDialog {
                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                         String dateString = formatter.format(currentTime);
                         notificationVO.CreateTime = dateString;
-                        notificationVO.Content = "The event \"" + currentEventVO.eventName + "\" information has updated,please check it.";
+                        notificationVO.Content = "The information of your event \"" + currentEventVO.eventName + "\"  has updated,please check it.";
                         notificationVO.isRead = Definition.READ_TYPE_UNREAD;
                         GoService.getInstance().addNotification(notificationVO);
                     }
                 }
             }
-            JOptionPane.showMessageDialog(null, "successfully saved");
+            JOptionPane.showMessageDialog(this, "successfully saved");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -641,10 +641,10 @@ public class EventInformationUI extends javax.swing.JDialog {
      * @param evt
      */
     private void changeAdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeAdBtnActionPerformed
-        advertisementManagementUI amFrm = new advertisementManagementUI(null, true);
-        amFrm.setUseType(advertisementManagementUI.USE_TYPE_CHOOSE);
+        AdvertisementManagementUI amFrm = new AdvertisementManagementUI(this, true);
+        amFrm.setUseType(AdvertisementManagementUI.USE_TYPE_CHOOSE);
         amFrm.setVisible(true);
-        if (amFrm.returnType == advertisementManagementUI.RETURN_TYPE_CHOOSE) {
+        if (amFrm.returnType == AdvertisementManagementUI.RETURN_TYPE_CHOOSE) {
             currentSelectedAdvertisementId = amFrm.selectedAdvertisementId;
             displayAdvertisement(currentSelectedAdvertisementId);
         }

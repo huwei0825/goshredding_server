@@ -22,83 +22,72 @@ import java.util.HashMap;
  *
  * @author Sognyun hu.
  */
-public class UserInformationUI extends javax.swing.JDialog {
+public class EditProfileUI extends javax.swing.JDialog {
 
-    public static int USE_TYPE_NEW = 1;//used in create new user mode.
-    public static int USE_TYPE_MODIFY = 2;//used in modify user mode.
-    private int currentUseType = USE_TYPE_NEW;//current use mode.
-    private java.awt.Frame mainForm = null;//main form.
     private String strUserNameOriginal = "";//the user name.
 
-    public UserInformationUI(java.awt.Frame parent, boolean modal, int useType) {
+    public EditProfileUI(java.awt.Dialog parent, boolean modal) {
         super(parent, modal);
-        this.mainForm = parent;
-        currentUseType = useType;
+        initUI();
+    }
+
+    private void initUI() {
         initComponents();
         CalendarControl calendarControl = CalendarControl.getInstance();
         calendarControl.register(dobTxt);
         dobTxt.setEditable(false);
-        if (currentUseType == USE_TYPE_MODIFY) {
-            if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
-                try {
-                    OrganizerVO organizerVO = GoService.getInstance().getOrganizerByOrganizerID(GoService.currentUserId);
-                    forenameTxt.setText(organizerVO.forename);
-                    surnameTxt.setText(organizerVO.surname);
-                    dobTxt.setText(organizerVO.dob);
-                    add1Txt.setText(organizerVO.add1);
-                    add2Txt.setText(organizerVO.add2);
-                    postcodeTxt.setText(organizerVO.postcode);
-                    if (organizerVO.num.length() <= 10) {
-                        numTxt.setText("0" + organizerVO.num);
-                    } else {
-                        numTxt.setText(organizerVO.num);
-                    }
-                    emailTxt.setText(organizerVO.email);
-                    userTypeComboBox.setSelectedItem("Organizer");
-                    usernameTxt.setText(organizerVO.username);
-                    password1Txt.setText(organizerVO.password);
-                    password2Txt.setText(organizerVO.password);
-                    strUserNameOriginal = organizerVO.username;
-
-                } catch (Exception e) {
-                    e.printStackTrace();
+        if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
+            try {
+                OrganizerVO organizerVO = GoService.getInstance().getOrganizerByOrganizerID(GoService.currentUserId);
+                forenameTxt.setText(organizerVO.forename);
+                surnameTxt.setText(organizerVO.surname);
+                dobTxt.setText(organizerVO.dob);
+                add1Txt.setText(organizerVO.add1);
+                add2Txt.setText(organizerVO.add2);
+                postcodeTxt.setText(organizerVO.postcode);
+                if (organizerVO.num.length() <= 10) {
+                    numTxt.setText("0" + organizerVO.num);
+                } else {
+                    numTxt.setText(organizerVO.num);
                 }
-            } else if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
-                try {
-                    ParticipantVO participantVO = GoService.getInstance().getParticipantByParticipantID(GoService.currentUserId);
-                    forenameTxt.setText(participantVO.forename);
-                    surnameTxt.setText(participantVO.surname);
-                    dobTxt.setText(participantVO.dob);
-                    add1Txt.setText(participantVO.add1);
-                    add2Txt.setText(participantVO.add2);
-                    postcodeTxt.setText(participantVO.postcode);
-                    if (participantVO.num.length() <= 10) {
-                        numTxt.setText("0" + participantVO.num);
-                    } else {
-                        numTxt.setText(participantVO.num);
-                    }
-                    emailTxt.setText(participantVO.email);
-                    userTypeComboBox.setSelectedItem("Participant");
-                    usernameTxt.setText(participantVO.username);
-                    password1Txt.setText(participantVO.password);
-                    password2Txt.setText(participantVO.password);
-                    strUserNameOriginal = participantVO.username;
+                emailTxt.setText(organizerVO.email);
+                userTypeComboBox.setSelectedItem("Organizer");
+                usernameTxt.setText(organizerVO.username);
+                password1Txt.setText(organizerVO.password);
+                password2Txt.setText(organizerVO.password);
+                strUserNameOriginal = organizerVO.username;
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            userTypeComboBox.setEnabled(false);
-                            headerLabel.setText("Edit profile");
-                saveBtn.setText("Save");
-        } else if (currentUseType == USE_TYPE_NEW) {
-                headerLabel.setText("Sign up");
-                saveBtn.setText("Sign up");
+        } else if (GoService.currentUserType == Definition.USER_TYPE_PARTICIPANT) {
+            try {
+                ParticipantVO participantVO = GoService.getInstance().getParticipantByParticipantID(GoService.currentUserId);
+                forenameTxt.setText(participantVO.forename);
+                surnameTxt.setText(participantVO.surname);
+                dobTxt.setText(participantVO.dob);
+                add1Txt.setText(participantVO.add1);
+                add2Txt.setText(participantVO.add2);
+                postcodeTxt.setText(participantVO.postcode);
+                if (participantVO.num.length() <= 10) {
+                    numTxt.setText("0" + participantVO.num);
+                } else {
+                    numTxt.setText(participantVO.num);
+                }
+                emailTxt.setText(participantVO.email);
+                userTypeComboBox.setSelectedItem("Participant");
+                usernameTxt.setText(participantVO.username);
+                password1Txt.setText(participantVO.password);
+                password2Txt.setText(participantVO.password);
+                strUserNameOriginal = participantVO.username;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        userTypeComboBox.setEnabled(false);
 
     }
-
- 
 
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
@@ -292,7 +281,7 @@ public class UserInformationUI extends javax.swing.JDialog {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(password2Txt, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addGap(0, 51, Short.MAX_VALUE))
         );
         jPanelLayout.setVerticalGroup(
             jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,7 +340,7 @@ public class UserInformationUI extends javax.swing.JDialog {
                             .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -411,7 +400,7 @@ public class UserInformationUI extends javax.swing.JDialog {
                 e.printStackTrace();
             }
             if (bFind) {
-                JOptionPane.showMessageDialog(null, "The user name already exists!", "User Name",
+                JOptionPane.showMessageDialog(this, "The user name already exists!", "User Name",
                         JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
@@ -421,163 +410,119 @@ public class UserInformationUI extends javax.swing.JDialog {
 
         if (Validation.isPresent(forenameTxt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Cannot be empty!", "Forename",
+            JOptionPane.showMessageDialog(this, "Cannot be empty!", "Forename",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isPresent(surnameTxt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Cannot be empty!", "Surname",
+            JOptionPane.showMessageDialog(this, "Cannot be empty!", "Surname",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isPresent(numTxt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Cannot be empty!", "Contact number",
+            JOptionPane.showMessageDialog(this, "Cannot be empty!", "Contact number",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isLength(numTxt.getText(), 11) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Must be 11 numbers long", "Contact number",
+            JOptionPane.showMessageDialog(this, "Must be 11 numbers long", "Contact number",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isDate(dobTxt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Please write a valid date and in the format 'dd/mm/yyyy'", "DOB",
+            JOptionPane.showMessageDialog(this, "Please write a valid date and in the format 'dd/mm/yyyy'", "DOB",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isPresent(add1Txt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Cannot be empty!", "address",
+            JOptionPane.showMessageDialog(this, "Cannot be empty!", "address",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isPresent(postcodeTxt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Cannot be empty!", "Postcode",
+            JOptionPane.showMessageDialog(this, "Cannot be empty!", "Postcode",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if ((Validation.isLength(postcodeTxt.getText(), 7) || Validation.isLength(postcodeTxt.getText(), 8)) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Must be 7 or 8 characters long", "Postcode",
+            JOptionPane.showMessageDialog(this, "Must be 7 or 8 characters long", "Postcode",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isPresent(usernameTxt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Cannot be empty!", "Username",
+            JOptionPane.showMessageDialog(this, "Cannot be empty!", "Username",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isLength(password1Txt.getText(), 8) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Must be 8 characters long", "Password",
+            JOptionPane.showMessageDialog(this, "Must be 8 characters long", "Password",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         if (Validation.isDoubleVerification(password1Txt.getText(), password2Txt.getText()) == false) {
             validate = false;
-            JOptionPane.showMessageDialog(null, "Please confirm the password again", "Passwords don't match",
+            JOptionPane.showMessageDialog(this, "Please confirm the password again", "Passwords don't match",
                     JOptionPane.INFORMATION_MESSAGE);
             return;
         }
         try {
             if (validate == true) {
                 //store participant information
-                if (currentUseType == USE_TYPE_NEW) {
-                    if (userType.equalsIgnoreCase("Participant")) {
-                        try {
-                            ParticipantVO participant = new ParticipantVO();
-                            participant.username = username;
-                            participant.password = password1;
-                            participant.forename = forename;
-                            participant.surname = surname;
-                            participant.dob = dob;
-                            participant.add1 = add1;
-                            participant.add2 = add2;
-                            participant.postcode = postcode;
-                            participant.num = num;
-                            participant.email = email;
-                            GoService.getInstance().addParticipant(participant);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+
+                if (userType.equalsIgnoreCase("Participant")) {
+                    try {
+                        ParticipantVO participant = new ParticipantVO();
+                        participant.participantId = GoService.currentUserId;
+                        participant.username = username;
+                        participant.password = password1;
+                        participant.forename = forename;
+                        participant.surname = surname;
+                        participant.dob = dob;
+                        participant.add1 = add1;
+                        participant.add2 = add2;
+                        participant.postcode = postcode;
+                        participant.num = num;
+                        participant.email = email;
+                        GoService.getInstance().updateParticipant(participant);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    //store organizer information
-                    if (userType.equalsIgnoreCase("Organizer")) {
-                        try {
-                            OrganizerVO organizer = new OrganizerVO();
-                            organizer.username = username;
-                            organizer.password = password1;
-                            organizer.forename = forename;
-                            organizer.surname = surname;
-                            organizer.dob = dob;
-                            organizer.add1 = add1;
-                            organizer.add2 = add2;
-                            organizer.postcode = postcode;
-                            organizer.num = num;
-                            organizer.email = email;
-                            organizer.income = income;
-                            GoService.getInstance().addOrganizer(organizer);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    JOptionPane.showMessageDialog(null, "successful added");
-                    LoginUI liFrm = new LoginUI();
-                    liFrm.setVisible(true);
-                    this.dispose();
-                } else if (currentUseType == USE_TYPE_MODIFY) {
-                    if (userType.equalsIgnoreCase("Participant")) {
-                        try {
-                            ParticipantVO participant = new ParticipantVO();
-                            participant.participantId = GoService.currentUserId;
-                            participant.username = username;
-                            participant.password = password1;
-                            participant.forename = forename;
-                            participant.surname = surname;
-                            participant.dob = dob;
-                            participant.add1 = add1;
-                            participant.add2 = add2;
-                            participant.postcode = postcode;
-                            participant.num = num;
-                            participant.email = email;
-                            GoService.getInstance().updateParticipant(participant);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    //store organizer information
-                    if (userType.equalsIgnoreCase("Organizer")) {
-                        try {
-                            OrganizerVO organizer = new OrganizerVO();
-                            organizer.organizerId = GoService.currentUserId;
-                            organizer.username = username;
-                            organizer.password = password1;
-                            organizer.forename = forename;
-                            organizer.surname = surname;
-                            organizer.dob = dob;
-                            organizer.add1 = add1;
-                            organizer.add2 = add2;
-                            organizer.postcode = postcode;
-                            organizer.num = num;
-                            organizer.email = email;
-                            organizer.income = income;
-                            GoService.getInstance().updateOrganizer(organizer);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    JOptionPane.showMessageDialog(null, "successful saved");
-                    this.dispose();
                 }
+                //store organizer information
+                if (userType.equalsIgnoreCase("Organizer")) {
+                    try {
+                        OrganizerVO organizer = new OrganizerVO();
+                        organizer.organizerId = GoService.currentUserId;
+                        organizer.username = username;
+                        organizer.password = password1;
+                        organizer.forename = forename;
+                        organizer.surname = surname;
+                        organizer.dob = dob;
+                        organizer.add1 = add1;
+                        organizer.add2 = add2;
+                        organizer.postcode = postcode;
+                        organizer.num = num;
+                        organizer.email = email;
+                        organizer.income = income;
+                        GoService.getInstance().updateOrganizer(organizer);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                JOptionPane.showMessageDialog(this, "successful saved");
+                this.dispose();
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "error with: " + ex);
+            JOptionPane.showMessageDialog(this, "error with: " + ex);
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 

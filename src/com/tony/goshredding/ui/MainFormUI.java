@@ -17,14 +17,16 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
 /**
- * This is the application main screen.User can see the event list,view the
- * event information, view the notifications and manage the advertisements.
+ * This is the application main screen.User can see the event list,view the event information, view the notifications and manage the advertisements.
  *
  * @author Songyun hu.
  */
@@ -32,9 +34,12 @@ public class MainFormUI extends javax.swing.JFrame {
 
     ArrayList<EventVO> eventListOriginal = new ArrayList<EventVO>();//the original event objects.
     ArrayList<EventVO> recommandEventList = new ArrayList<EventVO>();//the event objects after by filter or search.
+    MainFormUI mainFormUI = null;
+
     public MainFormUI() {
-        
+
         initComponents();
+        mainFormUI = this;
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
             notificationNewGroupBtn.setText("New Event");
             titleLbl.setText("Events By Other Organizers");
@@ -82,7 +87,7 @@ public class MainFormUI extends javax.swing.JFrame {
         }
         //first sort by time.
         recommandEventList = eventListOriginal;
-        recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
+        recommandEventList = GoHelper.bubbleSortEventByTime(recommandEventList);
         initTableData();
         //double click events
         eventTable.addMouseListener(new MouseAdapter() {
@@ -91,27 +96,34 @@ public class MainFormUI extends javax.swing.JFrame {
                     int row = eventTable.getSelectedRow();
                     EventVO event = (EventVO) eventTable.getValueAt(row, 0);
                     if (!event.eventName.equalsIgnoreCase("You have no events yet")) {
-                        OpenEventUI oeFrm = new OpenEventUI(null, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OTHER);
+                        OpenEventUI oeFrm = new OpenEventUI(mainFormUI, true, event.eventId, OpenEventUI.DATA_VIEW_TYPE_OTHER);
                         oeFrm.setVisible(true);
                     }
                 }
             }
         });
+
         //display current datatime.
-        Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-        String dateString = formatter.format(currentTime);
-        dateTxt.setText(dateString);
-        //display the greeting
-        int hour=GoHelper.getHour(currentTime);
-        if(hour<=11&&hour>=5){
-            greetingTxt.setText("Good morning, " + GoService.currentUserName);
-        }else if(hour>11&&hour<17){
-            greetingTxt.setText("Good afternoon, " + GoService.currentUserName);
-        }else if(hour>=17||hour<5){
-            greetingTxt.setText("Good evening, " + GoService.currentUserName);
-        }
-        ArrayList<String> dailyQuotes=new ArrayList<String>();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            public void run() {
+                Date currentTime = new Date();
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
+                String dateString = formatter.format(currentTime);
+                dateTxt.setText(dateString);
+                //display the greeting
+                int hour = GoHelper.getHour(currentTime);
+                if (hour <= 11 && hour >= 5) {
+                    greetingTxt.setText("Good morning, " + GoService.currentUserName);
+                } else if (hour > 11 && hour < 17) {
+                    greetingTxt.setText("Good afternoon, " + GoService.currentUserName);
+                } else if (hour >= 17 || hour < 5) {
+                    greetingTxt.setText("Good evening, " + GoService.currentUserName);
+                }
+            }
+        }, 1000, 1000);
+
+        ArrayList<String> dailyQuotes = new ArrayList<String>();
         dailyQuotes.add("Be nice to nerds, chances are you’ll end up working for one — Bill Gates");
         dailyQuotes.add("Follow your heart.");
         dailyQuotes.add("Nothing is ever too late.");
@@ -128,6 +140,7 @@ public class MainFormUI extends javax.swing.JFrame {
         int i = random.nextInt(10);
         dailyQuoteLabel.setText(dailyQuotes.get(i));
     }
+
     /**
      * init the event table data.
      */
@@ -140,22 +153,26 @@ public class MainFormUI extends javax.swing.JFrame {
         tc.setCellRenderer(new EventCellRender());
         eventTable.repaint();
     }
+
     class MyMouseAdapter extends java.awt.event.MouseAdapter {
+
         JLabel label;
+
         public MyMouseAdapter(final JLabel label) {
             this.label = label;
         }
+
         public void mouseEntered(java.awt.event.MouseEvent me) {
             label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0xAA, 0xAA, 0xAA)));
         }
+
         public void mouseExited(java.awt.event.MouseEvent me) {
             label.setBorder(null);
         }
     }
+
     /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The content of this method is always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -365,16 +382,18 @@ public class MainFormUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     /**
      * display the advertisement management dialog.
-     * @param evt 
+     *
+     * @param evt
      */
     private void advertiseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advertiseBtnActionPerformed
-        advertisementManagementUI myFrm = new advertisementManagementUI(this, true);
-        myFrm.setUseType(advertisementManagementUI.USE_TYPE_MANAGE);
+        AdvertisementManagementUI myFrm = new AdvertisementManagementUI(this, true);
+        myFrm.setUseType(AdvertisementManagementUI.USE_TYPE_MANAGE);
         myFrm.setVisible(true);
     }//GEN-LAST:event_advertiseBtnActionPerformed
     /**
      * display the notification management dialog.
-     * @param evt 
+     *
+     * @param evt
      */
     private void notificationNewGroupBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificationNewGroupBtnActionPerformed
         if (GoService.currentUserType == Definition.USER_TYPE_ORGANIZER) {
@@ -388,16 +407,18 @@ public class MainFormUI extends javax.swing.JFrame {
     }//GEN-LAST:event_notificationNewGroupBtnActionPerformed
     /**
      * display the my event management dialog.
-     * @param evt 
+     *
+     * @param evt
      */
     private void myEventBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myEventBtnActionPerformed
 
-        MyEventsUI myFrm = new MyEventsUI(null, true);
+        MyEventsUI myFrm = new MyEventsUI(this, true);
         myFrm.setVisible(true);
     }//GEN-LAST:event_myEventBtnActionPerformed
     /**
      * display user information dialog.
-     * @param evt 
+     *
+     * @param evt
      */
     private void myProfileLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myProfileLblMouseClicked
         UserProfileUI suFrm = new UserProfileUI(this, true);
@@ -405,7 +426,8 @@ public class MainFormUI extends javax.swing.JFrame {
     }//GEN-LAST:event_myProfileLblMouseClicked
     /**
      * filer the event objects.
-     * @param evt 
+     *
+     * @param evt
      */
     private void filterComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterComboBoxItemStateChanged
         ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
@@ -449,15 +471,16 @@ public class MainFormUI extends javax.swing.JFrame {
     }//GEN-LAST:event_filterComboBoxItemStateChanged
     /**
      * sort event objects.
-     * @param evt 
+     *
+     * @param evt
      */
     private void sortComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sortComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (sortComboBox.getSelectedIndex() == 0) {//sort by time.
-                recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
+                recommandEventList = GoHelper.bubbleSortEventByTime(recommandEventList);
                 initTableData();
             } else if (sortComboBox.getSelectedIndex() == 1) {//sort by popularity.
-                GoService.quickSortEventByPopularity(recommandEventList,0,recommandEventList.size()-1);//first sort by Popularity.
+                GoHelper.quickSortEventByPopularity(recommandEventList, 0, recommandEventList.size() - 1);//first sort by Popularity.
 //                Collections.reverse(recommandEventList);
                 initTableData();
             }
@@ -465,12 +488,13 @@ public class MainFormUI extends javax.swing.JFrame {
     }//GEN-LAST:event_sortComboBoxItemStateChanged
     /**
      * search event objects.
-     * @param evt 
+     *
+     * @param evt
      */
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTxt.getText();
-        recommandEventList=GoService.linearSearchEvent(recommandEventList,searchItem);
+        recommandEventList = GoHelper.linearSearchEvent(recommandEventList, searchItem);
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed
 
