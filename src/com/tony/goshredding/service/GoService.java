@@ -2,21 +2,10 @@ package com.tony.goshredding.service;
 
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.vo.ConfigVO;
-import com.tony.goshredding.vo.EventVO;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import com.tony.goshredding.vo.AdvertisementVO;
-import com.tony.goshredding.vo.ParticipantVO;
 
 /**
  * This is a rmi client and store the current login user information.

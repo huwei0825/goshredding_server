@@ -4,10 +4,7 @@ import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.vo.AdvertisementVO;
 import com.tony.goshredding.vo.ConfigVO;
 import com.tony.goshredding.vo.EventVO;
-import com.tony.goshredding.vo.ParticipantVO;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Container;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -18,15 +15,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.rmi.RemoteException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  * This is a helper class.
