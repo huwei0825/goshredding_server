@@ -84,7 +84,7 @@ public class OpenEventUI extends javax.swing.JDialog {
      * @param strEventId the event object id.
      * @param dataViewType the view type.
      */
-    public OpenEventUI(java.awt.Frame parent, boolean modal, String strEventId, int dataViewType) {
+    public OpenEventUI(java.awt.Dialog parent, boolean modal, String strEventId, int dataViewType) {
         super(parent, modal);
         initComponents();
         currentDataViewType = dataViewType;

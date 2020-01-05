@@ -98,7 +98,7 @@ public class MainFormUI extends javax.swing.JFrame {
         });
         //display current datatime.
         Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy K:m a");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
         String dateString = formatter.format(currentTime);
         dateTxt.setText(dateString);
         //display the greeting
@@ -120,7 +120,7 @@ public class MainFormUI extends javax.swing.JFrame {
         dailyQuotes.add("If you get tired, learn to rest, not to quit. ");
         dailyQuotes.add("Youth gives you light please don't let it down. ");
         dailyQuotes.add("Life is too short to spend time regretting.");
-        dailyQuotes.add("The true sign of intelligence is not knowledge but imagination. — Einstein");
+        dailyQuotes.add("The true sign of intelligence is not knowledge but imagination — Einstein");
         dailyQuotes.add("I can set the world on fire.");
         Random random = new Random();
         //create [0,10] random index.
@@ -216,17 +216,17 @@ public class MainFormUI extends javax.swing.JFrame {
         greetingTxt.setForeground(new java.awt.Color(68, 114, 196));
         greetingTxt.setText("Good morning, Tony");
         jPanel.add(greetingTxt);
-        greetingTxt.setBounds(470, 20, 140, 16);
+        greetingTxt.setBounds(460, 20, 150, 16);
 
         dateTxt.setForeground(new java.awt.Color(68, 114, 196));
-        dateTxt.setText("dd/mm/yyyy 9:00 AM");
+        dateTxt.setText("dd/mm/yyyy 09:00 AM");
         jPanel.add(dateTxt);
         dateTxt.setBounds(620, 20, 150, 16);
 
         dailyQuoteLabel.setForeground(new java.awt.Color(68, 114, 196));
         dailyQuoteLabel.setText("\"Do want you can't\" --- Casey Neistat");
         jPanel.add(dailyQuoteLabel);
-        dailyQuoteLabel.setBounds(30, 20, 430, 16);
+        dailyQuoteLabel.setBounds(30, 20, 420, 16);
 
         titleLbl.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         titleLbl.setText("Find your next event");

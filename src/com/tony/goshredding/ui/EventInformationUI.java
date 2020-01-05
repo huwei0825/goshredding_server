@@ -108,7 +108,7 @@ public class EventInformationUI extends javax.swing.JDialog {
                         String filePath = directory.getCanonicalPath() + "/images/" + advertisementVO.ImageName;
                         File targetFile = new File(filePath);
                         Image image = new ImageIcon(targetFile.getAbsolutePath()).getImage();
-                        image = image.getScaledInstance(155, 90, Image.SCALE_SMOOTH);
+                        image = image.getScaledInstance(160, 70, Image.SCALE_SMOOTH);
                         adImageLbl.setIcon(new ImageIcon(image));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -143,7 +143,6 @@ public class EventInformationUI extends javax.swing.JDialog {
         locationTxt = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -171,6 +170,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         imageLbl = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(239, 246, 254));
@@ -179,73 +179,41 @@ public class EventInformationUI extends javax.swing.JDialog {
 
         jPanel.setBackground(new java.awt.Color(239, 246, 254));
         jPanel.setPreferredSize(new java.awt.Dimension(850, 480));
-        jPanel.setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel2.setText("Event Information");
-        jPanel.add(jLabel2);
-        jLabel2.setBounds(319, 20, 207, 30);
 
         nameTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        jPanel.add(nameTxt);
-        nameTxt.setBounds(169, 68, 289, 34);
 
         dateTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        jPanel.add(dateTxt);
-        dateTxt.setBounds(169, 108, 289, 34);
 
         timeTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        jPanel.add(timeTxt);
-        timeTxt.setBounds(169, 152, 128, 34);
 
         locationTxt.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
-        jPanel.add(locationTxt);
-        locationTxt.setBounds(169, 192, 289, 34);
 
         jLabel4.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel4.setText("Date:");
-        jPanel.add(jLabel4);
-        jLabel4.setBounds(117, 112, 46, 22);
+        jLabel4.setText("Date*:");
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
-        jLabel5.setText("Event name:");
-        jPanel.add(jLabel5);
-        jLabel5.setBounds(64, 73, 99, 21);
-
-        jLabel6.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
-        jLabel6.setText("Event introduction:");
-        jPanel.add(jLabel6);
-        jLabel6.setBounds(7, 269, 156, 21);
+        jLabel5.setText("Event name*:");
 
         jLabel7.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel7.setText("Time(hh:mm):");
-        jPanel.add(jLabel7);
-        jLabel7.setBounds(49, 156, 123, 22);
+        jLabel7.setText("Time(hh:mm)*:");
 
         jLabel9.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel9.setText("Event type:");
-        jPanel.add(jLabel9);
-        jLabel9.setBounds(67, 233, 96, 22);
+        jLabel9.setText("Event type*:");
 
         jLabel10.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel10.setText("Location:");
-        jPanel.add(jLabel10);
-        jLabel10.setBounds(83, 196, 80, 22);
+        jLabel10.setText("Location*:");
 
         jLabel12.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
         jLabel12.setText("Upload picture:");
-        jPanel.add(jLabel12);
-        jLabel12.setBounds(37, 375, 126, 21);
 
         timeSlotComboBox.setFont(new java.awt.Font("Lucida Grande", 0, 15)); // NOI18N
         timeSlotComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
-        jPanel.add(timeSlotComboBox);
-        timeSlotComboBox.setBounds(330, 152, 128, 34);
 
         typeComboBox.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         typeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "skateboarding", "biking", "snowboarding" }));
-        jPanel.add(typeComboBox);
-        typeComboBox.setBounds(169, 229, 289, 34);
 
         jPanel1.setBackground(new java.awt.Color(218, 227, 243));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(72, 124, 175)));
@@ -317,10 +285,7 @@ public class EventInformationUI extends javax.swing.JDialog {
         adImageLbl.setBackground(new java.awt.Color(255, 255, 255));
         adImageLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(adImageLbl);
-        adImageLbl.setBounds(120, 228, 203, 57);
-
-        jPanel.add(jPanel1);
-        jPanel1.setBounds(476, 68, 351, 330);
+        adImageLbl.setBounds(110, 220, 160, 70);
 
         backBtn.setBackground(new java.awt.Color(72, 124, 175));
         backBtn.setText("Back");
@@ -329,8 +294,6 @@ public class EventInformationUI extends javax.swing.JDialog {
                 backBtnActionPerformed(evt);
             }
         });
-        jPanel.add(backBtn);
-        backBtn.setBounds(604, 412, 107, 40);
 
         saveBtn.setBackground(new java.awt.Color(72, 124, 175));
         saveBtn.setText("Save");
@@ -339,8 +302,6 @@ public class EventInformationUI extends javax.swing.JDialog {
                 saveBtnActionPerformed(evt);
             }
         });
-        jPanel.add(saveBtn);
-        saveBtn.setBounds(717, 412, 107, 40);
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -351,9 +312,6 @@ public class EventInformationUI extends javax.swing.JDialog {
         introductionTxt.setRows(5);
         jScrollPane1.setViewportView(introductionTxt);
 
-        jPanel.add(jScrollPane1);
-        jScrollPane1.setBounds(169, 269, 289, 94);
-
         uploadBtn.setBackground(new java.awt.Color(72, 124, 175));
         uploadBtn.setText("Upload picture");
         uploadBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -361,22 +319,133 @@ public class EventInformationUI extends javax.swing.JDialog {
                 uploadBtnActionPerformed(evt);
             }
         });
-        jPanel.add(uploadBtn);
-        uploadBtn.setBounds(476, 412, 116, 40);
 
         jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("The preferable image");
-        jPanel.add(jLabel1);
-        jLabel1.setBounds(21, 402, 132, 16);
 
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("size is 2:1");
-        jPanel.add(jLabel3);
-        jLabel3.setBounds(21, 424, 64, 16);
 
         imageLbl.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel.add(imageLbl);
-        imageLbl.setBounds(230, 380, 175, 90);
+
+        jLabel13.setFont(new java.awt.Font("Lucida Grande", 0, 17)); // NOI18N
+        jLabel13.setText("introduction*:");
+
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGap(319, 319, 319)
+                .addComponent(jLabel2))
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(103, 103, 103)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(timeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(timeSlotComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(locationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel12))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addGap(67, 67, 67)
+                        .addComponent(imageLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addComponent(uploadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(jLabel5))
+                            .addComponent(nameTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dateTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(timeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(timeSlotComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(locationTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(typeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel1)
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel3))
+                            .addGroup(jPanelLayout.createSequentialGroup()
+                                .addGap(5, 5, 5)
+                                .addComponent(imageLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(uploadBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(saveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -641,6 +710,7 @@ public class EventInformationUI extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -648,7 +718,6 @@ public class EventInformationUI extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
