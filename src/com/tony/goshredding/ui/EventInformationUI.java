@@ -622,7 +622,7 @@ public class EventInformationUI extends javax.swing.JDialog {
                         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                         String dateString = formatter.format(currentTime);
                         notificationVO.CreateTime = dateString;
-                        notificationVO.Content = "The event \"" + currentEventVO.eventName + "\" information has updated,please check it.";
+                        notificationVO.Content = "The information of your event \"" + currentEventVO.eventName + "\"  has updated,please check it.";
                         notificationVO.isRead = Definition.READ_TYPE_UNREAD;
                         GoService.getInstance().addNotification(notificationVO);
                     }
