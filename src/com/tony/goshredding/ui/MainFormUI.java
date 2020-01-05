@@ -386,8 +386,8 @@ public class MainFormUI extends javax.swing.JFrame {
      * @param evt
      */
     private void advertiseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_advertiseBtnActionPerformed
-        advertisementManagementUI myFrm = new advertisementManagementUI(this, true);
-        myFrm.setUseType(advertisementManagementUI.USE_TYPE_MANAGE);
+        AdvertisementManagementUI myFrm = new AdvertisementManagementUI(this, true);
+        myFrm.setUseType(AdvertisementManagementUI.USE_TYPE_MANAGE);
         myFrm.setVisible(true);
     }//GEN-LAST:event_advertiseBtnActionPerformed
     /**

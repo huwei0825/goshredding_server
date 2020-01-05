@@ -4,7 +4,7 @@ import com.tony.goshredding.service.GoService;
 import com.tony.goshredding.ui.MainFormUI;
 import com.tony.goshredding.ui.MyEventsUI;
 import com.tony.goshredding.ui.OpenEventUI;
-import com.tony.goshredding.ui.advertisementManagementUI;
+import com.tony.goshredding.ui.AdvertisementManagementUI;
 import com.tony.goshredding.util.Definition;
 import com.tony.goshredding.util.GoHelper;
 import com.tony.goshredding.util.Validation;
@@ -572,10 +572,10 @@ public class EventInformationUI extends javax.swing.JDialog {
      * @param evt
      */
     private void changeAdBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeAdBtnActionPerformed
-        advertisementManagementUI amFrm = new advertisementManagementUI(this, true);
-        amFrm.setUseType(advertisementManagementUI.USE_TYPE_CHOOSE);
+        AdvertisementManagementUI amFrm = new AdvertisementManagementUI(this, true);
+        amFrm.setUseType(AdvertisementManagementUI.USE_TYPE_CHOOSE);
         amFrm.setVisible(true);
-        if (amFrm.returnType == advertisementManagementUI.RETURN_TYPE_CHOOSE) {
+        if (amFrm.returnType == AdvertisementManagementUI.RETURN_TYPE_CHOOSE) {
             currentSelectedAdvertisementId = amFrm.selectedAdvertisementId;
             displayAdvertisement(currentSelectedAdvertisementId);
         }
