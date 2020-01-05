@@ -1,6 +1,8 @@
 package com.tony.goshredding.ui;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.util.GoHelper;
+import com.tony.goshredding.util.Validation;
 import com.tony.goshredding.vo.AdvertisementVO;
 import com.tony.goshredding.vo.EventVO;
 import com.tony.goshredding.vo.ParticipantVO;
@@ -307,6 +309,7 @@ public class AdvertisementManagementUI extends javax.swing.JDialog {
             //refresh advertisement table.
             try {
                 advertisementListOriginal = GoService.getInstance().getAdvertisementsByOrganizerId(GoService.currentUserId);
+                advertisementListOriginal=GoHelper.bubbleSortAdvertisementById(advertisementListOriginal);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -322,7 +325,14 @@ public class AdvertisementManagementUI extends javax.swing.JDialog {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTextField.getText();
-        advertisementList = GoService.linearSearchAdvertisement(advertisementListOriginal, searchItem);
+        if (Validation.isNumber(searchItem)) {
+            int searchIndex=GoHelper.binarySearchAdvertisement(advertisementListOriginal,  searchItem);
+            AdvertisementVO advertisementVO=advertisementListOriginal.get(searchIndex);
+            advertisementList = new ArrayList<AdvertisementVO>();
+            advertisementList.add(advertisementVO);
+        } else {
+            advertisementList = GoHelper.linearSearchAdvertisement(advertisementListOriginal, searchItem);
+        }
 
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed

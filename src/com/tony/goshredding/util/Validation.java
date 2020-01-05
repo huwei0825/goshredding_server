@@ -33,6 +33,21 @@ public class Validation {
         }
         return valid;
     }
+        /**
+     * check to determine if the input string is a integer number
+     * @param inputStr the input string.
+     * @return  true if a real number, false otherwise
+     */
+    public static boolean isNumber(String inputStr) {
+        boolean valid = false;
+        try {
+            Integer.parseInt(inputStr);
+            valid = true;
+        } catch (Exception e) {
+            valid = false;
+        }
+        return valid;
+    }
     /**
      * check to determine if the correct dd/mm/yyyy is used
      * @param inputStr the input string date.

@@ -87,7 +87,7 @@ public class MainFormUI extends javax.swing.JFrame {
         }
         //first sort by time.
         recommandEventList = eventListOriginal;
-        recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
+        recommandEventList = GoHelper.bubbleSortEventByTime(recommandEventList);
         initTableData();
         //double click events
         eventTable.addMouseListener(new MouseAdapter() {
@@ -477,10 +477,10 @@ public class MainFormUI extends javax.swing.JFrame {
     private void sortComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_sortComboBoxItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (sortComboBox.getSelectedIndex() == 0) {//sort by time.
-                recommandEventList = GoService.bubbleSortEventByTime(recommandEventList);
+                recommandEventList = GoHelper.bubbleSortEventByTime(recommandEventList);
                 initTableData();
             } else if (sortComboBox.getSelectedIndex() == 1) {//sort by popularity.
-                GoService.quickSortEventByPopularity(recommandEventList, 0, recommandEventList.size() - 1);//first sort by Popularity.
+                GoHelper.quickSortEventByPopularity(recommandEventList, 0, recommandEventList.size() - 1);//first sort by Popularity.
 //                Collections.reverse(recommandEventList);
                 initTableData();
             }
@@ -494,7 +494,7 @@ public class MainFormUI extends javax.swing.JFrame {
     private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
 
         String searchItem = searchTxt.getText();
-        recommandEventList = GoService.linearSearchEvent(recommandEventList, searchItem);
+        recommandEventList = GoHelper.linearSearchEvent(recommandEventList, searchItem);
         initTableData();
     }//GEN-LAST:event_searchBtnActionPerformed
 

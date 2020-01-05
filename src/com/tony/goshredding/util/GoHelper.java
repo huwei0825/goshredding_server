@@ -1,7 +1,10 @@
 package com.tony.goshredding.util;
 
 import com.tony.goshredding.service.GoService;
+import com.tony.goshredding.vo.AdvertisementVO;
 import com.tony.goshredding.vo.ConfigVO;
+import com.tony.goshredding.vo.EventVO;
+import com.tony.goshredding.vo.ParticipantVO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -16,7 +19,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.rmi.RemoteException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JLabel;
@@ -191,5 +197,206 @@ public class GoHelper {
             fr.close();
         }
         return configVO;
+    }
+
+    /**
+     * sort the event use quick sort method by event memeber count.
+     *
+     * @param eventList the eventlist needed to be sorted.
+     * @return
+     */
+    public static void quickSortEventByPopularity(ArrayList<EventVO> eventList, int first, int last) {
+        if (first >= last) {
+            return;
+        }
+        int middleIndex = partition(eventList, first, last);
+        quickSortEventByPopularity(eventList, first, middleIndex - 1);
+        quickSortEventByPopularity(eventList, middleIndex + 1, last);
+    }
+
+    /**
+     * search the advertisement use linear search.
+     *
+     * @param advertisementList the advertisementList needed to be searched.
+     * @return
+     */
+    public static ArrayList<AdvertisementVO> linearSearchAdvertisement(ArrayList<AdvertisementVO> advertisementList, String searchText) {
+        ArrayList<AdvertisementVO> advertisementListNew = new ArrayList<AdvertisementVO>();
+        for (int i = 0; i < advertisementList.size(); i++) {
+            AdvertisementVO advertisementVO = advertisementList.get(i);
+            if (advertisementVO.Content.contains(searchText)) {
+                advertisementListNew.add(advertisementVO);
+            }
+        }
+        return advertisementListNew;
+    }
+    /**
+     * search the advertisement use binary search.
+     *
+     * @param advertisementList the advertisementList needed to be searched.
+     * @return
+     */
+    public static int binarySearchAdvertisement(ArrayList<AdvertisementVO> advertisementList, String advertisementId) {
+        int low = 0;
+        int high = advertisementList.size() - 1;
+        while (low <= high) {
+            int middle = (low + high) / 2;
+            AdvertisementVO advertisementVO = advertisementList.get(middle);
+            int middleId = Integer.parseInt(advertisementVO.AdvertisementID);
+            int id = Integer.parseInt(advertisementId);
+            if (id == middleId) {
+                return middle;
+            } else if (id < middleId) {
+                high = middle - 1;
+            } else {
+                low = middle + 1;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * sort the event use bubble sort method by event memeber count.
+     *
+     * @param eventList the eventlist needed to be sorted.
+     * @return
+     */
+    public static ArrayList bubbleSortEventByPopularity(ArrayList<EventVO> eventList) {
+        boolean found = false;
+        boolean swap;
+        EventVO temp;
+        int size = eventList.size();
+        do {
+            swap = false;
+            for (int i = 0; i < size - 1; i++) {
+                EventVO event1 = new EventVO();
+                EventVO event2 = new EventVO();
+                event1 = (EventVO) eventList.get(i);
+                event2 = (EventVO) eventList.get(i + 1);
+                try {
+                    //compare the event member count.
+                    if (Integer.parseInt(event1.memberCount) > Integer.parseInt(event2.memberCount)) {
+                        temp = eventList.get(i);
+                        eventList.set(i, eventList.get(i + 1));
+                        eventList.set(i + 1, temp);
+                        swap = true;
+                    } else {
+                        System.out.println("no");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } while (swap == true);
+        return eventList;
+    }
+
+    private static int partition(ArrayList<EventVO> eventList, int left, int right) {
+        EventVO middleValue = eventList.get(left);
+        while (left < right) {
+            EventVO rightValue = eventList.get(right);
+            while (Integer.parseInt(rightValue.memberCount) >= Integer.parseInt(middleValue.memberCount) && left < right) {
+                right--;
+            }
+            eventList.set(left, rightValue);
+            EventVO leftValue = eventList.get(left);
+            while (Integer.parseInt(leftValue.memberCount) <= Integer.parseInt(middleValue.memberCount) && left < right) {
+                left++;
+            }
+            eventList.set(right, leftValue);
+        }
+        eventList.set(left, middleValue);
+        return left;
+    }
+
+    /**
+     * search the event use linear search.
+     *
+     * @param eventList the eventList needed to be searched.
+     * @return
+     */
+    public static ArrayList<EventVO> linearSearchEvent(ArrayList<EventVO> eventList, String searchText) {
+        ArrayList<EventVO> eventListNew = new ArrayList<EventVO>();
+        for (int i = 0; i < eventList.size(); i++) {
+            EventVO event = new EventVO();
+            event = (EventVO) eventList.get(i);
+            if (event.eventName.contains(searchText)) {
+                eventListNew.add(event);
+            }
+        }
+        return eventListNew;
+    }
+    /**
+     * sort the advertisement use bubble sort method by advertisement id .
+     *
+     * @param advertisementList the advertisementList needed to be sorted.
+     * @return
+     */
+    public static ArrayList bubbleSortAdvertisementById(ArrayList<AdvertisementVO> advertisementList) {
+
+        boolean found = false;
+        boolean swap;
+        AdvertisementVO temp;
+        int size = advertisementList.size();
+        do {
+            swap = false;
+            for (int i = 0; i < size - 1; i++) {
+                AdvertisementVO advertisement1 = new AdvertisementVO();
+                AdvertisementVO advertisement2 = new AdvertisementVO();
+                advertisement1 = (AdvertisementVO) advertisementList.get(i);
+                advertisement2 = (AdvertisementVO) advertisementList.get(i + 1);
+                try {
+                    if (Integer.parseInt(advertisement1.AdvertisementID)<Integer.parseInt(advertisement2.AdvertisementID)) {
+                        temp = advertisementList.get(i);
+                        advertisementList.set(i, advertisementList.get(i + 1));
+                        advertisementList.set(i + 1, temp);
+                        swap = true;
+                    } else {
+                        System.out.println("no");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } while (swap == true);
+        return advertisementList;
+    }
+    /**
+     * sort the event use bubble sort method by event time .
+     *
+     * @param eventList the eventlist needed to be sorted.
+     * @return
+     */
+    public static ArrayList bubbleSortEventByTime(ArrayList<EventVO> eventList) {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyyHH:mm");
+        boolean found = false;
+        boolean swap;
+        EventVO temp;
+        int size = eventList.size();
+        do {
+            swap = false;
+            for (int i = 0; i < size - 1; i++) {
+                EventVO event1 = new EventVO();
+                EventVO event2 = new EventVO();
+                event1 = (EventVO) eventList.get(i);
+                event2 = (EventVO) eventList.get(i + 1);
+                try {
+                    Date dt1 = df.parse(event1.eventDate + event1.eventTime);
+                    Date dt2 = df.parse(event2.eventDate + event2.eventTime);
+                    //compare the event member count.
+                    if (dt1.getTime() > dt2.getTime()) {
+                        temp = eventList.get(i);
+                        eventList.set(i, eventList.get(i + 1));
+                        eventList.set(i + 1, temp);
+                        swap = true;
+                    } else {
+                        System.out.println("no");
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        } while (swap == true);
+        return eventList;
     }
 }
